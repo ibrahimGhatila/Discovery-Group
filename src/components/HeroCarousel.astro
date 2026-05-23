@@ -1,0 +1,129 @@
+---
+import { photos } from '~/lib/photos';
+
+interface Slide {
+  eyebrow: string;
+  title: string;          // HTML allowed for <em class="accent">
+  subtitle: string;
+  ctaLabel: string;
+  ctaHref: string;
+  photo: string;
+  alt: string;
+}
+
+const slides: Slide[] = [
+  {
+    eyebrow: 'Discovery Group · Founded 2014',
+    title: 'Ugandan commodities, shipped <em class="accent">at origin</em>.',
+    subtitle: 'A vertically integrated agri-commodity exporter — coffee, cocoa, vanilla, sesame, chilli and pulses — from cooperatives across Uganda to roasters and processors worldwide.',
+    ctaLabel: 'View our products',
+    ctaHref: '/products',
+    photo: photos.heroCorporate,
+    alt: 'Top-down view of single-origin Ugandan coffee beans',
+  },
+  {
+    eyebrow: 'Quality controlled at Namanve',
+    title: 'Cupped, cut-tested, <em class="accent">graded in-house</em>.',
+    subtitle: 'Every lot leaves our facility with its own analysis pack — cup score, moisture, defect count and polygon-level geolocation.',
+    ctaLabel: 'Our process',
+    ctaHref: '/sustainability',
+    photo: photos.cupping,
+    alt: 'Coffee cupping at the Discovery Group quality lab',
+  },
+  {
+    eyebrow: 'Direct cooperative sourcing',
+    title: 'Premiums paid <em class="accent">against the cup</em>.',
+    subtitle: 'Around 900 smallholder farmers across six Ugandan origin belts, in active sourcing programmes with verified quality premiums.',
+    ctaLabel: 'Producer relationships',
+    ctaHref: '/producers',
+    photo: photos.hands,
+    alt: 'Hands sorting just-harvested coffee cherries',
+  },
+  {
+    eyebrow: 'A Discovery Group brand',
+    title: 'Orocafe — coffee <em class="accent">roasted in Kampala</em>.',
+    subtitle: 'Single-origin Arabica and Robusta from Mt. Elgon and the Rwenzori, roasted and packed at our Namanve facility for retail and food service.',
+    ctaLabel: 'Visit Orocafe',
+    ctaHref: '/orocafe',
+    photo: photos.espresso,
+    alt: 'Espresso shot pulling at the Orocafe roastery',
+  },
+];
+
+const total = slides.length;
+---
+
+<section class="hero-carousel section-hero w-full" data-autoplay="7000" aria-label="Featured">
+  <div class="grid lg:grid-cols-2 h-full">
+
+    {/* ─── LEFT: dark text panel with slide content */}
+    <div class="hero-left relative flex flex-col" style="background: linear-gradient(160deg, var(--color-night) 0%, var(--color-espresso) 100%); color: white;">
+
+      <div class="flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16 py-16 lg:py-20">
+        <div class="hero-slides relative w-full max-w-xl">
+          {slides.map((slide, i) => (
+            <div class:list={['hero-slide', i === 0 ? 'is-active' : '']} data-index={i}>
+              <p class="hero-eyebrow">
+                <span class="hero-eyebrow-rule"></span>
+                {slide.eyebrow}
+              </p>
+              <h1 class="hero-title" set:html={slide.title} />
+              <p class="hero-subtitle">{slide.subtitle}</p>
+              <a href={slide.ctaHref} class="btn btn-light hero-cta">
+                {slide.ctaLabel}
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ─── Carousel controls */}
+      <div class="hero-controls">
+        <div class="hero-counter">
+          <span class="hero-current">01</span>
+          <span class="hero-counter-rule"></span>
+          <span class="hero-total">{String(total).padStart(2, '0')}</span>
+        </div>
+
+        <div class="hero-dots" role="tablist">
+          {slides.map((_, i) => (
+            <button
+              type="button"
+              class:list={['hero-dot', i === 0 ? 'is-active' : '']}
+              data-go={i}
+              aria-label={`Show slide ${i + 1}`}
+              role="tab"
+              aria-selected={i === 0}
+            >
+              <span class="hero-dot-progress"></span>
+            </button>
+          ))}
+        </div>
+
+        <div class="hero-arrows">
+          <button type="button" class="hero-arrow" data-dir="prev" aria-label="Previous slide">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="hero-arrow" data-dir="next" aria-label="Next slide">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {/* ─── RIGHT: image panel */}
+    <div class="hero-right relative overflow-hidden">
+      {slides.map((slide, i) => (
+        <img
+          class:list={['hero-image', i === 0 ? 'is-active' : '']}
+          src={slide.photo}
+          alt={slide.alt}
+          data-index={i}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          fetchpriority={i === 0 ? 'high' : undefined}
+        />
+      ))}
+    </div>
+  </div>
+</section>

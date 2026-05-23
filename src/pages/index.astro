@@ -2,6 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Container from '~/components/Container.astro';
 import Photo from '~/components/Photo.astro';
+import HeroCarousel from '~/components/HeroCarousel.astro';
 import UgandaMap from '~/components/illus/UgandaMap.astro';
 import { commodityPhoto } from '~/lib/commodities';
 import { photos } from '~/lib/photos';
@@ -12,41 +13,8 @@ const commodities = (await getCollection('commodities')).sort((a, b) => a.data.o
 
 <BaseLayout title="Discovery Group — Ugandan coffee, cocoa, vanilla and spices" brand="discovery">
 
-  {/* ══════════════ HERO ══════════════ */}
-  <section class="section-hero w-full" style="background: var(--color-espresso);">
-    <div class="absolute inset-0">
-      <img
-        src={photos.heroCorporate}
-        alt="Coffee cherries at harvest in Uganda"
-        class="absolute inset-0 w-full h-full object-cover"
-        data-parallax="0.08"
-        fetchpriority="high"
-      />
-      <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(15,11,8,0.4) 0%, rgba(15,11,8,0.1) 40%, rgba(15,11,8,0.85) 100%);"></div>
-    </div>
-
-    <Container class="relative pb-20 lg:pb-24">
-      <div class="reveal">
-        <p class="text-[0.6875rem] tracking-[0.22em] uppercase mb-6 font-medium flex items-center gap-3" style="color: rgba(255,255,255,0.75);">
-          <span class="block w-7 h-px bg-current opacity-60"></span>
-          Discovery Group · Founded Kampala, 2014
-        </p>
-        <h1 class="display-xxl text-balance" style="color: white; max-width: 16ch;">
-          Ugandan commodities, sourced and shipped <em class="accent" style="color: rgba(255,209,140,1);">at origin</em>.
-        </h1>
-        <p class="mt-7 max-w-xl text-lg leading-relaxed" style="color: rgba(255,255,255,0.82);">
-          A vertically integrated agri-commodity exporter — coffee, cocoa,
-          vanilla, sesame, bird's eye chilli and pulses — sourced from
-          cooperatives across Uganda and shipped to roasters, processors
-          and distributors worldwide.
-        </p>
-        <div class="mt-10 flex flex-wrap gap-3">
-          <a href="/products" class="btn btn-light">View our products</a>
-          <a href="/contact" class="btn btn-ghost-light">Request samples</a>
-        </div>
-      </div>
-    </Container>
-  </section>
+  {/* ══════════════ HERO CAROUSEL ══════════════ */}
+  <HeroCarousel />
 
   {/* ══════════════ KEY NUMBERS ══════════════ */}
   <section class="section-full" style="background: var(--color-paper-pure);">
