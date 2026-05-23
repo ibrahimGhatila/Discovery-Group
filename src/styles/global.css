@@ -106,7 +106,7 @@
 
 @layer components {
 
-  /* ─── Section sizing */
+  /* ─── Section sizing — every section is exactly one viewport tall */
   .section-full-hero {
     min-height: calc(100svh - var(--header-h));
     display: flex;
@@ -127,6 +127,22 @@
   }
   @supports (min-height: 100dvh) {
     .section-full-footer { min-height: calc(100dvh - var(--header-h)); }
+  }
+
+  /* Standard fullscreen section — content vertically centred */
+  .section-full {
+    min-height: calc(100svh - var(--header-h));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 3rem;
+    position: relative;
+  }
+  @supports (min-height: 100dvh) {
+    .section-full { min-height: calc(100dvh - var(--header-h)); }
+  }
+  @media (min-width: 1024px) {
+    .section-full { padding-block: 4rem; }
   }
 
   .section {
