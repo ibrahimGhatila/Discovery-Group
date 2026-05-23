@@ -54,72 +54,72 @@ const total = slides.length;
 ---
 
 <section class="hero-carousel section-full-hero w-full" data-autoplay="7000" aria-label="Featured">
-  <div class="grid lg:grid-cols-2 h-full">
 
-    {/* LEFT: dark forest text panel */}
-    <div class="hero-left relative flex flex-col" style="background: var(--color-forest-deep); color: white;">
+  {/* Image stack — full-bleed, crossfades between slides */}
+  <div class="hero-bg">
+    {slides.map((slide, i) => (
+      <img
+        class:list={['hero-image', i === 0 ? 'is-active' : '']}
+        src={slide.photo}
+        alt={slide.alt}
+        data-index={i}
+        loading={i === 0 ? 'eager' : 'lazy'}
+        fetchpriority={i === 0 ? 'high' : undefined}
+      />
+    ))}
+    {/* Left-to-right dark gradient — text legibility */}
+    <div class="hero-gradient" aria-hidden="true"></div>
+    {/* Soft bottom gradient — controls legibility */}
+    <div class="hero-gradient-bottom" aria-hidden="true"></div>
+  </div>
 
-      <div class="flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16 py-16 lg:py-20">
-        <div class="hero-slides relative w-full max-w-xl">
-          {slides.map((slide, i) => (
-            <div class:list={['hero-slide', i === 0 ? 'is-active' : '']} data-index={i}>
-              <p class="hero-eyebrow">{slide.eyebrow}</p>
-              <h1 class="hero-title">{slide.title}</h1>
-              <p class="hero-subtitle">{slide.subtitle}</p>
-              <a href={slide.ctaHref} class="btn btn-gold hero-cta">
-                {slide.ctaLabel}
-                <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          ))}
+  {/* Slide content sits over the gradient, anchored bottom-left */}
+  <div class="hero-content">
+    <div class="hero-slides">
+      {slides.map((slide, i) => (
+        <div class:list={['hero-slide', i === 0 ? 'is-active' : '']} data-index={i}>
+          <p class="hero-eyebrow">{slide.eyebrow}</p>
+          <h1 class="hero-title">{slide.title}</h1>
+          <p class="hero-subtitle">{slide.subtitle}</p>
+          <a href={slide.ctaHref} class="btn btn-gold hero-cta">
+            {slide.ctaLabel}
+            <span aria-hidden="true">→</span>
+          </a>
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
 
-      <div class="hero-controls">
-        <div class="hero-counter">
-          <span class="hero-current">01</span>
-          <span class="hero-counter-rule"></span>
-          <span class="hero-total">{String(total).padStart(2, '0')}</span>
-        </div>
-
-        <div class="hero-dots" role="tablist">
-          {slides.map((_, i) => (
-            <button
-              type="button"
-              class:list={['hero-dot', i === 0 ? 'is-active' : '']}
-              data-go={i}
-              aria-label={`Show slide ${i + 1}`}
-              role="tab"
-              aria-selected={i === 0}
-            >
-              <span class="hero-dot-progress"></span>
-            </button>
-          ))}
-        </div>
-
-        <div class="hero-arrows">
-          <button type="button" class="hero-arrow" data-dir="prev" aria-label="Previous slide">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <button type="button" class="hero-arrow" data-dir="next" aria-label="Next slide">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
-      </div>
+  {/* Carousel controls — anchored to bottom of the section */}
+  <div class="hero-controls">
+    <div class="hero-counter">
+      <span class="hero-current">01</span>
+      <span class="hero-counter-rule"></span>
+      <span class="hero-total">{String(total).padStart(2, '0')}</span>
     </div>
 
-    {/* RIGHT: editorial photograph */}
-    <div class="hero-right relative overflow-hidden">
-      {slides.map((slide, i) => (
-        <img
-          class:list={['hero-image', i === 0 ? 'is-active' : '']}
-          src={slide.photo}
-          alt={slide.alt}
-          data-index={i}
-          loading={i === 0 ? 'eager' : 'lazy'}
-          fetchpriority={i === 0 ? 'high' : undefined}
-        />
+    <div class="hero-dots" role="tablist">
+      {slides.map((_, i) => (
+        <button
+          type="button"
+          class:list={['hero-dot', i === 0 ? 'is-active' : '']}
+          data-go={i}
+          aria-label={`Show slide ${i + 1}`}
+          role="tab"
+          aria-selected={i === 0}
+        >
+          <span class="hero-dot-progress"></span>
+        </button>
       ))}
+    </div>
+
+    <div class="hero-arrows">
+      <button type="button" class="hero-arrow" data-dir="prev" aria-label="Previous slide">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="hero-arrow" data-dir="next" aria-label="Next slide">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
   </div>
 </section>

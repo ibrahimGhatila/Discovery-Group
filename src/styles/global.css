@@ -369,11 +369,89 @@
   /* ─── Hairline */
   .hairline { border-top: 1px solid var(--color-line); }
 
-  /* ─── Hero carousel */
+  /* ─── Hero carousel — full-bleed photo with left-fading gradient */
 
-  .hero-carousel { padding: 0; }
+  .hero-carousel {
+    padding: 0;
+    background: var(--color-night);
+  }
 
-  .hero-slides { display: grid; }
+  /* Full-bleed image stack */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.04);
+    transition: opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 8s linear,
+                visibility 0s linear 1000ms;
+  }
+  .hero-image.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    transition: opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 8s linear,
+                visibility 0s;
+  }
+
+  /* The black-fading-to-transparent gradient (left -> right) */
+  .hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(8, 12, 8, 0.92) 0%,
+      rgba(8, 12, 8, 0.82) 20%,
+      rgba(8, 12, 8, 0.55) 45%,
+      rgba(8, 12, 8, 0.2) 70%,
+      rgba(8, 12, 8, 0.05) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Soft bottom darkening for control bar legibility */
+  .hero-gradient-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent 0%, rgba(8, 12, 8, 0.65) 100%);
+    pointer-events: none;
+  }
+
+  /* Content sits on top of the gradient, anchored bottom-left */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 1.5rem 3.5rem;
+  }
+  @media (min-width: 640px) {
+    .hero-content { padding: 0 2.5rem 4rem; }
+  }
+  @media (min-width: 1024px) {
+    .hero-content { padding: 0 4rem 5rem; }
+  }
+
+  .hero-slides {
+    display: grid;
+    max-width: 38rem;
+  }
   .hero-slide {
     grid-area: 1 / 1;
     opacity: 0;
@@ -394,64 +472,44 @@
     font-weight: 500;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--color-gold);
-    margin-bottom: 1.75rem;
+    color: var(--color-gold-light);
+    margin-bottom: 1.5rem;
   }
 
   .hero-title {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
-    line-height: 0.92;
+    font-size: clamp(2.25rem, 4.5vw + 1rem, 4.5rem);
+    line-height: 0.94;
     letter-spacing: 0.005em;
     text-transform: uppercase;
     color: white;
     text-wrap: balance;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
     max-width: 14ch;
   }
 
   .hero-subtitle {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.78);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.84);
     max-width: 36ch;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.25rem;
+    font-weight: 400;
   }
 
   .hero-cta { margin-top: 0.25rem; }
 
-  /* right image panel */
-  .hero-right { display: grid; height: 100%; min-height: 38vh; }
-  .hero-image {
-    grid-area: 1 / 1;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(1.02);
-    transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
-                transform 1400ms cubic-bezier(0.16, 1, 0.3, 1),
-                visibility 0s linear 900ms;
-  }
-  .hero-image.is-active {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
-    transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
-                transform 1400ms cubic-bezier(0.16, 1, 0.3, 1),
-                visibility 0s;
-  }
-
-  /* controls */
+  /* Controls — anchored to bottom of full section, above gradient */
   .hero-controls {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
     padding: 1.25rem 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
   }
   @media (min-width: 640px) {
     .hero-controls { padding: 1.25rem 2.5rem; }
@@ -520,16 +578,22 @@
     justify-content: center;
     color: white;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 999px;
     cursor: pointer;
     transition: all 200ms;
   }
   .hero-arrow:hover { background: white; color: var(--color-forest); border-color: white; }
 
-  /* Mobile hero stack */
-  @media (max-width: 1023px) {
-    .hero-carousel .grid { grid-template-rows: 38vh 1fr; }
-    .hero-right { order: -1; }
+  /* Mobile: gradient tilts top-bottom instead of left-right */
+  @media (max-width: 640px) {
+    .hero-gradient {
+      background: linear-gradient(
+        to bottom,
+        rgba(8, 12, 8, 0.2) 0%,
+        rgba(8, 12, 8, 0.4) 40%,
+        rgba(8, 12, 8, 0.9) 100%
+      );
+    }
   }
 }
