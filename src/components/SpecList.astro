@@ -1,0 +1,20 @@
+---
+interface SpecItem {
+  label: string;
+  value: string;
+  mono?: boolean;
+}
+interface Props {
+  items: SpecItem[];
+  class?: string;
+}
+const { items, class: className = '' } = Astro.props;
+---
+<dl class:list={['border-t border-[var(--color-line)]', className]}>
+  {items.map((item) => (
+    <div class="spec-row">
+      <dt>{item.label}</dt>
+      <dd class:list={[item.mono ? 'lot' : '']}>{item.value}</dd>
+    </div>
+  ))}
+</dl>

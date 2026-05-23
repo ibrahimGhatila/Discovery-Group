@@ -1,0 +1,160 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Container from '~/components/Container.astro';
+import PlaceholderPhoto from '~/components/PlaceholderPhoto.astro';
+import SectionHeading from '~/components/SectionHeading.astro';
+import CertBadge from '~/components/CertBadge.astro';
+---
+<BaseLayout title="Sustainability — Discovery Group" description="Smallholder relationships, traceability, certifications and EUDR-readiness at Discovery Group.">
+
+  <section class="pt-12 lg:pt-20">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12 items-end">
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          <p class="eyebrow">Sustainability</p>
+          <h1 class="display-lg text-balance">
+            Improving smallholder livelihoods is the business model — not the CSR footnote.
+          </h1>
+          <p class="lede">
+            Discovery Group was founded in 2014 with a single thesis: a
+            vertically integrated origin operator can pay producers more,
+            ship higher quality, and still hold its margin. Ten years on,
+            the thesis is the operating model.
+          </p>
+        </div>
+        <div class="lg:col-span-5">
+          <PlaceholderPhoto caption="Smallholder coffee garden under shade, Bugishu" aspect="4/5" variant="forest" />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- KEY COMMITMENTS -->
+  <section class="mt-20 lg:mt-28">
+    <Container>
+      <SectionHeading
+        eyebrow="The four commitments"
+        title="What we hold ourselves to."
+        lede="Each one is a working programme at Namanve, not a marketing line."
+      />
+
+      <div class="mt-14 grid lg:grid-cols-2 gap-x-12 gap-y-14">
+        {[
+          {
+            label: 'Traceability',
+            title: 'Every lot, every cooperative, every harvest.',
+            body: 'We hold cooperative-level data — region, geolocation polygon, harvest window, processing log — for every lot we ship. EUDR-bound consignments carry the complete geolocation file from cherry to FCL.',
+          },
+          {
+            label: 'Direct payment',
+            title: 'Premium above commodity, paid quickly.',
+            body: 'For specialty lots we pay a quality premium above the day\'s commodity price, settled within agreed terms of delivery to the cooperative. The premium is recorded against the lot and visible to the buyer.',
+          },
+          {
+            label: 'Training at origin',
+            title: 'Agronomy, post-harvest, and certification support.',
+            body: 'We run season-opening agronomy clinics with cooperatives, focused on the practices that actually move the cup: cherry selection, ferment timing, and drying discipline. Certification documentation is supported by our team, not outsourced.',
+          },
+          {
+            label: 'Women in the supply',
+            title: 'Targeted training programmes for women smallholders.',
+            body: 'Women run most post-harvest sorting and a growing share of farm management. Our training cycles target women-led plots specifically and our buying teams record the demographic split of every cooperative lot.',
+          },
+        ].map((item) => (
+          <div class="flex flex-col gap-3">
+            <p class="eyebrow">{item.label}</p>
+            <h3 class="h2 text-balance">{item.title}</h3>
+            <p class="text-[var(--color-ink-muted)] leading-relaxed max-w-prose">{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- IMPACT STRIP -->
+  <section class="mt-24 lg:mt-32" style="background: var(--color-paper-deep);">
+    <Container class="py-16 lg:py-24">
+      <p class="eyebrow mb-6">Indicative impact</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
+        {[
+          ['~50', 'Discovery employees · Namanve & origin'],
+          ['~900', 'Cooperative smallholders in active programmes'],
+          ['7', 'Commodity lines with traceability protocols'],
+          ['100%', 'EUDR-bound lots with geolocation files on file'],
+        ].map(([k, v]) => (
+          <div>
+            <p class="font-display text-4xl lg:text-5xl tracking-tight" style="font-family: var(--font-display); font-weight: 600;">{k}</p>
+            <p class="mt-2 text-sm text-[var(--color-ink-muted)]">{v}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-10 text-xs text-[var(--color-ink-muted)] max-w-2xl">
+        Figures shown are indicative for the redesigned site. We will replace
+        them with audited annual figures once the Discovery 2025 impact
+        review is published.
+      </p>
+    </Container>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="mt-24 lg:mt-32">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5">
+          <SectionHeading
+            eyebrow="Certifications"
+            title="Audited, documented, attached to the lot."
+            lede="Certifications are not a homepage decoration. We carry the cert that the lot was bought against — and we ship the documentation with it."
+          />
+        </div>
+        <div class="lg:col-span-7 grid gap-y-3">
+          <div class="flex flex-wrap gap-3">
+            <CertBadge cert="Organic" />
+            <CertBadge cert="Rainforest Alliance" />
+            <CertBadge cert="Fairtrade" />
+            <CertBadge cert="Halal" />
+            <CertBadge cert="EUDR-ready" />
+            <CertBadge cert="UCDA" />
+          </div>
+          <p class="text-sm text-[var(--color-ink-muted)] leading-relaxed max-w-prose mt-4">
+            Certification eligibility varies by commodity and lot. Specific
+            certificate scopes, certifying bodies and audit dates are
+            provided with sample dispatch and on the bill of lading.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- EUDR -->
+  <section class="mt-24 lg:mt-32">
+    <Container>
+      <div class="border border-[var(--color-line)] p-8 lg:p-14 bg-[var(--color-paper-deep)]">
+        <div class="grid lg:grid-cols-12 gap-10 items-start">
+          <div class="lg:col-span-4">
+            <p class="eyebrow mb-3">For European buyers</p>
+            <h2 class="h1 text-balance">EUDR readiness</h2>
+          </div>
+          <div class="lg:col-span-8 flex flex-col gap-4 text-[var(--color-ink-muted)] leading-relaxed">
+            <p>
+              For coffee, cocoa and rubber-adjacent shipments destined for
+              the European Union, Discovery prepares the full EUDR
+              documentation package: geolocation polygons per producer
+              plot, due diligence statement, and DDS reference numbers for
+              the consolidating shipment.
+            </p>
+            <p>
+              Geolocation collection happens at the cooperative aggregation
+              point during buying. Our process is auditable end-to-end;
+              the file is part of the shipping pack, not an afterthought.
+            </p>
+            <p class="text-sm">
+              Buyers preparing their own EUDR submissions can request the
+              geolocation file in advance with the contract.
+            </p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

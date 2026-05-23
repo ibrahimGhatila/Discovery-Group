@@ -1,0 +1,147 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Container from '~/components/Container.astro';
+import PlaceholderPhoto from '~/components/PlaceholderPhoto.astro';
+import SectionHeading from '~/components/SectionHeading.astro';
+import { site } from '~/lib/site';
+---
+<BaseLayout title="About — Discovery Group" description="Discovery Group is a vertically integrated Ugandan agri-commodity exporter, founded in 2014, operating from Plot 92, Namanve Industrial Area, Kampala.">
+
+  <section class="pt-12 lg:pt-20">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12 items-end">
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          <p class="eyebrow">About</p>
+          <h1 class="display-lg text-balance">
+            A Ugandan exporter that operates as one.
+          </h1>
+          <p class="lede">
+            Discovery Trading Ltd was founded in Kampala in 2014 to put
+            smallholder Ugandan agri-commodities into world markets on
+            origin-controlled, transparent terms. Today the company —
+            trading as Discovery Group, with Discovery Impex Limited
+            handling processing and Discovery Coftea Limited operating
+            the Orocafe consumer brand — runs one of Uganda's most
+            integrated agri-commodity operations.
+          </p>
+        </div>
+        <div class="lg:col-span-5">
+          <PlaceholderPhoto caption="Namanve processing floor, dry-mill outfeed" aspect="4/5" variant="clay" />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- LEGAL STRUCTURE -->
+  <section class="mt-24 lg:mt-32">
+    <Container>
+      <SectionHeading
+        eyebrow="Structure"
+        title="Three legal entities. One operating company."
+      />
+      <div class="mt-12 grid sm:grid-cols-3 gap-x-8 gap-y-8">
+        {[
+          ['Discovery Trading Ltd', 'Founded 2014 · agro-commodity export. The parent of the operating group.'],
+          ['Discovery Impex Limited', 'Agro-trading and processing of coffee, cocoa and vanilla.'],
+          ['Discovery Coftea Limited', 'Brand owner of Orocafe — finished-coffee processing and packaging at origin since 2022.'],
+        ].map(([k, v]) => (
+          <div class="border-t border-[var(--color-line)] pt-5">
+            <p class="font-display text-xl mb-3" style="font-family: var(--font-display); font-weight: 600;">{k}</p>
+            <p class="text-sm leading-relaxed text-[var(--color-ink-muted)]">{v}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- FACILITY -->
+  <section class="mt-24 lg:mt-32">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-7">
+          <PlaceholderPhoto caption="Plot 92, Namanve Industrial Area — Discovery processing floor" aspect="3/2" variant="clay" />
+        </div>
+        <div class="lg:col-span-5 flex flex-col gap-5">
+          <p class="eyebrow">The facility</p>
+          <h2 class="h1 text-balance">Plot 92, Namanve.</h2>
+          <p class="text-[var(--color-ink-muted)] leading-relaxed">
+            Twelve kilometres outside Kampala on the Jinja road,
+            Namanve Industrial Area is Uganda's anchor industrial zone
+            and our home since the founding year. Coffee dry-milling,
+            cocoa cut-test grading, vanilla conditioning, sesame and
+            pulse optical sorting, and Orocafe roasting and packing all
+            run from this site.
+          </p>
+          <address class="not-italic text-sm leading-relaxed text-[var(--color-ink-muted)]">
+            {site.legalName}<br />
+            {site.address.line1}<br />
+            {site.address.line2}
+          </address>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section class="mt-24 lg:mt-32">
+    <Container>
+      <SectionHeading
+        eyebrow="Leadership"
+        title="Operators, not brokers."
+        lede="A small team running one of Uganda's most integrated origin operations."
+      />
+
+      <div class="mt-14 grid lg:grid-cols-2 gap-x-12 gap-y-16">
+        <article class="grid grid-cols-12 gap-6">
+          <div class="col-span-5">
+            <PlaceholderPhoto caption="Mustafa Hashim — portrait at Namanve" aspect="4/5" variant="clay" />
+          </div>
+          <div class="col-span-7 flex flex-col gap-3">
+            <p class="eyebrow">Chief Executive</p>
+            <h3 class="h2">Mustafa Hashim</h3>
+            <p class="text-sm leading-relaxed text-[var(--color-ink-muted)]">
+              Chief Executive of Discovery Group. MBA, Harvard Business
+              School (2012); leadership credentials, London Business
+              School (2010). Previously Managing Director at Baaz
+              International.
+            </p>
+          </div>
+        </article>
+
+        <article class="grid grid-cols-12 gap-6">
+          <div class="col-span-5">
+            <PlaceholderPhoto caption="Senior operations — portrait placeholder" aspect="4/5" variant="forest" />
+          </div>
+          <div class="col-span-7 flex flex-col gap-3">
+            <p class="eyebrow">Operations</p>
+            <h3 class="h2">[Operations Lead]</h3>
+            <p class="text-sm leading-relaxed text-[var(--color-ink-muted)]">
+              Senior leadership placeholder for the operations function — to be
+              replaced with the named lead and verified biography.
+            </p>
+          </div>
+        </article>
+      </div>
+    </Container>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="mt-24 lg:mt-32">
+    <Container>
+      <SectionHeading eyebrow="Timeline" title="From founding to Orocafe." />
+      <ol class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
+        {[
+          ['2014', 'Discovery Trading Ltd founded in Kampala. First Robusta and Arabica export shipments.'],
+          ['2016', 'Discovery Impex Limited registered for processing operations. Vanilla and chilli lines added.'],
+          ['2019', 'Exhibits at World of Coffee Berlin. Sesame and pulses scaled at Namanve.'],
+          ['2022', 'Orocafe launched — finished coffee processing, packaging and sales at origin.'],
+        ].map(([year, body]) => (
+          <li class="border-t border-[var(--color-line)] pt-5">
+            <p class="font-display text-3xl mb-3" style="font-family: var(--font-display); font-weight: 600; color: var(--color-clay);">{year}</p>
+            <p class="text-sm leading-relaxed text-[var(--color-ink-muted)]">{body}</p>
+          </li>
+        ))}
+      </ol>
+    </Container>
+  </section>
+</BaseLayout>

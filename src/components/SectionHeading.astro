@@ -1,0 +1,18 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  align?: 'left' | 'center';
+  level?: 'h1' | 'h2' | 'h3';
+}
+const { eyebrow, title, lede, align = 'left', level = 'h2' } = Astro.props;
+const Heading = level;
+const headingClass = level === 'h1' ? 'display-lg' : level === 'h2' ? 'h1' : 'h2';
+const alignClass = align === 'center' ? 'text-center mx-auto' : '';
+---
+<header class:list={['max-w-2xl', alignClass]}>
+  {eyebrow && <p class="eyebrow mb-4">{eyebrow}</p>}
+  <Heading class:list={[headingClass, 'text-balance']}>{title}</Heading>
+  {lede && <p class="lede mt-5">{lede}</p>}
+</header>

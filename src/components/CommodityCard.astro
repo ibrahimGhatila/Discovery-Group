@@ -1,0 +1,64 @@
+---
+import PlaceholderPhoto from './PlaceholderPhoto.astro';
+import CertBadge from './CertBadge.astro';
+
+interface Props {
+  title: string;
+  eyebrow: string;
+  summary: string;
+  href: string;
+  regions: string[];
+  certifications: string[];
+  heroCaption: string;
+  qualityMetricLabel?: string;
+  qualityMetricValue?: string;
+  variant?: 'clay' | 'forest';
+}
+
+const {
+  title, eyebrow, summary, href, regions, certifications, heroCaption,
+  qualityMetricLabel, qualityMetricValue, variant = 'clay',
+} = Astro.props;
+---
+
+<a href={href} class="group block focus:outline-none">
+  <article class="grid gap-6 md:grid-cols-12 items-start py-10 border-t border-[var(--color-line)]">
+    <div class="md:col-span-5">
+      <PlaceholderPhoto caption={heroCaption} aspect="4/5" variant={variant} class="transition-opacity group-hover:opacity-90" />
+    </div>
+
+    <div class="md:col-span-7 flex flex-col gap-5">
+      <div>
+        <p class="eyebrow mb-2">{eyebrow}</p>
+        <h3 class="h1 group-hover:text-[var(--color-clay)] transition-colors">{title}</h3>
+      </div>
+
+      <p class="text-[var(--color-ink-muted)] leading-relaxed max-w-2xl">{summary}</p>
+
+      <div class="grid gap-4 sm:grid-cols-2 pt-2">
+        <div>
+          <p class="eyebrow mb-2">Origin regions</p>
+          <ul class="text-sm space-y-1">
+            {regions.slice(0, 3).map((r) => <li>{r}</li>)}
+            {regions.length > 3 && <li class="text-[var(--color-ink-muted)]">+ {regions.length - 3} more</li>}
+          </ul>
+        </div>
+        {qualityMetricLabel && qualityMetricValue && (
+          <div>
+            <p class="eyebrow mb-2">{qualityMetricLabel}</p>
+            <p class="font-display text-2xl tracking-tight">{qualityMetricValue}</p>
+          </div>
+        )}
+      </div>
+
+      <div class="flex flex-wrap gap-2 pt-2">
+        {certifications.map((c) => <CertBadge cert={c} />)}
+      </div>
+
+      <p class="mt-2 inline-flex items-center gap-2 text-sm font-medium text-[var(--color-clay)]">
+        Read full spec
+        <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+      </p>
+    </div>
+  </article>
+</a>

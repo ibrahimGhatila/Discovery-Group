@@ -1,0 +1,138 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Container from '~/components/Container.astro';
+import PlaceholderPhoto from '~/components/PlaceholderPhoto.astro';
+import OrocafeProductCard from '~/components/OrocafeProductCard.astro';
+import { getCollection } from 'astro:content';
+
+const products = (await getCollection('orocafeProducts'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+---
+<BaseLayout title="Orocafe — Uganda's coffee, roasted at origin" description="Orocafe is the consumer brand of Discovery Group. Single-origin Ugandan Arabica and Robusta, roasted and packed at Namanve." brand="orocafe">
+
+  <!-- HERO -->
+  <section>
+    <Container class="pt-10 lg:pt-16">
+      <div class="grid lg:grid-cols-12 gap-10 items-end">
+        <div class="lg:col-span-6 flex flex-col gap-7">
+          <p class="eyebrow">A Discovery Group brand · roasted in Kampala</p>
+          <h1 class="display-xl text-balance" style="font-family: var(--font-display); font-weight: 500;">
+            Oro <span style="color: var(--color-oro-deep);">—</span> for the mountain, and the gold.
+          </h1>
+          <p class="lede">
+            Orocafe is Uganda's coffee, roasted and packed at origin.
+            Whole bean and ground from the Mt. Elgon and Rwenzori
+            slopes. Capsules and drip bags for the cup that travels.
+            3-in-1 premixes and instant teas for the kitchen we
+            grew up in.
+          </p>
+          <div class="flex gap-3 flex-wrap">
+            <a href="/orocafe/products" class="btn btn-primary">See the range</a>
+            <a href="#story" class="btn btn-secondary">The story</a>
+          </div>
+        </div>
+        <div class="lg:col-span-6">
+          <PlaceholderPhoto caption="Roasting drum outfeed, Namanve" aspect="4/5" variant="oro" />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="mt-24 lg:mt-32">
+    <Container>
+      <div class="flex items-end justify-between flex-wrap gap-4 mb-12">
+        <div>
+          <p class="eyebrow mb-3">Featured</p>
+          <h2 class="display-lg text-balance" style="font-family: var(--font-display); font-weight: 500;">From the roastery.</h2>
+        </div>
+        <a href="/orocafe/products" class="text-sm font-medium underline underline-offset-4 hover:text-[var(--color-oro-deep)]">
+          See all products →
+        </a>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+        {products.map((p) => (
+          <OrocafeProductCard
+            title={p.data.title}
+            category={p.data.category}
+            origin={p.data.origin}
+            flavourNotes={p.data.flavourNotes}
+            sizes={p.data.sizes}
+            heroCaption={p.data.heroCaption}
+            href={`/orocafe/products/${p.id}`}
+          />
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- STORY -->
+  <section id="story" class="mt-24 lg:mt-32" style="background: var(--color-night); color: var(--color-paper);">
+    <Container class="py-20 lg:py-28">
+      <div class="grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5">
+          <p class="text-xs tracking-wider uppercase mb-4" style="color: var(--color-oro);">Story</p>
+          <h2 class="display-lg text-balance" style="font-family: var(--font-display); font-weight: 500; color: var(--color-paper);">
+            We were exporters first. Now we roast.
+          </h2>
+        </div>
+        <div class="lg:col-span-7 flex flex-col gap-5 text-base lg:text-lg leading-relaxed" style="color: color-mix(in srgb, var(--color-paper) 80%, transparent);">
+          <p>
+            For eight years, Discovery Group shipped Uganda's coffee
+            green to roasters all over the world. We knew the lots
+            intimately — we had cupped them, graded them, GrainPro-sealed
+            them. We just never got to roast them.
+          </p>
+          <p>
+            In 2022 we built the roastery at Namanve. Orocafe was born of
+            a simple thought: if we own the line from cherry to FCL, why
+            should the cup happen anywhere else? Why not roast Uganda's
+            coffee in Uganda?
+          </p>
+          <p>
+            "Oro" is Greek for mountain — respect for the African
+            landscape that gave us the bean. It is also gold — what
+            coffee is, to a producer country. Orocafe is both.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ORIGIN -->
+  <section id="origin" class="mt-24 lg:mt-32">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-5">
+          <p class="eyebrow mb-4">Origin</p>
+          <h2 class="display-lg text-balance" style="font-family: var(--font-display); font-weight: 500;">Two mountains. One country.</h2>
+          <p class="lede mt-5">
+            Mt. Elgon's Arabica is bright and fruit-forward. The
+            Rwenzori's Robusta is dark, full-bodied, built for milk.
+            Orocafe takes both seriously.
+          </p>
+        </div>
+        <div class="lg:col-span-7 grid sm:grid-cols-2 gap-6">
+          <div class="flex flex-col gap-4">
+            <PlaceholderPhoto caption="Mt. Elgon slopes, washing station altitude" aspect="4/5" variant="oro" />
+            <p class="eyebrow">Mt. Elgon · Arabica</p>
+            <p class="text-sm text-[var(--color-ink-muted)] leading-relaxed">
+              1,650–2,300 m.a.s.l. Volcanic soil. Washed processing. Bright
+              acidity, blackcurrant, cocoa nib.
+            </p>
+          </div>
+          <div class="flex flex-col gap-4">
+            <PlaceholderPhoto caption="Rwenzori foothills, sun-drying beds" aspect="4/5" variant="night" />
+            <p class="eyebrow">Rwenzori · Robusta</p>
+            <p class="text-sm text-[var(--color-ink-muted)] leading-relaxed">
+              900–1,500 m.a.s.l. Equatorial belt. Natural processing.
+              Dark chocolate, hazelnut, full body.
+            </p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Container from '~/components/Container.astro';
+import PlaceholderPhoto from '~/components/PlaceholderPhoto.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const producers = await getCollection('producers');
+  return producers.map((p) => ({
+    params: { slug: p.id },
+    props: { entry: p },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const p = entry.data;
+---
+<BaseLayout title={`${p.name} — Discovery Group`} description={p.summary}>
+  <section class="pt-10 lg:pt-16">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5">
+          <PlaceholderPhoto caption={p.photoCaption} aspect="4/5" variant="forest" />
+        </div>
+
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          <p class="eyebrow">{p.commodity} · {p.district}</p>
+          <h1 class="display-lg text-balance">{p.name}</h1>
+          <p class="lede">{p.summary}</p>
+
+          <dl class="mt-4 grid grid-cols-2 gap-x-8 gap-y-5">
+            {[
+              ['Region', p.region],
+              ['Elevation', p.elevation],
+              ['Farms', p.farms],
+              ['Cooperative', p.cooperative ?? '—'],
+            ].map(([k, v]) => (
+              <div class="border-t border-[var(--color-line)] pt-3">
+                <dt class="eyebrow mb-1">{k}</dt>
+                <dd class="text-sm">{v}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <div class="grid sm:grid-cols-2 gap-x-8 gap-y-5 mt-2">
+            <div class="border-t border-[var(--color-line)] pt-3">
+              <p class="eyebrow mb-2">Varieties</p>
+              <ul class="text-sm space-y-1">
+                {p.varieties.map((v) => <li>· {v}</li>)}
+              </ul>
+            </div>
+            <div class="border-t border-[var(--color-line)] pt-3">
+              <p class="eyebrow mb-2">Processing</p>
+              <ul class="text-sm space-y-1">
+                {p.processing.map((v) => <li>· {v}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {p.quote && (
+    <section class="mt-20 lg:mt-28">
+      <Container narrow>
+        <blockquote class="border-l-2 border-[var(--color-clay)] pl-6 lg:pl-10">
+          <p class="font-display text-2xl lg:text-3xl leading-snug text-balance" style="font-family: var(--font-display); font-weight: 400;">
+            "{p.quote}"
+          </p>
+          {p.quoteAttribution && <cite class="not-italic block mt-5 text-sm text-[var(--color-ink-muted)]">— {p.quoteAttribution}</cite>}
+        </blockquote>
+      </Container>
+    </section>
+  )}
+
+  <section class="mt-20 lg:mt-28">
+    <Container narrow>
+      <div class="prose-editorial">
+        <Content />
+      </div>
+      <a href="/producers" class="mt-12 inline-flex items-center gap-2 text-sm font-medium text-[var(--color-clay)]">
+        <span aria-hidden="true">←</span>
+        All producers
+      </a>
+    </Container>
+  </section>
+</BaseLayout>

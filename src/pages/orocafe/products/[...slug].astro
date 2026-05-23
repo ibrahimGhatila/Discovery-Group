@@ -1,0 +1,96 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Container from '~/components/Container.astro';
+import PlaceholderPhoto from '~/components/PlaceholderPhoto.astro';
+import CertBadge from '~/components/CertBadge.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const products = await getCollection('orocafeProducts');
+  return products.map((p) => ({
+    params: { slug: p.id },
+    props: { entry: p },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const p = entry.data;
+---
+<BaseLayout title={`${p.title} — Orocafe`} description={p.summary} brand="orocafe">
+  <section class="pt-10 lg:pt-16">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-6">
+          <PlaceholderPhoto caption={p.heroCaption} aspect="4/5" variant="oro" />
+        </div>
+
+        <div class="lg:col-span-6 flex flex-col gap-6">
+          <p class="eyebrow">{p.category} · {p.origin}</p>
+          <h1 class="display-lg text-balance" style="font-family: var(--font-display); font-weight: 500;">{p.title}</h1>
+          <p class="lede">{p.summary}</p>
+
+          <div class="grid grid-cols-2 gap-x-6 gap-y-5 mt-2">
+            {[
+              ['Origin', p.origin],
+              ['Process', p.process],
+              p.variety ? ['Variety', p.variety] : null,
+              p.roast ? ['Roast', p.roast] : null,
+            ].filter(Boolean).map((pair) => {
+              const [k, v] = pair as [string, string];
+              return (
+                <div class="border-t border-[var(--color-line)] pt-3">
+                  <p class="eyebrow mb-1">{k}</p>
+                  <p class="text-sm">{v}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div class="border-t border-[var(--color-line)] pt-5">
+            <p class="eyebrow mb-3">Flavour notes</p>
+            <ul class="flex flex-wrap gap-2">
+              {p.flavourNotes.map((note) => (
+                <li class="border border-[var(--color-line)] px-3 py-1 text-sm">{note}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="border-t border-[var(--color-line)] pt-5">
+            <p class="eyebrow mb-3">Sizes</p>
+            <ul class="flex flex-wrap gap-2">
+              {p.sizes.map((s) => (
+                <li class="border border-[var(--color-line)] px-3 py-1 text-sm font-mono" style="font-family: var(--font-mono);">{s}</li>
+              ))}
+            </ul>
+          </div>
+
+          {p.certifications.length > 0 && (
+            <div class="border-t border-[var(--color-line)] pt-5">
+              <p class="eyebrow mb-3">Certifications</p>
+              <div class="flex flex-wrap gap-2">
+                {p.certifications.map((c) => <CertBadge cert={c} />)}
+              </div>
+            </div>
+          )}
+
+          <div class="border-t border-[var(--color-line)] pt-5 mt-2">
+            <a href="/contact" class="btn btn-primary">Distributor inquiry</a>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="mt-20 lg:mt-28">
+    <Container narrow>
+      <div class="prose-editorial">
+        <Content />
+      </div>
+      <a href="/orocafe/products" class="mt-12 inline-flex items-center gap-2 text-sm font-medium" style="color: var(--color-oro-deep);">
+        <span aria-hidden="true">←</span>
+        All Orocafe products
+      </a>
+    </Container>
+  </section>
+</BaseLayout>

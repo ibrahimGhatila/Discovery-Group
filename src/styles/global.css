@@ -1,0 +1,244 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/fraunces/index.css";
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+@theme {
+  --font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Discovery (corporate) tokens — defaults */
+  --color-ink: #1B1815;
+  --color-ink-muted: #4A4540;
+  --color-paper: #F6F1E8;
+  --color-paper-deep: #EDE4D2;
+  --color-clay: #A33A2A;
+  --color-clay-deep: #7A2A1E;
+  --color-forest: #2F4A35;
+  --color-gold-mute: #B8893A;
+  --color-line: #D9CFBE;
+
+  /* Orocafe tokens — applied via [data-brand="orocafe"] override below */
+  --color-oro: #C99334;
+  --color-oro-deep: #8A621F;
+  --color-night: #15110D;
+
+  --container-7xl: 80rem;
+  --container-3xl: 45rem;
+}
+
+/* Track variant: Orocafe overrides */
+[data-brand="orocafe"] {
+  --color-paper: #FAF6EC;
+  --color-paper-deep: #F1E9D3;
+  --color-line: #E5DDC9;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--color-ink);
+  }
+
+  ::selection {
+    background: var(--color-clay);
+    color: var(--color-paper);
+  }
+
+  [data-brand="orocafe"] ::selection {
+    background: var(--color-oro);
+    color: var(--color-night);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-clay);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  [data-brand="orocafe"] :focus-visible {
+    outline-color: var(--color-oro);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-clay);
+  }
+
+  [data-brand="orocafe"] .eyebrow {
+    color: var(--color-oro-deep);
+  }
+
+  .display-xl {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.5rem, 6vw + 1rem, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+
+  .display-lg {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 4vw + 1rem, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.875rem, 2.5vw + 1rem, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+
+  .h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 1.8vw + 0.9rem, 2rem);
+    line-height: 1.15;
+  }
+
+  .h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .lede {
+    font-size: clamp(1.125rem, 0.5vw + 1rem, 1.25rem);
+    line-height: 1.55;
+    color: var(--color-ink-muted);
+    max-width: 60ch;
+  }
+
+  .prose-editorial p { line-height: 1.7; max-width: 65ch; }
+  .prose-editorial p + p { margin-top: 1.25rem; }
+  .prose-editorial a { color: var(--color-clay); text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+
+  .spec-row {
+    display: grid;
+    grid-template-columns: minmax(7rem, 11rem) 1fr;
+    gap: 1rem;
+    padding-block: 0.875rem;
+    border-bottom: 1px solid var(--color-line);
+    align-items: baseline;
+    font-size: 0.9375rem;
+  }
+  .spec-row dt {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+  .spec-row dd { color: var(--color-ink); }
+  .spec-row .lot {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0;
+  }
+
+  .hairline { border-top: 1px solid var(--color-line); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: background-color 120ms, color 120ms, border-color 120ms;
+    min-height: 44px;
+  }
+
+  .btn-primary {
+    background: var(--color-clay-deep);
+    color: var(--color-paper);
+  }
+  .btn-primary:hover { background: var(--color-ink); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-ink);
+  }
+  .btn-secondary:hover { background: var(--color-ink); color: var(--color-paper); }
+
+  [data-brand="orocafe"] .btn-primary {
+    background: var(--color-night);
+    color: var(--color-paper);
+  }
+  [data-brand="orocafe"] .btn-primary:hover { background: var(--color-oro-deep); }
+
+  .placeholder-photo {
+    position: relative;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--color-clay) 65%, var(--color-ink)) 0%, var(--color-clay-deep) 100%);
+    color: var(--color-paper);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .placeholder-photo::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08), transparent 40%),
+      radial-gradient(circle at 70% 80%, rgba(0,0,0,0.20), transparent 50%);
+  }
+  .placeholder-photo .caption {
+    position: relative;
+    padding: 1rem 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(2px);
+    width: 100%;
+  }
+
+  [data-brand="orocafe"] .placeholder-photo {
+    background: linear-gradient(135deg, var(--color-oro-deep) 0%, var(--color-night) 100%);
+  }
+}

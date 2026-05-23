@@ -1,0 +1,63 @@
+---
+import { site, corporateNav } from '~/lib/site';
+
+interface Props {
+  brand: 'discovery' | 'orocafe';
+}
+
+const { brand } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-32 border-t border-[var(--color-line)]">
+  <div class="mx-auto max-w-[var(--container-7xl)] px-6 lg:px-10 py-16 lg:py-20">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <p class="eyebrow mb-3">{brand === 'orocafe' ? 'A Discovery Group brand' : 'Discovery Group'}</p>
+        <p class="display-lg text-balance">
+          {brand === 'orocafe' ? 'Roasted, packed and shipped from Uganda.' : 'Vertically integrated. Operated at origin.'}
+        </p>
+      </div>
+
+      <div class="lg:col-span-3">
+        <p class="eyebrow mb-4">Visit</p>
+        <address class="not-italic text-sm leading-relaxed text-[var(--color-ink-muted)]">
+          {site.legalName}<br />
+          {site.address.line1}<br />
+          {site.address.line2}
+        </address>
+        <p class="mt-4 text-sm">
+          <a href={`mailto:${site.email}`} class="underline underline-offset-4 hover:text-[var(--color-clay)]">{site.email}</a>
+        </p>
+      </div>
+
+      <div class="lg:col-span-2">
+        <p class="eyebrow mb-4">Discovery</p>
+        <ul class="space-y-2 text-sm">
+          {corporateNav.map((item) => (
+            <li><a href={item.href} class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="lg:col-span-2">
+        <p class="eyebrow mb-4">Orocafe</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/orocafe" class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">Brand home</a></li>
+          <li><a href="/orocafe/products" class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">Products</a></li>
+        </ul>
+        <p class="eyebrow mt-6 mb-3">Follow</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href={site.social.linkedin} rel="noopener" class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">LinkedIn</a></li>
+          <li><a href={site.social.instagram} rel="noopener" class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">Instagram</a></li>
+          <li><a href={site.social.facebook} rel="noopener" class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-[var(--color-line)] flex flex-col sm:flex-row gap-4 justify-between text-xs text-[var(--color-ink-muted)]">
+      <p>&copy; {year} {site.legalName}. All rights reserved.</p>
+      <p>Discovery Trading Ltd · Discovery Impex Ltd · Discovery Coftea Ltd (Orocafe)</p>
+    </div>
+  </div>
+</footer>

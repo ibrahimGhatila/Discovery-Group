@@ -1,0 +1,13 @@
+---
+interface Props {
+  cert: 'Organic' | 'Rainforest Alliance' | 'Halal' | 'Fairtrade' | 'EUDR-ready' | 'UCDA' | string;
+}
+const { cert } = Astro.props;
+---
+<span class="inline-flex items-center gap-1.5 border border-[var(--color-line)] px-2.5 py-1 text-[0.6875rem] font-medium tracking-wider uppercase text-[var(--color-ink-muted)] bg-[var(--color-paper)]">
+  <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+    <circle cx="5" cy="5" r="4" fill="none" stroke="currentColor" stroke-width="1" />
+    <circle cx="5" cy="5" r="1.5" fill="currentColor" />
+  </svg>
+  {cert}
+</span>

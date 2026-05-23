@@ -1,0 +1,54 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Container from '~/components/Container.astro';
+import SectionHeading from '~/components/SectionHeading.astro';
+import ProducerCard from '~/components/ProducerCard.astro';
+import { getCollection } from 'astro:content';
+
+const producers = await getCollection('producers');
+const hasPlaceholders = producers.some((p) => p.data.placeholder);
+---
+<BaseLayout title="Producers — Discovery Group" description="Cooperative profiles. Direct relationships with smallholder farmers across Mt. Elgon, the Rwenzori, the Lake Victoria crescent and the northern belt.">
+  <section class="pt-12 lg:pt-20">
+    <Container>
+      <SectionHeading
+        level="h1"
+        eyebrow="Producers"
+        title="The people the supply depends on."
+        lede="Every lot Discovery exports traces back to a cooperative aggregation. The profiles below describe the kind of relationship that sits behind each commodity line."
+      />
+
+      {hasPlaceholders && (
+        <div class="mt-10 border border-[var(--color-line)] bg-[var(--color-paper-deep)] p-5 lg:p-6 max-w-3xl">
+          <p class="text-xs tracking-wider uppercase text-[var(--color-clay)] mb-2">Editorial note</p>
+          <p class="text-sm leading-relaxed">
+            The profiles below are <strong>template placeholders</strong>.
+            They demonstrate the page structure and visual treatment for
+            real producer / cooperative content. Live profiles will only
+            be published with explicit consent from each cooperative and
+            verified data.
+          </p>
+        </div>
+      )}
+    </Container>
+  </section>
+
+  <section class="mt-14 lg:mt-20">
+    <Container>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+        {producers.map((p) => (
+          <ProducerCard
+            name={p.data.name}
+            region={p.data.region}
+            district={p.data.district}
+            commodity={p.data.commodity}
+            elevation={p.data.elevation}
+            photoCaption={p.data.photoCaption}
+            href={`/producers/${p.id}`}
+            placeholder={p.data.placeholder}
+          />
+        ))}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

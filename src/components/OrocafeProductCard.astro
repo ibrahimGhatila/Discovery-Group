@@ -1,0 +1,40 @@
+---
+import PlaceholderPhoto from './PlaceholderPhoto.astro';
+
+interface Props {
+  title: string;
+  category: string;
+  origin: string;
+  flavourNotes: string[];
+  sizes: string[];
+  heroCaption: string;
+  href: string;
+}
+
+const { title, category, origin, flavourNotes, sizes, heroCaption, href } = Astro.props;
+---
+
+<a href={href} class="group block focus:outline-none">
+  <article class="flex flex-col gap-5">
+    <PlaceholderPhoto caption={heroCaption} aspect="3/2" variant="oro" class="transition-opacity group-hover:opacity-90" />
+
+    <div class="flex flex-col gap-3">
+      <div class="flex items-baseline justify-between gap-3">
+        <p class="eyebrow">{category}</p>
+        <p class="text-xs text-[var(--color-ink-muted)]">{origin}</p>
+      </div>
+
+      <h3 class="h3 group-hover:text-[var(--color-oro-deep)] transition-colors" style="font-family: var(--font-display); font-weight: 500;">
+        {title}
+      </h3>
+
+      <p class="text-sm text-[var(--color-ink-muted)]">
+        {flavourNotes.slice(0, 3).join(' · ')}
+      </p>
+
+      <p class="text-xs text-[var(--color-ink-muted)] mt-1">
+        {sizes.join(' · ')}
+      </p>
+    </div>
+  </article>
+</a>

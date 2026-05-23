@@ -1,0 +1,125 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Container from '~/components/Container.astro';
+import PlaceholderPhoto from '~/components/PlaceholderPhoto.astro';
+import CertBadge from '~/components/CertBadge.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const commodities = await getCollection('commodities');
+  return commodities.map((c) => ({
+    params: { slug: c.id },
+    props: { entry: c },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const c = entry.data;
+---
+<BaseLayout title={`${c.title} — Discovery Group`} description={c.summary}>
+
+  <!-- HERO -->
+  <section class="pt-10 lg:pt-16">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-10 items-end">
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          <p class="eyebrow">{c.eyebrow}</p>
+          <h1 class="display-lg text-balance">{c.title}</h1>
+          <p class="lede">{c.summary}</p>
+          <div class="flex flex-wrap gap-3 mt-2">
+            <a href={`/contact?commodity=${encodeURIComponent(c.title)}`} class="btn btn-primary">Inquire about {c.title.toLowerCase()}</a>
+            <a href="/products" class="btn btn-secondary">All commodities</a>
+          </div>
+        </div>
+        <div class="lg:col-span-5">
+          <PlaceholderPhoto caption={c.heroCaption} aspect="4/5" variant="clay" />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- KEY FACTS STRIP -->
+  <section class="mt-20 lg:mt-28">
+    <Container>
+      <div class="border-y border-[var(--color-line)] grid sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          ['Origin regions', c.origin.regions.length.toString()],
+          c.origin.elevation ? ['Elevation', c.origin.elevation] : null,
+          c.qualityMetricLabel ? [c.qualityMetricLabel, c.qualityMetricValue || '—'] : null,
+          ['MOQ', c.moq],
+        ].filter(Boolean).map((pair) => {
+          const [k, v] = pair as [string, string];
+          return (
+            <div class="border-r-0 sm:border-r border-[var(--color-line)] last:border-r-0 px-6 py-6 lg:px-8">
+              <p class="eyebrow mb-2">{k}</p>
+              <p class="font-display text-xl lg:text-2xl tracking-tight" style="font-family: var(--font-display); font-weight: 600;">{v}</p>
+            </div>
+          );
+        })}
+      </div>
+    </Container>
+  </section>
+
+  <!-- BODY + SPECS -->
+  <section class="mt-20 lg:mt-28">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <div class="lg:col-span-7">
+          <p class="eyebrow mb-4">Origin & sourcing</p>
+          <div class="prose-editorial">
+            <Content />
+          </div>
+
+          <p class="eyebrow mt-12 mb-4">Origin regions</p>
+          <ul class="text-base space-y-2 max-w-prose">
+            {c.origin.regions.map((r) => <li class="border-b border-[var(--color-line)] pb-2">{r}</li>)}
+          </ul>
+
+          {c.origin.seasons && (
+            <>
+              <p class="eyebrow mt-8 mb-2">Harvest seasons</p>
+              <p>{c.origin.seasons}</p>
+            </>
+          )}
+        </div>
+
+        <aside class="lg:col-span-5 lg:sticky lg:top-32 self-start">
+          <div class="border border-[var(--color-line)] p-6 lg:p-8 bg-[var(--color-paper-deep)]">
+            <p class="eyebrow mb-4">Spec sheet</p>
+
+            <p class="text-xs tracking-wider uppercase text-[var(--color-ink-muted)] mt-4 mb-2">Grades</p>
+            <dl class="border-t border-[var(--color-line)]">
+              {c.grades.map((g) => (
+                <div class="spec-row">
+                  <dt>{g.name}</dt>
+                  <dd>{g.spec}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <p class="text-xs tracking-wider uppercase text-[var(--color-ink-muted)] mt-6 mb-2">Processing</p>
+            <ul class="text-sm space-y-1">
+              {c.processing.map((p) => <li>· {p}</li>)}
+            </ul>
+
+            <p class="text-xs tracking-wider uppercase text-[var(--color-ink-muted)] mt-6 mb-2">Packaging</p>
+            <p class="text-sm">{c.packaging}</p>
+
+            <p class="text-xs tracking-wider uppercase text-[var(--color-ink-muted)] mt-6 mb-2">Incoterms</p>
+            <ul class="text-sm space-y-1">
+              {c.incoterms.map((i) => <li>· {i}</li>)}
+            </ul>
+
+            <p class="text-xs tracking-wider uppercase text-[var(--color-ink-muted)] mt-6 mb-3">Certifications</p>
+            <div class="flex flex-wrap gap-2">
+              {c.certifications.map((cert) => <CertBadge cert={cert} />)}
+            </div>
+
+            <a href={`/contact?commodity=${encodeURIComponent(c.title)}`} class="btn btn-primary w-full justify-center mt-8">Request samples & docs</a>
+          </div>
+        </aside>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

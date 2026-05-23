@@ -1,0 +1,52 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Container from '~/components/Container.astro';
+import SectionHeading from '~/components/SectionHeading.astro';
+import OrocafeProductCard from '~/components/OrocafeProductCard.astro';
+import { getCollection } from 'astro:content';
+
+const products = (await getCollection('orocafeProducts')).sort((a, b) => a.data.order - b.data.order);
+
+const categories = [...new Set(products.map((p) => p.data.category))];
+---
+<BaseLayout title="Products — Orocafe" description="Orocafe's full range — whole bean and ground, Nespresso-compatible capsules, single-serve drip bags, 3-in-1 premixes and instant teas." brand="orocafe">
+  <section class="pt-12 lg:pt-20">
+    <Container>
+      <SectionHeading
+        level="h1"
+        eyebrow="Products"
+        title="The full range."
+        lede="From whole bean to single-serve. All roasted, ground and sealed at Namanve."
+      />
+    </Container>
+  </section>
+
+  <section class="mt-14 lg:mt-20">
+    <Container>
+      {categories.map((cat) => {
+        const items = products.filter((p) => p.data.category === cat);
+        return (
+          <div class="mb-20 last:mb-0">
+            <header class="flex items-baseline justify-between border-b border-[var(--color-line)] pb-4 mb-10">
+              <h2 class="h2" style="font-family: var(--font-display); font-weight: 500;">{cat}</h2>
+              <p class="text-xs tracking-wider uppercase text-[var(--color-ink-muted)]">{items.length} {items.length === 1 ? 'product' : 'products'}</p>
+            </header>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+              {items.map((p) => (
+                <OrocafeProductCard
+                  title={p.data.title}
+                  category={p.data.category}
+                  origin={p.data.origin}
+                  flavourNotes={p.data.flavourNotes}
+                  sizes={p.data.sizes}
+                  heroCaption={p.data.heroCaption}
+                  href={`/orocafe/products/${p.id}`}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </Container>
+  </section>
+</BaseLayout>
