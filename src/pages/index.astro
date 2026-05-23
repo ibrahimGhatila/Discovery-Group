@@ -1,158 +1,175 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Container from '~/components/Container.astro';
-import EditorialPlate from '~/components/EditorialPlate.astro';
+import Photo from '~/components/Photo.astro';
 import CommodityCard from '~/components/CommodityCard.astro';
 import UgandaMap from '~/components/illus/UgandaMap.astro';
-import Topographic from '~/components/illus/Topographic.astro';
-import CoffeeBranch from '~/components/illus/CoffeeBranch.astro';
-import { commodityIllus, commodityTone } from '~/lib/commodities';
+import { commodityPhoto } from '~/lib/commodities';
+import { photos } from '~/lib/photos';
 import { getCollection } from 'astro:content';
 
 const commodities = (await getCollection('commodities')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<BaseLayout title="Discovery Group — Ugandan coffee, cocoa, vanilla & spices, operated at origin" brand="discovery">
+<BaseLayout title="Discovery Group — Ugandan coffee, cocoa, vanilla and spices" brand="discovery">
 
-  {/* ============================= HERO ============================= */}
-  <section class="relative overflow-hidden" style="background: var(--color-espresso); color: var(--color-paper); margin-top: -1px;">
-    <!-- topographic ornament -->
-    <Topographic class="absolute inset-0 w-full h-full text-[var(--color-gold)] opacity-25 pointer-events-none" />
+  {/* HERO — full-bleed image + overlay */}
+  <section class="relative w-full" style="background: var(--color-espresso);">
+    <div class="relative h-[88vh] min-h-[640px] max-h-[900px] w-full overflow-hidden">
+      <img
+        src={photos.heroCorporate}
+        alt="Coffee cherries at harvest in Uganda"
+        class="absolute inset-0 w-full h-full object-cover"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(15,11,8,0.45) 0%, rgba(15,11,8,0.15) 35%, rgba(15,11,8,0.75) 100%);"></div>
 
-    <!-- coffee branch ornament right -->
-    <div class="absolute -right-10 top-1/2 -translate-y-1/2 opacity-20 hidden lg:block pointer-events-none" aria-hidden="true">
-      <CoffeeBranch class="text-[var(--color-gold-light)]" size={500} />
-    </div>
-
-    <Container class="relative py-24 lg:py-40">
-      <div class="grid lg:grid-cols-12 gap-8 items-end">
-        <div class="lg:col-span-9">
-          <p class="eyebrow mb-8" style="color: var(--color-gold-light);">
-            <span class="font-mono mr-3 opacity-60">EST · 2014</span>
-            <span>Operating at origin · Kampala, Uganda</span>
-          </p>
-
-          <h1 class="display-xxl text-balance" style="color: var(--color-paper);">
-            Uganda's harvest, <br/>
-            <span class="italic-soft" style="color: var(--color-gold-light); font-weight: 360;">
-              from the soil it came out of.
-            </span>
-          </h1>
-
-          <div class="mt-12 grid lg:grid-cols-12 items-end gap-8">
-            <p class="lg:col-span-6 text-lg leading-relaxed" style="color: color-mix(in srgb, var(--color-paper) 78%, transparent); max-width: 36rem;">
-              Discovery Group sources, processes, grades and ships Ugandan
-              coffee, cocoa, vanilla, sesame, bird's eye chilli, beans and
-              pulses — from cooperative-level buying through to FCL
-              container — on one floor at Namanve.
-            </p>
-
-            <div class="lg:col-span-6 flex flex-wrap gap-3 lg:justify-end">
-              <a href="/products" class="btn btn-gold">
-                <span>See the harvest</span>
-                <span aria-hidden="true">→</span>
-              </a>
-              <a href="/contact" class="btn btn-ghost-light">
-                Request samples
-              </a>
-            </div>
-          </div>
+      <Container class="relative h-full flex flex-col justify-end pb-20 lg:pb-28">
+        <p class="text-xs tracking-[0.22em] uppercase mb-6" style="color: rgba(255,255,255,0.7);">
+          Discovery Group · Kampala, Uganda
+        </p>
+        <h1 class="text-balance" style="font-family: var(--font-display); font-weight: 480; font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem); line-height: 1.02; letter-spacing: -0.025em; color: white; max-width: 18ch;">
+          Ugandan coffee, cocoa, vanilla and spices, exported at origin.
+        </h1>
+        <p class="mt-7 max-w-xl text-lg leading-relaxed" style="color: rgba(255,255,255,0.8);">
+          A vertically integrated agri-commodity exporter sourcing from
+          cooperatives across Uganda and shipping to roasters, processors
+          and distributors worldwide.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="/products" class="btn btn-gold">View our products</a>
+          <a href="/contact" class="btn btn-ghost-light">Request samples</a>
         </div>
-      </div>
-
-      <!-- Hero footer strip — small data ribbon -->
-      <div class="mt-24 lg:mt-32 pt-8 border-t flex flex-wrap items-baseline gap-x-12 gap-y-4 text-xs uppercase tracking-[0.18em]" style="border-color: color-mix(in srgb, var(--color-paper) 18%, transparent); color: color-mix(in srgb, var(--color-paper) 60%, transparent);">
-        <span><span class="opacity-50">7</span> &nbsp;commodity lines</span>
-        <span><span class="opacity-50">1</span> &nbsp;processing floor</span>
-        <span><span class="opacity-50">EUDR</span> &nbsp;ready</span>
-        <span><span class="opacity-50">~900</span> &nbsp;smallholders in active programmes</span>
-      </div>
-    </Container>
+      </Container>
+    </div>
   </section>
 
-  {/* ============================= INTRO / PROMISE ============================= */}
-  <section class="py-24 lg:py-40">
+  {/* INTRO */}
+  <section class="py-24 lg:py-32">
     <Container>
-      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-20 items-start">
         <div class="lg:col-span-5">
-          <p class="eyebrow mb-6">№ 01 · Operating company</p>
+          <p class="eyebrow mb-6">About us</p>
           <h2 class="display-lg text-balance">
-            We are <span class="italic-soft" style="color: var(--color-clay);">not</span> brokers.
+            A Ugandan exporter, operated at origin since 2014.
           </h2>
         </div>
-        <div class="lg:col-span-7 flex flex-col gap-6 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">
+        <div class="lg:col-span-7 flex flex-col gap-5 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">
           <p>
-            Discovery Group runs the floor at Namanve where lots are
-            received, cupped, graded, blended, sealed and stuffed for
-            export. The line from cherry to FCL is a single operating
-            company — three legal entities, one supervising shop.
+            Discovery Group sources, processes and ships agricultural
+            commodities from across Uganda — coffee, cocoa, vanilla,
+            sesame, bird's eye chilli, and beans and pulses. Our
+            processing facility in Namanve Industrial Area, just outside
+            Kampala, handles every stage from receiving lots to stuffing
+            containers for export.
           </p>
           <p>
-            That posture is the difference. When you buy from Discovery,
-            you buy from the people who selected the cooperative, audited
-            the wet mill, supervised the cut-test, and bolted the
-            container.
+            We work directly with cooperatives and smallholder farmers,
+            paying quality premiums against verified cup scores, cut tests
+            and moisture readings. Every shipment leaves with full
+            documentation, including geolocation files for EUDR-compliant
+            consignments to the European Union.
+          </p>
+          <p>
+            Our consumer brand, <a href="/orocafe" class="underline underline-offset-4 hover:text-[var(--color-clay)]">Orocafe</a>,
+            roasts and packs single-origin Ugandan coffee at the same
+            facility — distributed to retail and food-service markets in
+            East Africa and beyond.
           </p>
         </div>
       </div>
     </Container>
   </section>
 
-  {/* ============================= CAPABILITIES ============================= */}
+  {/* TWO-COLUMN PHOTO STRIP */}
+  <section class="grid sm:grid-cols-2">
+    <Photo src="hands" alt="Hands selecting Arabica cherries during harvest" aspect="4/5" loading="lazy" />
+    <Photo src="drying" alt="Coffee drying on raised beds at the cooperative" aspect="4/5" loading="lazy" />
+  </section>
+
+  {/* CAPABILITIES */}
   <section class="py-24 lg:py-32" style="background: var(--color-paper-warm);">
     <Container>
-      <div class="grid lg:grid-cols-12 gap-12">
-        <div class="lg:col-span-4">
-          <p class="eyebrow mb-5">№ 02 · Capabilities</p>
+      <div class="grid lg:grid-cols-12 gap-12 mb-16 items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow mb-5">What we do</p>
           <h2 class="display-lg text-balance">
-            Four functions, one shop.
+            Four functions, one operation.
           </h2>
-          <p class="mt-6 text-[var(--color-ink-muted)] max-w-md leading-relaxed">
-            Each stage owned, audited, and documented — not subcontracted
-            and trusted.
-          </p>
         </div>
+        <p class="lg:col-span-5 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">
+          Each stage owned, audited and documented in-house — not
+          subcontracted to third parties.
+        </p>
+      </div>
 
-        <div class="lg:col-span-8 grid sm:grid-cols-2 gap-x-10 gap-y-10">
-          {[
-            ['01', 'Direct sourcing', "Cooperative-level buying. Polygon-level geolocation per lot, including EUDR-bound shipments. Cherry premiums paid to the cooperative, not the middleman."],
-            ['02', 'Processing at origin', 'Pulping, ferment, drying, dry-mill, gravity table, optical sort, conditioning. All under one roof at Namanve. Dedicated lines for organic and conventional.'],
-            ['03', 'Lot-built quality', 'Q-style cupping for coffee, cut-test grading for cocoa, vanillin and moisture for vanilla, capsaicin testing for chilli. Every lot leaves with its own analysis pack.'],
-            ['04', 'Export logistics', "GrainPro-lined jute. FCL stuffing under our supervision. Full export documentation. FOB Mombasa standard; CIF on request."],
-          ].map(([num, title, body]) => (
-            <div class="flex gap-6">
-              <span class="font-mono text-xs text-[var(--color-clay)] pt-2">{num}</span>
-              <div>
-                <h3 class="font-display text-xl tracking-tight mb-2" style="font-family: var(--font-display); font-weight: 540;">{title}</h3>
-                <p class="text-sm leading-relaxed text-[var(--color-ink-muted)]">{body}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+        {[
+          ['Sourcing', 'Direct relationships with farmer cooperatives across all major Ugandan growing regions. Polygon-level geolocation captured per lot.'],
+          ['Processing', 'Dry-milling, fermentation, gravity table sorting, optical sorting, conditioning, and grade-building at our Namanve facility.'],
+          ['Quality control', 'In-house Q-style cupping for coffee, cut tests for cocoa, moisture and vanillin testing for vanilla, capsaicin verification for chilli.'],
+          ['Logistics', 'GrainPro-lined jute packaging, supervised FCL container stuffing, complete export documentation, FOB Mombasa or CIF on request.'],
+        ].map(([title, body]) => (
+          <article>
+            <h3 class="font-display text-xl mb-3 tracking-tight" style="font-family: var(--font-display); font-weight: 540;">{title}</h3>
+            <p class="text-sm leading-relaxed text-[var(--color-ink-muted)]">{body}</p>
+          </article>
+        ))}
       </div>
     </Container>
   </section>
 
-  {/* ============================= MAP MOMENT ============================= */}
-  <section class="py-24 lg:py-40 relative overflow-hidden" style="background: var(--color-espresso); color: var(--color-paper);">
+  {/* COMMODITIES */}
+  <section class="py-24 lg:py-32">
     <Container>
-      <div class="grid lg:grid-cols-12 gap-10 items-center">
-        <div class="lg:col-span-5">
-          <p class="eyebrow mb-6" style="color: var(--color-gold-light);">№ 03 · Origin geography</p>
-          <h2 class="display-lg text-balance" style="color: var(--color-paper);">
-            One country.<br/>
-            <span class="italic-soft" style="color: var(--color-gold-light); font-weight: 360;">Six origin belts.</span>
+      <div class="grid lg:grid-cols-12 gap-12 mb-12 items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow mb-5">Our products</p>
+          <h2 class="display-lg text-balance">
+            Six commodity lines.
           </h2>
-          <p class="mt-8 text-[1.0625rem] leading-relaxed" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent); max-width: 32rem;">
-            Uganda is small enough that we cover it. Big enough that the
-            six origin belts — Mt. Elgon, Rwenzori, the Lake Victoria
-            crescent, Lira/Gulu, West Nile, the southwestern highlands —
-            produce six distinct supply chains. Every Discovery shipment
-            knows where it came from.
+        </div>
+        <p class="lg:col-span-5 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">
+          Specifications, grades and indicative MOQs on each product page.
+          Samples and lot documentation available on request.
+        </p>
+      </div>
+
+      {commodities.map((c, i) => (
+        <CommodityCard
+          title={c.data.title}
+          eyebrow={c.data.eyebrow}
+          summary={c.data.summary}
+          href={`/products/${c.id}`}
+          regions={c.data.origin.regions}
+          certifications={c.data.certifications}
+          heroCaption={c.data.heroCaption}
+          qualityMetricLabel={c.data.qualityMetricLabel}
+          qualityMetricValue={c.data.qualityMetricValue}
+          photo={commodityPhoto[c.id] || 'coffee'}
+          index={i + 1}
+        />
+      ))}
+    </Container>
+  </section>
+
+  {/* MAP / ORIGINS */}
+  <section class="py-24 lg:py-32 relative" style="background: var(--color-espresso); color: var(--color-paper);">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5">
+          <p class="eyebrow mb-5" style="color: var(--color-gold-light);">Origins</p>
+          <h2 class="display-lg text-balance" style="color: var(--color-paper);">
+            Sourced from six regions across Uganda.
+          </h2>
+          <p class="mt-7 text-[1.0625rem] leading-relaxed max-w-md" style="color: rgba(242,235,219,0.75);">
+            From the volcanic slopes of Mt. Elgon and the Rwenzori, through
+            the central belt, into West Nile, the northern lowlands, and
+            the southwestern highlands. Each commodity ships with its
+            origin documented at cooperative level.
           </p>
-          <a href="/sustainability" class="btn btn-ghost-light mt-10">
-            <span>Sustainability + traceability</span>
-            <span aria-hidden="true">→</span>
+          <a href="/producers" class="btn btn-ghost-light mt-10">
+            Producer relationships
           </a>
         </div>
         <div class="lg:col-span-7">
@@ -162,116 +179,67 @@ const commodities = (await getCollection('commodities')).sort((a, b) => a.data.o
     </Container>
   </section>
 
-  {/* ============================= COMMODITIES INDEX ============================= */}
+  {/* OROCAFE CROSS-LINK */}
+  <section class="relative overflow-hidden" style="background: var(--color-night);">
+    <div class="grid lg:grid-cols-12 min-h-[600px]">
+      <div class="lg:col-span-6 relative">
+        <Photo src="heroOrocafe" alt="Espresso shot pulled at the Orocafe roastery" aspect="3/2" class="h-full lg:absolute lg:inset-0" />
+      </div>
+      <div class="lg:col-span-6 flex flex-col justify-center px-6 lg:px-16 py-20 lg:py-24" style="color: var(--color-paper);">
+        <p class="text-xs tracking-[0.22em] uppercase mb-6" style="color: var(--color-oro);">Our consumer brand</p>
+        <h2 class="display-lg text-balance" style="color: var(--color-paper);">
+          Orocafe — Ugandan coffee, roasted at origin.
+        </h2>
+        <p class="mt-7 text-[1.0625rem] leading-relaxed max-w-md" style="color: rgba(242,235,219,0.78);">
+          Single-origin Arabica from Mt. Elgon and Robusta from the
+          Rwenzori, roasted and packed at our Namanve facility. Whole
+          bean, ground, capsules, drip bags, premixes and instant teas
+          for retail and food-service.
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="/orocafe" class="btn btn-gold">Visit Orocafe</a>
+          <a href="/orocafe/products" class="btn btn-ghost-light">View range</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* SUSTAINABILITY */}
   <section class="py-24 lg:py-32">
     <Container>
-      <div class="grid lg:grid-cols-12 gap-10 mb-10 lg:mb-16 items-end">
-        <div class="lg:col-span-7">
-          <p class="eyebrow mb-5">№ 04 · The harvest</p>
-          <h2 class="display-lg text-balance">
-            Six commodities. <span class="italic-soft" style="color: var(--color-clay);">One floor.</span>
-          </h2>
-        </div>
-        <p class="lg:col-span-5 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)] lg:max-w-md">
-          Each line has a dedicated processing path at Namanve and dedicated
-          specs for export. Indicative MOQs on the spec pages.
-        </p>
-      </div>
-
-      <div>
-        {commodities.map((c, i) => (
-          <CommodityCard
-            title={c.data.title}
-            eyebrow={c.data.eyebrow}
-            summary={c.data.summary}
-            href={`/products/${c.id}`}
-            regions={c.data.origin.regions}
-            certifications={c.data.certifications}
-            heroCaption={c.data.heroCaption}
-            qualityMetricLabel={c.data.qualityMetricLabel}
-            qualityMetricValue={c.data.qualityMetricValue}
-            illus={commodityIllus[c.id] || 'coffee'}
-            tone={commodityTone[c.id] || 'clay'}
-            index={i + 1}
-          />
-        ))}
-      </div>
-    </Container>
-  </section>
-
-  {/* ============================= OROCAFE CROSS-LINK ============================= */}
-  <section class="py-24 lg:py-32 relative" style="background: var(--color-night); color: var(--color-paper);">
-    <Container>
       <div class="grid lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-7 flex flex-col gap-7">
-          <p class="eyebrow" style="color: var(--color-oro);">№ 05 · A Discovery Group brand</p>
-          <h2 class="display-xl text-balance" style="color: var(--color-paper);">
-            When we don't ship the green, <br />
-            <span class="italic-soft" style="color: var(--color-oro); font-weight: 360;">we roast it.</span>
-          </h2>
-          <p class="text-lg leading-relaxed" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent); max-width: 36rem;">
-            Single-origin Ugandan Arabica from Mt. Elgon and Robusta from
-            the Rwenzori — roasted and packed at Namanve. Whole bean,
-            ground, capsules, drip bags, premixes, instant teas.
-          </p>
-          <div class="flex flex-wrap gap-3 mt-3">
-            <a href="/orocafe" class="btn btn-gold">
-              <span>Visit Orocafe</span>
-              <span aria-hidden="true">→</span>
-            </a>
-            <a href="/orocafe/products" class="btn btn-ghost-light">See the range</a>
-          </div>
-        </div>
-        <div class="lg:col-span-5">
-          <EditorialPlate
-            caption="Roasting drum outfeed, Namanve"
-            number="05"
-            illus="cup"
-            tone="oro"
-            aspect="4/5"
-          />
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  {/* ============================= SUSTAINABILITY PROMISE ============================= */}
-  <section class="py-24 lg:py-40">
-    <Container>
-      <div class="grid lg:grid-cols-12 gap-12">
         <div class="lg:col-span-7">
-          <p class="eyebrow mb-6">№ 06 · Sustainability</p>
-          <p class="pull-quote text-balance max-w-3xl">
-            Improving smallholder livelihoods isn't the CSR footnote. It's
-            the business model — <span style="color: var(--color-clay);">because the supply
-            we depend on is the supply we have to invest in.</span>
+          <p class="eyebrow mb-5">Sustainability</p>
+          <h2 class="display-lg text-balance">
+            We invest in the cooperatives we source from.
+          </h2>
+          <p class="lede lede-wide mt-7">
+            Premium payment against quality. Agronomy and post-harvest
+            training. Documentation support for organic and Rainforest
+            Alliance certification. Polygon geolocation for every EUDR-bound
+            shipment.
           </p>
+
           <div class="mt-12 grid sm:grid-cols-3 gap-8">
             {[
-              ['~900', 'Smallholders in active programmes'],
-              ['~50', 'Discovery employees at Namanve + origin'],
-              ['100%', 'EUDR-bound lots with geolocation files'],
+              ['~900', 'Smallholder farmers in active sourcing programmes'],
+              ['~50', 'Discovery employees at Namanve and across origin'],
+              ['100%', 'EUDR-bound lots with geolocation documentation'],
             ].map(([k, v]) => (
               <div>
                 <p class="stat-number">{k}</p>
-                <p class="mt-3 text-sm text-[var(--color-ink-muted)] leading-snug max-w-[14rem]">{v}</p>
+                <p class="mt-3 text-sm text-[var(--color-ink-muted)] leading-snug">{v}</p>
               </div>
             ))}
           </div>
+
           <a href="/sustainability" class="mt-12 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-[var(--color-clay)]">
-            Our farmer impact
-            <span aria-hidden="true">→</span>
+            Read our sustainability approach →
           </a>
         </div>
-        <aside class="lg:col-span-5">
-          <EditorialPlate
-            caption="Cooperative season-planning round, pre-harvest"
-            number="06"
-            illus="coffee"
-            tone="forest"
-            aspect="4/5"
-          />
-        </aside>
+        <div class="lg:col-span-5">
+          <Photo src="cooperative" alt="Cooperative members during the season-planning gathering" aspect="4/5" />
+        </div>
       </div>
     </Container>
   </section>

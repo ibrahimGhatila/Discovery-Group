@@ -7,19 +7,19 @@ import { getCollection } from 'astro:content';
 const products = (await getCollection('orocafeProducts')).sort((a, b) => a.data.order - b.data.order);
 const categories = [...new Set(products.map((p) => p.data.category))];
 ---
-<BaseLayout title="Products — Orocafe" description="Orocafe's full range — whole bean and ground, Nespresso-compatible capsules, single-serve drip bags, 3-in-1 premixes and instant teas." brand="orocafe">
+<BaseLayout title="Products — Orocafe" description="Orocafe's full range — whole bean, ground, Nespresso-compatible capsules, drip bags, 3-in-1 premixes and instant teas." brand="orocafe">
 
-  <section class="py-20 lg:py-32 border-b" style="border-color: var(--color-line);">
+  <section class="py-20 lg:py-28 border-b" style="border-color: var(--color-line);">
     <Container>
       <div class="grid lg:grid-cols-12 gap-10 items-end">
         <div class="lg:col-span-8">
-          <p class="eyebrow mb-6" style="color: var(--color-oro);">Index · the range</p>
+          <p class="eyebrow mb-5" style="color: var(--color-oro);">Products</p>
           <h1 class="display-xl text-balance" style="color: var(--color-paper);">
-            The full range. <span class="italic-soft" style="color: var(--color-oro); font-weight: 380;">All roasted at Namanve.</span>
+            The full range.
           </h1>
         </div>
         <p class="lg:col-span-4 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">
-          From whole bean to single-serve. Roasted, ground and sealed at the
+          Whole bean to single-serve. Roasted, ground and sealed at the
           Discovery Group facility outside Kampala.
         </p>
       </div>
@@ -28,16 +28,12 @@ const categories = [...new Set(products.map((p) => p.data.category))];
 
   <section class="py-20 lg:py-24">
     <Container>
-      {categories.map((cat, ci) => {
+      {categories.map((cat) => {
         const items = products.filter((p) => p.data.category === cat);
-        const num = String(ci + 1).padStart(2, '0');
         return (
           <div class="mb-20 last:mb-0">
             <header class="flex items-baseline justify-between border-b pb-5 mb-12" style="border-color: var(--color-line);">
-              <div class="flex items-baseline gap-5">
-                <span class="font-mono text-xs" style="color: var(--color-oro);">№ {num}</span>
-                <h2 class="font-display text-2xl tracking-tight" style="font-family: var(--font-display); font-weight: 500; font-style: italic; color: var(--color-paper);">{cat}</h2>
-              </div>
+              <h2 class="font-display text-2xl tracking-tight" style="font-family: var(--font-display); font-weight: 540; color: var(--color-paper);">{cat}</h2>
               <p class="text-[0.6875rem] tracking-[0.18em] uppercase" style="color: var(--color-ink-muted);">
                 {items.length} {items.length === 1 ? 'product' : 'products'}
               </p>

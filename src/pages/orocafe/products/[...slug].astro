@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Container from '~/components/Container.astro';
-import EditorialPlate from '~/components/EditorialPlate.astro';
+import Photo from '~/components/Photo.astro';
 import CertBadge from '~/components/CertBadge.astro';
+import type { PhotoKey } from '~/lib/photos';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -16,7 +17,17 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const p = entry.data;
-const num = String(p.order || 1).padStart(2, '0');
+
+const photoByCategory: Record<string, PhotoKey> = {
+  'Whole bean': 'beansClose',
+  'Ground': 'pourover',
+  'Capsule': 'espresso',
+  'Drip bag': 'pourover',
+  'Premix': 'latte',
+  'Tea': 'pourover',
+  'Instant': 'latte',
+};
+const photo = photoByCategory[p.category] || 'espresso';
 ---
 <BaseLayout title={`${p.title} — Orocafe`} description={p.summary} brand="orocafe">
 
@@ -29,15 +40,12 @@ const num = String(p.order || 1).padStart(2, '0');
 
       <div class="grid lg:grid-cols-12 gap-12 items-start">
         <div class="lg:col-span-6">
-          <EditorialPlate caption={p.heroCaption} number={num} illus="cup" tone="oro" aspect="4/5" />
+          <Photo src={photo} alt={p.title} aspect="4/5" loading="eager" />
         </div>
 
         <div class="lg:col-span-6 flex flex-col gap-6 lg:pt-8">
-          <div class="flex items-baseline gap-3">
-            <span class="font-mono text-xs" style="color: var(--color-oro);">№ {num}</span>
-            <p class="eyebrow" style="color: var(--color-oro);">{p.category} · {p.origin}</p>
-          </div>
-          <h1 class="display-lg text-balance" style="font-style: italic; font-weight: 460;">{p.title}</h1>
+          <p class="eyebrow" style="color: var(--color-oro);">{p.category} · {p.origin}</p>
+          <h1 class="display-lg text-balance">{p.title}</h1>
           <p class="lede lede-wide">{p.summary}</p>
 
           <div class="grid grid-cols-2 gap-x-6 gap-y-5 mt-2">
@@ -85,10 +93,7 @@ const num = String(p.order || 1).padStart(2, '0');
           )}
 
           <div class="border-t pt-6 mt-2" style="border-color: var(--color-line);">
-            <a href="/contact" class="btn btn-primary">
-              <span>Distributor inquiry</span>
-              <span aria-hidden="true">→</span>
-            </a>
+            <a href="/contact" class="btn btn-primary">Distributor inquiry</a>
           </div>
         </div>
       </div>

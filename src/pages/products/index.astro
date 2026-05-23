@@ -2,25 +2,26 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Container from '~/components/Container.astro';
 import CommodityCard from '~/components/CommodityCard.astro';
-import { commodityIllus, commodityTone } from '~/lib/commodities';
+import { commodityPhoto } from '~/lib/commodities';
 import { getCollection } from 'astro:content';
 
 const commodities = (await getCollection('commodities')).sort((a, b) => a.data.order - b.data.order);
 ---
 <BaseLayout title="Products — Discovery Group" description="Ugandan coffee, cocoa, vanilla, sesame, bird's eye chilli, beans and pulses — graded, processed and exported from our Namanve facility.">
 
-  <section class="py-20 lg:py-32 border-b border-[var(--color-line)]">
+  <section class="py-20 lg:py-28 border-b border-[var(--color-line)]">
     <Container>
       <div class="grid lg:grid-cols-12 gap-10 items-end">
         <div class="lg:col-span-8">
-          <p class="eyebrow mb-6">Index · the harvest</p>
+          <p class="eyebrow mb-5">Products</p>
           <h1 class="display-xl text-balance">
-            Six commodities. <span class="italic-soft" style="color: var(--color-clay);">One floor.</span>
+            Six Ugandan commodity lines.
           </h1>
         </div>
         <p class="lg:col-span-4 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">
-          Sourced, processed and graded at Namanve. Indicative MOQs and grades on
-          each page; lot-level documentation provided with samples.
+          All sourced, processed and graded at our facility outside Kampala.
+          Grades, MOQs and certifications on each product page; samples on
+          request.
         </p>
       </div>
     </Container>
@@ -39,8 +40,7 @@ const commodities = (await getCollection('commodities')).sort((a, b) => a.data.o
           heroCaption={c.data.heroCaption}
           qualityMetricLabel={c.data.qualityMetricLabel}
           qualityMetricValue={c.data.qualityMetricValue}
-          illus={commodityIllus[c.id] || 'coffee'}
-          tone={commodityTone[c.id] || 'clay'}
+          photo={commodityPhoto[c.id] || 'coffee'}
           index={i + 1}
         />
       ))}

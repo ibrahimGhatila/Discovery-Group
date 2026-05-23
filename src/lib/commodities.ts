@@ -1,3 +1,5 @@
+import type { PhotoKey } from './photos';
+
 export type IllusKey = 'coffee' | 'cocoa' | 'vanilla' | 'chilli' | 'sesame' | 'beans';
 export type Tone = 'forest' | 'clay' | 'dark' | 'paper';
 
@@ -17,4 +19,13 @@ export const commodityTone: Record<string, Tone> = {
   'bird-eye-chilli': 'clay',
   'sesame': 'paper',
   'beans-and-pulses': 'forest',
+};
+
+export const commodityPhoto: Record<string, PhotoKey> = {
+  'coffee': 'coffee',
+  'cocoa': 'cocoa',
+  'vanilla': 'vanilla',
+  'bird-eye-chilli': 'chilli',
+  'sesame': 'sesame',
+  'beans-and-pulses': 'beans',
 };

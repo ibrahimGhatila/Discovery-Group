@@ -1,5 +1,6 @@
 ---
-import EditorialPlate from './EditorialPlate.astro';
+import Photo from './Photo.astro';
+import type { PhotoKey } from '~/lib/photos';
 
 interface Props {
   name: string;
@@ -13,31 +14,22 @@ interface Props {
   index: number;
 }
 
-const { name, region, district, commodity, elevation, photoCaption, href, placeholder, index } = Astro.props;
+const { name, region, district, commodity, elevation, photoCaption, href, placeholder } = Astro.props;
 
-const num = String(index).padStart(2, '0');
-const illusByCommodity: Record<string, 'coffee' | 'cocoa' | 'vanilla' | 'chilli' | 'sesame' | 'beans'> = {
-  'Arabica coffee': 'coffee',
-  'Robusta coffee': 'coffee',
-  'Cocoa': 'cocoa',
-  'Vanilla': 'vanilla',
+const photoByCommodity: Record<string, PhotoKey> = {
+  'Arabica coffee': 'producerCoffee',
+  'Robusta coffee': 'producerCoffee',
+  'Cocoa': 'producerCocoa',
+  'Vanilla': 'producerVanilla',
   "Bird's eye chilli": 'chilli',
   'Sesame': 'sesame',
 };
-const tonesByIndex = ['forest', 'clay', 'dark'] as const;
 ---
 
 <a href={href} class="group block focus:outline-none">
   <article class="flex flex-col gap-5">
     <div class="relative">
-      <EditorialPlate
-        caption={photoCaption}
-        number={num}
-        illus={illusByCommodity[commodity] || 'coffee'}
-        tone={tonesByIndex[index % 3]}
-        aspect="4/5"
-        class="transition-transform duration-500 group-hover:scale-[1.01]"
-      />
+      <Photo src={photoByCommodity[commodity] || 'producerCoffee'} alt={photoCaption} aspect="4/5" class="transition-transform duration-500 group-hover:scale-[1.01]" />
       {placeholder && (
         <span class="absolute top-4 left-4 px-2.5 py-1 bg-[var(--color-paper)] text-[var(--color-ink)] text-[0.625rem] tracking-[0.18em] uppercase border border-[var(--color-line)]">
           Template
@@ -45,10 +37,7 @@ const tonesByIndex = ['forest', 'clay', 'dark'] as const;
       )}
     </div>
     <div class="flex flex-col gap-2.5">
-      <div class="flex items-baseline gap-3">
-        <span class="font-mono text-xs text-[var(--color-ink-muted)]">№ {num}</span>
-        <p class="eyebrow">{commodity} · {district}</p>
-      </div>
+      <p class="eyebrow">{commodity} · {district}</p>
       <h3 class="font-display text-2xl tracking-tight text-balance group-hover:text-[var(--color-clay)] transition-colors" style="font-family: var(--font-display); font-weight: 540; letter-spacing: -0.02em;">
         {name}
       </h3>

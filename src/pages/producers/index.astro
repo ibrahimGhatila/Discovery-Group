@@ -7,32 +7,31 @@ import { getCollection } from 'astro:content';
 const producers = await getCollection('producers');
 const hasPlaceholders = producers.some((p) => p.data.placeholder);
 ---
-<BaseLayout title="Producers — Discovery Group" description="Cooperative profiles. Direct relationships with smallholder farmers across Mt. Elgon, the Rwenzori, the Lake Victoria crescent and the northern belt.">
+<BaseLayout title="Producers — Discovery Group" description="Direct relationships with smallholder farmer cooperatives across Mt. Elgon, the Rwenzori, the Lake Victoria crescent and northern Uganda.">
 
-  <section class="py-20 lg:py-32 border-b border-[var(--color-line)]">
+  <section class="py-20 lg:py-28 border-b border-[var(--color-line)]">
     <Container>
       <div class="grid lg:grid-cols-12 gap-10 items-end">
         <div class="lg:col-span-8">
-          <p class="eyebrow mb-6">Index · cooperatives</p>
+          <p class="eyebrow mb-5">Producers</p>
           <h1 class="display-xl text-balance">
-            The people the supply <span class="italic-soft" style="color: var(--color-clay);">depends on.</span>
+            Direct relationships with farmer cooperatives.
           </h1>
         </div>
         <p class="lg:col-span-4 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">
-          Every lot Discovery exports traces back to a cooperative aggregation.
-          These profiles describe the relationships behind each commodity line.
+          Every lot Discovery exports traces back to a cooperative
+          aggregation. The profiles below describe the relationships behind
+          each commodity line.
         </p>
       </div>
 
       {hasPlaceholders && (
-        <aside class="mt-14 border-l-2 border-[var(--color-clay)] pl-6 py-4 max-w-3xl">
+        <aside class="mt-12 border-l-2 border-[var(--color-clay)] pl-6 py-4 max-w-3xl">
           <p class="eyebrow eyebrow-muted mb-2">Editorial note</p>
           <p class="text-[0.9375rem] leading-relaxed text-[var(--color-ink-muted)]">
             The profiles below are <strong style="color: var(--color-ink);">template placeholders</strong>.
-            They demonstrate page structure and visual treatment for real
-            producer / cooperative content. Live profiles will only be
-            published with explicit consent from each cooperative and
-            verified data.
+            Live cooperative profiles will be published once consent and
+            verified data are confirmed.
           </p>
         </aside>
       )}

@@ -1,64 +1,51 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Container from '~/components/Container.astro';
-import EditorialPlate from '~/components/EditorialPlate.astro';
+import Photo from '~/components/Photo.astro';
 import OrocafeProductCard from '~/components/OrocafeProductCard.astro';
-import Topographic from '~/components/illus/Topographic.astro';
-import CoffeeBranch from '~/components/illus/CoffeeBranch.astro';
+import { photos } from '~/lib/photos';
 import { getCollection } from 'astro:content';
 
 const products = (await getCollection('orocafeProducts'))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 4);
 ---
-<BaseLayout title="Orocafe — Uganda's coffee, roasted at origin" description="Orocafe is the consumer brand of Discovery Group. Single-origin Ugandan Arabica and Robusta, roasted and packed at Namanve." brand="orocafe">
+<BaseLayout title="Orocafe — Ugandan coffee, roasted at origin" description="Single-origin Ugandan Arabica and Robusta from Mt. Elgon and the Rwenzori — roasted and packed at Namanve. A Discovery Group brand." brand="orocafe">
 
-  {/* ============================= HERO ============================= */}
-  <section class="relative overflow-hidden">
-    <Topographic class="absolute inset-0 w-full h-full text-[var(--color-oro)] opacity-15 pointer-events-none" />
+  {/* HERO — full-bleed dark espresso */}
+  <section class="relative w-full" style="background: var(--color-night);">
+    <div class="relative h-[92vh] min-h-[640px] max-h-[920px] w-full overflow-hidden">
+      <img src={photos.heroOrocafe} alt="An espresso pour at the Orocafe roastery" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+      <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(10,6,5,0.65) 0%, rgba(10,6,5,0.25) 50%, rgba(10,6,5,0.85) 100%);"></div>
 
-    <div class="absolute -right-16 top-1/3 opacity-20 hidden lg:block pointer-events-none" aria-hidden="true">
-      <CoffeeBranch class="text-[var(--color-oro)]" size={520} />
-    </div>
-
-    <Container class="relative py-28 lg:py-48">
-      <p class="eyebrow mb-8 flex items-center gap-3" style="color: var(--color-oro);">
-        <span class="font-mono opacity-60">EST · 2022</span>
-        <span style="opacity: 0.5;">/</span>
-        <span>A Discovery Group brand · roasted at Namanve</span>
-      </p>
-
-      <h1 class="display-xxl text-balance mb-12" style="color: var(--color-paper); font-weight: 380;">
-        <span style="color: var(--color-oro);">Oro</span> <span class="italic-soft" style="font-weight: 280; opacity: 0.6;">—</span> for the<br/>
-        <span class="italic-soft" style="color: var(--color-oro); font-weight: 380;">mountain, and the gold.</span>
-      </h1>
-
-      <div class="grid lg:grid-cols-12 gap-8 items-end mt-12">
-        <p class="lg:col-span-6 text-lg leading-relaxed" style="color: color-mix(in srgb, var(--color-paper) 80%, transparent); max-width: 36rem;">
-          Uganda's coffee, roasted and packed at origin. Whole bean and
-          ground from Mt. Elgon and the Rwenzori. Capsules and drip bags
-          for the cup that travels. Premixes and instant teas for the
-          kitchen we grew up in.
+      <Container class="relative h-full flex flex-col justify-end pb-20 lg:pb-28">
+        <p class="text-xs tracking-[0.22em] uppercase mb-6" style="color: var(--color-oro);">
+          A Discovery Group brand · Roasted in Kampala since 2022
         </p>
-        <div class="lg:col-span-6 flex flex-wrap gap-3 lg:justify-end">
-          <a href="/orocafe/products" class="btn btn-primary">
-            <span>See the range</span>
-            <span aria-hidden="true">→</span>
-          </a>
-          <a href="#story" class="btn btn-secondary">The story</a>
+        <h1 class="text-balance" style="font-family: var(--font-display); font-weight: 460; font-size: clamp(2.5rem, 7vw + 1rem, 6.5rem); line-height: 1.0; letter-spacing: -0.03em; color: white; max-width: 14ch;">
+          Ugandan coffee, roasted at origin.
+        </h1>
+        <p class="mt-7 max-w-xl text-lg leading-relaxed" style="color: rgba(240,230,210,0.85);">
+          Single-origin Arabica from Mt. Elgon, single-origin Robusta from
+          the Rwenzori. Whole bean and ground. Nespresso®-compatible
+          capsules. Drip bags. Premixes. Instant teas.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="/orocafe/products" class="btn btn-primary">Explore the range</a>
+          <a href="#story" class="btn btn-secondary">Our story</a>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   </section>
 
-  {/* ============================= FEATURED ============================= */}
+  {/* FEATURED PRODUCTS */}
   <section class="py-24 lg:py-32 border-t" style="border-color: var(--color-line);">
     <Container>
       <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-20 items-end">
         <div class="lg:col-span-8">
-          <p class="eyebrow mb-5" style="color: var(--color-oro);">№ 01 · Featured</p>
+          <p class="eyebrow mb-5" style="color: var(--color-oro);">Featured</p>
           <h2 class="display-lg text-balance" style="color: var(--color-paper);">
-            From <span class="italic-soft" style="color: var(--color-oro); font-weight: 380;">the roastery.</span>
+            From the roastery.
           </h2>
         </div>
         <a href="/orocafe/products" class="lg:col-span-4 text-sm font-medium uppercase tracking-wider lg:text-right hover:opacity-70" style="color: var(--color-oro);">
@@ -83,60 +70,59 @@ const products = (await getCollection('orocafeProducts'))
     </Container>
   </section>
 
-  {/* ============================= STORY ============================= */}
-  <section id="story" class="py-24 lg:py-40 relative" style="background: var(--color-night);">
+  {/* STORY */}
+  <section id="story" class="py-24 lg:py-32" style="background: var(--color-night);">
     <Container>
-      <p class="eyebrow mb-12" style="color: var(--color-oro);">№ 02 · Story</p>
+      <p class="eyebrow mb-12" style="color: var(--color-oro);">Story</p>
       <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
         <div class="lg:col-span-6">
-          <h2 class="display-xl text-balance" style="color: var(--color-paper); font-weight: 400;">
-            We were exporters first.<br/>
-            <span class="italic-soft" style="color: var(--color-oro); font-weight: 360;">Now we roast.</span>
+          <h2 class="display-xl text-balance" style="color: var(--color-paper); font-weight: 460;">
+            We were exporters first. Now we roast.
           </h2>
         </div>
-        <div class="lg:col-span-6 flex flex-col gap-6 text-lg leading-relaxed" style="color: color-mix(in srgb, var(--color-paper) 78%, transparent);">
+        <div class="lg:col-span-6 flex flex-col gap-6 text-[1.0625rem] leading-relaxed" style="color: rgba(240,230,210,0.8);">
           <p>
-            For eight years, Discovery Group shipped Uganda's coffee green
-            to roasters all over the world. We knew the lots intimately —
-            we had cupped them, graded them, GrainPro-sealed them. We
-            just never got to roast them.
+            For eight years, Discovery Group shipped Ugandan coffee green
+            to roasters worldwide. We knew the lots intimately — cupped
+            them, graded them, GrainPro-sealed them. We just never got to
+            roast them.
           </p>
           <p>
             In 2022 we built the roastery at Namanve. Orocafe was born of
             a simple thought: if we own the line from cherry to FCL, why
-            should the cup happen anywhere else? Why not roast Uganda's
+            should the cup happen anywhere else? Why not roast Ugandan
             coffee in Uganda?
           </p>
           <p style="color: var(--color-paper);">
-            <em class="italic-soft">Oro</em> is Greek for mountain — respect
-            for the African landscape that gave us the bean. It is also
-            gold — what coffee is, to a producer country. Orocafe is both.
+            "Oro" is Greek for mountain — respect for the African
+            landscape that gave us the bean. It is also gold — what coffee
+            is, to a producing country. Orocafe is both.
           </p>
         </div>
       </div>
     </Container>
   </section>
 
-  {/* ============================= ORIGIN DIPTYCH ============================= */}
+  {/* ORIGIN DIPTYCH */}
   <section class="py-24 lg:py-32">
     <Container>
       <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-20 items-end">
         <div class="lg:col-span-7">
-          <p class="eyebrow mb-5" style="color: var(--color-oro);">№ 03 · Origin</p>
+          <p class="eyebrow mb-5" style="color: var(--color-oro);">Origin</p>
           <h2 class="display-lg text-balance" style="color: var(--color-paper);">
-            Two mountains. <span class="italic-soft" style="color: var(--color-oro); font-weight: 380;">One country.</span>
+            Two mountains, one country.
           </h2>
         </div>
         <p class="lg:col-span-5 text-[1.0625rem] leading-relaxed" style="color: var(--color-ink-muted); max-width: 32rem;">
-          Mt. Elgon's Arabica is bright and fruit-forward. The Rwenzori's
-          Robusta is dark, full-bodied, built for milk. Orocafe takes both
+          Mt. Elgon Arabica is bright and fruit-forward. Rwenzori Robusta
+          is dark, full-bodied and built for milk. Orocafe takes both
           seriously.
         </p>
       </div>
 
       <div class="grid sm:grid-cols-2 gap-8">
         <article class="flex flex-col gap-5">
-          <EditorialPlate caption="Mt. Elgon — washing station at altitude" number="01" illus="coffee" tone="oro" aspect="4/5" />
+          <Photo src="landscape" alt="Mt. Elgon slopes at washing-station altitude" aspect="4/5" />
           <div>
             <p class="eyebrow mb-2" style="color: var(--color-oro);">Mt. Elgon · Arabica</p>
             <p class="text-base leading-relaxed text-[var(--color-ink-muted)] max-w-prose">
@@ -146,7 +132,7 @@ const products = (await getCollection('orocafeProducts'))
           </div>
         </article>
         <article class="flex flex-col gap-5">
-          <EditorialPlate caption="Rwenzori — sun-drying beds at first light" number="02" illus="coffee" tone="dark" aspect="4/5" />
+          <Photo src="drying" alt="Rwenzori sun-drying beds at first light" aspect="4/5" />
           <div>
             <p class="eyebrow mb-2" style="color: var(--color-oro);">Rwenzori · Robusta</p>
             <p class="text-base leading-relaxed text-[var(--color-ink-muted)] max-w-prose">
@@ -159,23 +145,20 @@ const products = (await getCollection('orocafeProducts'))
     </Container>
   </section>
 
-  {/* ============================= FOOTER CTA ============================= */}
-  <section id="origin" class="py-24 lg:py-32 border-t" style="border-color: var(--color-line); background: var(--color-paper-deep);">
+  {/* DISTRIBUTOR CTA */}
+  <section class="py-24 lg:py-32 border-t" style="border-color: var(--color-line); background: var(--color-paper-deep);">
     <Container>
       <div class="flex flex-col items-center text-center max-w-3xl mx-auto gap-7">
-        <p class="eyebrow" style="color: var(--color-oro);">Wholesale + private label</p>
+        <p class="eyebrow" style="color: var(--color-oro);">Wholesale and private label</p>
         <h2 class="display-lg text-balance" style="color: var(--color-paper);">
-          Stocking Orocafe? <span class="italic-soft" style="color: var(--color-oro); font-weight: 380;">Tell us where.</span>
+          Stocking Orocafe? Tell us where.
         </h2>
         <p class="text-lg leading-relaxed" style="color: var(--color-ink-muted); max-width: 40rem;">
           Distributors, hotel groups, coffee programmes and private-label
           partners — we'd like to hear from you. Send a brief and we'll
           come back within two business days.
         </p>
-        <a href="/contact" class="btn btn-primary mt-4">
-          <span>Distributor inquiry</span>
-          <span aria-hidden="true">→</span>
-        </a>
+        <a href="/contact" class="btn btn-primary mt-4">Distributor inquiry</a>
       </div>
     </Container>
   </section>

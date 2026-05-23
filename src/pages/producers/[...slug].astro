@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Container from '~/components/Container.astro';
-import EditorialPlate from '~/components/EditorialPlate.astro';
+import Photo from '~/components/Photo.astro';
+import type { PhotoKey } from '~/lib/photos';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -16,18 +17,18 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const p = entry.data;
 
-const illusByCommodity: Record<string, 'coffee' | 'cocoa' | 'vanilla' | 'chilli' | 'sesame' | 'beans'> = {
-  'Arabica coffee': 'coffee',
-  'Robusta coffee': 'coffee',
-  'Cocoa': 'cocoa',
-  'Vanilla': 'vanilla',
+const photoByCommodity: Record<string, PhotoKey> = {
+  'Arabica coffee': 'producerCoffee',
+  'Robusta coffee': 'producerCoffee',
+  'Cocoa': 'producerCocoa',
+  'Vanilla': 'producerVanilla',
   "Bird's eye chilli": 'chilli',
   'Sesame': 'sesame',
 };
 ---
 <BaseLayout title={`${p.name} — Discovery Group`} description={p.summary}>
 
-  <section class="py-20 lg:py-28 border-b border-[var(--color-line)]" style="background: var(--color-paper-warm);">
+  <section class="py-16 lg:py-24 border-b border-[var(--color-line)]" style="background: var(--color-paper-warm);">
     <Container>
       <a href="/producers" class="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-[var(--color-ink-muted)] hover:text-[var(--color-clay)] mb-10">
         <span aria-hidden="true">←</span>
@@ -36,7 +37,7 @@ const illusByCommodity: Record<string, 'coffee' | 'cocoa' | 'vanilla' | 'chilli'
 
       <div class="grid lg:grid-cols-12 gap-12 items-end">
         <div class="lg:col-span-5">
-          <EditorialPlate caption={p.photoCaption} number="01" illus={illusByCommodity[p.commodity] || 'coffee'} tone="forest" aspect="4/5" />
+          <Photo src={photoByCommodity[p.commodity] || 'producerCoffee'} alt={p.photoCaption} aspect="4/5" loading="eager" />
         </div>
 
         <div class="lg:col-span-7 flex flex-col gap-6">
@@ -88,7 +89,7 @@ const illusByCommodity: Record<string, 'coffee' | 'cocoa' | 'vanilla' | 'chilli'
     <section class="py-20 lg:py-28" style="background: var(--color-paper-warm);">
       <Container narrow>
         <blockquote>
-          <p class="text-3xl lg:text-4xl leading-tight text-balance italic-soft" style="font-family: var(--font-display); font-weight: 380;">
+          <p class="text-2xl lg:text-3xl leading-snug text-balance" style="font-family: var(--font-display); font-weight: 400;">
             "{p.quote}"
           </p>
           {p.quoteAttribution && <cite class="not-italic block mt-7 text-xs uppercase tracking-[0.18em] text-[var(--color-ink-muted)]">— {p.quoteAttribution}</cite>}
