@@ -9,35 +9,31 @@ import { photos } from '~/lib/photos';
 <BaseLayout title="Sustainability — Discovery Group" description="Smallholder relationships, traceability, certifications and EUDR-readiness at Discovery Group.">
 
   {/* HERO */}
-  <section class="relative w-full" style="background: var(--color-espresso);">
-    <div class="relative h-[65vh] min-h-[480px] max-h-[700px] w-full overflow-hidden">
+  <section class="section-hero w-full" style="background: var(--color-espresso);">
+    <div class="absolute inset-0">
       <img src={photos.cooperative} alt="Cooperative members at the season-planning gathering" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
-      <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(15,11,8,0.4) 0%, rgba(15,11,8,0.2) 40%, rgba(15,11,8,0.8) 100%);"></div>
-
-      <Container class="relative h-full flex flex-col justify-end pb-16 lg:pb-20">
-        <p class="text-xs tracking-[0.22em] uppercase mb-5" style="color: rgba(255,255,255,0.75);">Sustainability</p>
-        <h1 class="text-balance" style="font-family: var(--font-display); font-weight: 480; font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem); line-height: 1.05; letter-spacing: -0.025em; color: white; max-width: 18ch;">
-          Better paying, better documented, better farmed.
-        </h1>
-        <p class="mt-7 max-w-xl text-lg leading-relaxed" style="color: rgba(255,255,255,0.8);">
-          Discovery Group was founded in 2014 on a straightforward idea —
-          a vertically integrated origin operator can pay producers more,
-          ship higher-quality lots, and still hold a working margin. Ten
-          years on, it's the operating model.
-        </p>
-      </Container>
+      <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(15,11,8,0.4) 0%, rgba(15,11,8,0.2) 40%, rgba(15,11,8,0.85) 100%);"></div>
     </div>
+    <Container class="relative pb-16 lg:pb-20">
+      <p class="text-xs tracking-[0.22em] uppercase mb-5 font-medium" style="color: rgba(255,255,255,0.75);">Sustainability</p>
+      <h1 class="display-xxl text-balance" style="color: white; max-width: 16ch;">
+        We invest in the cooperatives we source from.
+      </h1>
+      <p class="mt-7 max-w-xl text-lg leading-relaxed" style="color: rgba(255,255,255,0.82);">
+        Discovery Group was founded in 2014 on a straightforward idea — a
+        vertically integrated origin operator can pay producers more, ship
+        higher-quality lots and still hold a working margin.
+      </p>
+    </Container>
   </section>
 
   {/* COMMITMENTS */}
-  <section class="py-24 lg:py-32">
+  <section class="section-full">
     <Container>
-      <div class="grid lg:grid-cols-12 gap-10 mb-14 items-end">
+      <div class="grid lg:grid-cols-12 gap-10 mb-12 items-end">
         <div class="lg:col-span-7">
-          <p class="eyebrow mb-5">Our approach</p>
-          <h2 class="display-lg text-balance">
-            Four practical commitments.
-          </h2>
+          <p class="eyebrow eyebrow-accent mb-5">Our approach</p>
+          <h2 class="display-lg text-balance">Four practical commitments.</h2>
         </div>
         <p class="lg:col-span-5 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">
           Each one is an operating programme at Namanve, not a brand
@@ -45,15 +41,15 @@ import { photos } from '~/lib/photos';
         </p>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-x-12 gap-y-14">
+      <div class="grid lg:grid-cols-2 gap-x-12 gap-y-12">
         {[
           ['Traceability', 'Every lot is traced to its cooperative aggregation. EUDR-bound shipments carry polygon geolocation per producer plot, captured during buying.'],
           ['Premium payment', "For specialty lots we pay a quality premium above the day's commodity price, against verified cup scores, cut tests or vanillin readings. The premium is recorded against the lot."],
           ['Training at origin', 'Season-opening agronomy and post-harvest clinics with cooperatives, focused on the practices that move the cup — cherry selection, ferment timing, drying discipline.'],
-          ['Women in the supply', 'Targeted training programmes for women-led plots; demographic split recorded per cooperative lot. Women run most post-harvest sorting and a growing share of farm management.'],
+          ['Women in the supply', 'Targeted training programmes for women-led plots; demographic split recorded per cooperative lot.'],
         ].map(([title, body]) => (
           <article class="flex flex-col gap-3">
-            <h3 class="font-display text-2xl tracking-tight" style="font-family: var(--font-display); font-weight: 540;">{title}</h3>
+            <h3 class="text-2xl" style="font-weight: 600; letter-spacing: -0.025em;">{title}</h3>
             <p class="text-[var(--color-ink-muted)] leading-relaxed max-w-prose">{body}</p>
           </article>
         ))}
@@ -61,17 +57,11 @@ import { photos } from '~/lib/photos';
     </Container>
   </section>
 
-  {/* PHOTO STRIP */}
-  <section class="grid sm:grid-cols-2">
-    <Photo src="producerCoffee" alt="Farmer carrying just-picked Arabica cherries" aspect="4/5" />
-    <Photo src="cupping" alt="Cup tasting in the Discovery quality control lab" aspect="4/5" />
-  </section>
-
   {/* IMPACT */}
-  <section class="py-24 lg:py-32" style="background: var(--color-espresso); color: var(--color-paper);">
+  <section class="section-full" style="background: var(--color-espresso); color: white;">
     <Container>
       <p class="eyebrow mb-12" style="color: var(--color-gold-light);">Indicative impact</p>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 border-t pt-12" style="border-color: rgba(242,235,219,0.2);">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 border-t pt-12" style="border-color: rgba(245,243,238,0.2);">
         {[
           ['~50', 'Discovery employees across Namanve and origin'],
           ['~900', 'Cooperative smallholders in active programmes'],
@@ -79,12 +69,12 @@ import { photos } from '~/lib/photos';
           ['100%', 'EUDR-bound lots with geolocation files'],
         ].map(([k, v]) => (
           <div>
-            <p style="font-family: var(--font-display); font-weight: 480; font-size: clamp(2.75rem, 5vw + 1rem, 4.5rem); line-height: 1; color: var(--color-gold-light);">{k}</p>
-            <p class="mt-4 text-sm leading-snug max-w-[14rem]" style="color: rgba(242,235,219,0.75);">{v}</p>
+            <p style="font-weight: 600; font-size: clamp(2.75rem, 5vw + 1rem, 4.75rem); line-height: 1; letter-spacing: -0.04em; color: var(--color-gold-light);">{k}</p>
+            <p class="mt-4 text-sm leading-snug max-w-[14rem]" style="color: rgba(245,243,238,0.78);">{v}</p>
           </div>
         ))}
       </div>
-      <p class="mt-16 text-xs max-w-2xl" style="color: rgba(242,235,219,0.55);">
+      <p class="mt-16 text-xs max-w-2xl" style="color: rgba(245,243,238,0.55);">
         Indicative figures for the redesigned site. Replaced with audited
         annual figures once the Discovery 2025 impact review is published.
       </p>
@@ -92,80 +82,75 @@ import { photos } from '~/lib/photos';
   </section>
 
   {/* CERTIFICATIONS */}
-  <section class="py-24 lg:py-32">
+  <section class="section-full">
     <Container>
-      <div class="grid lg:grid-cols-12 gap-12">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
         <div class="lg:col-span-5">
-          <p class="eyebrow mb-5">Certifications</p>
+          <p class="eyebrow eyebrow-accent mb-5">Certifications</p>
           <h2 class="display-lg text-balance">
             Audited, documented, attached to the lot.
           </h2>
-        </div>
-        <div class="lg:col-span-7 flex flex-col gap-6">
-          <div class="flex flex-wrap gap-3">
-            <CertBadge cert="Organic" />
-            <CertBadge cert="Rainforest Alliance" />
-            <CertBadge cert="Fairtrade" />
-            <CertBadge cert="Halal" />
-            <CertBadge cert="EUDR-ready" />
-            <CertBadge cert="UCDA" />
-          </div>
-          <p class="text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)] max-w-prose">
+          <p class="mt-7 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)] max-w-prose">
             We carry the certification the lot was bought against, and we
             ship the documentation with the shipment. Certificate scopes,
             certifying bodies and audit dates are provided with sample
             dispatch and on the bill of lading.
           </p>
         </div>
+        <div class="lg:col-span-7 flex flex-wrap gap-3">
+          <CertBadge cert="Organic" />
+          <CertBadge cert="Rainforest Alliance" />
+          <CertBadge cert="Fairtrade" />
+          <CertBadge cert="Halal" />
+          <CertBadge cert="EUDR-ready" />
+          <CertBadge cert="UCDA" />
+        </div>
       </div>
     </Container>
   </section>
 
   {/* EUDR */}
-  <section class="py-20 lg:py-28">
+  <section class="section-full" style="background: var(--color-paper-warm);">
     <Container>
-      <div class="border border-[var(--color-line)] p-10 lg:p-16" style="background: var(--color-paper-warm);">
-        <div class="grid lg:grid-cols-12 gap-10 items-start">
-          <div class="lg:col-span-4">
-            <p class="eyebrow mb-5">For European buyers</p>
-            <h2 class="display-lg text-balance">EUDR readiness.</h2>
-          </div>
-          <div class="lg:col-span-8 flex flex-col gap-5 text-[var(--color-ink-muted)] leading-relaxed text-[1.0625rem]">
-            <p>
-              For coffee, cocoa and rubber-adjacent shipments to the EU,
-              Discovery prepares the full EUDR documentation package:
-              polygon geolocation per producer plot, the due-diligence
-              statement, and the DDS reference number for the consolidating
-              shipment.
-            </p>
-            <p>
-              Geolocation is collected at the cooperative aggregation point
-              during buying. The process is auditable end-to-end; the file
-              ships with the consignment, not as an afterthought.
-            </p>
-          </div>
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-5">
+          <p class="eyebrow eyebrow-accent mb-5">For European buyers</p>
+          <h2 class="display-lg text-balance">EUDR readiness.</h2>
+        </div>
+        <div class="lg:col-span-7 flex flex-col gap-5 text-[var(--color-ink-muted)] leading-relaxed text-[1.0625rem]">
+          <p>
+            For coffee, cocoa and rubber-adjacent shipments to the EU,
+            Discovery prepares the full EUDR documentation package:
+            polygon geolocation per producer plot, the due-diligence
+            statement and the DDS reference number for the consolidating
+            shipment.
+          </p>
+          <p>
+            Geolocation is collected at the cooperative aggregation point
+            during buying. The process is auditable end-to-end; the file
+            ships with the consignment, not as an afterthought.
+          </p>
         </div>
       </div>
     </Container>
   </section>
 
   {/* GEOGRAPHY */}
-  <section class="py-24 lg:py-32" style="background: var(--color-espresso); color: var(--color-paper);">
+  <section class="section-full" style="background: var(--color-espresso); color: white;">
     <Container>
       <div class="grid lg:grid-cols-12 gap-10 items-center">
         <div class="lg:col-span-5">
           <p class="eyebrow mb-5" style="color: var(--color-gold-light);">Geography</p>
-          <h2 class="display-lg text-balance" style="color: var(--color-paper);">
+          <h2 class="display-lg text-balance" style="color: white;">
             Sourced across six Ugandan regions.
           </h2>
-          <p class="mt-7 leading-relaxed text-[1.0625rem] max-w-md" style="color: rgba(242,235,219,0.75);">
+          <p class="mt-7 leading-relaxed text-[1.0625rem] max-w-md" style="color: rgba(245,243,238,0.75);">
             Each commodity is traceable to its belt, its cooperative, and
-            its season. Mt. Elgon, Rwenzori, the Lake Victoria crescent,
-            Lira/Gulu, West Nile, and the southwestern highlands.
+            its season.
           </p>
         </div>
         <div class="lg:col-span-7">
-          <UgandaMap class="w-full h-auto text-[var(--color-paper)]" />
+          <UgandaMap class="w-full h-auto" style="color: white;" />
         </div>
       </div>
     </Container>

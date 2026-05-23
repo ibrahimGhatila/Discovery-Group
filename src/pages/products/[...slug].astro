@@ -5,6 +5,7 @@ import Photo from '~/components/Photo.astro';
 import CertBadge from '~/components/CertBadge.astro';
 import UgandaMap from '~/components/illus/UgandaMap.astro';
 import { commodityPhoto } from '~/lib/commodities';
+import { photos } from '~/lib/photos';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -19,86 +20,68 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const c = entry.data;
 const photo = commodityPhoto[entry.id] || 'coffee';
+const photoUrl = photos[photo];
 ---
 <BaseLayout title={`${c.title} — Discovery Group`} description={c.summary}>
 
-  {/* HERO with full-bleed photograph */}
-  <section class="relative w-full" style="background: var(--color-espresso);">
-    <div class="relative h-[70vh] min-h-[520px] max-h-[760px] w-full overflow-hidden">
-      <Photo src={photo} alt={c.heroCaption} aspect="21/9" class="h-full" loading="eager" />
+  {/* HERO */}
+  <section class="section-hero w-full" style="background: var(--color-espresso);">
+    <div class="absolute inset-0">
+      <img src={photoUrl} alt={c.heroCaption} class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
       <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(15,11,8,0.35) 0%, rgba(15,11,8,0.15) 40%, rgba(15,11,8,0.85) 100%);"></div>
-      <Container class="relative h-full flex flex-col justify-end pb-16 lg:pb-20">
-        <a href="/products" class="inline-flex items-center gap-2 text-xs uppercase tracking-wider mb-8 self-start" style="color: rgba(255,255,255,0.7);">
-          <span aria-hidden="true">←</span>
-          All products
-        </a>
-        <p class="text-xs tracking-[0.22em] uppercase mb-5" style="color: rgba(255,255,255,0.75);">{c.eyebrow}</p>
-        <h1 class="text-balance" style="font-family: var(--font-display); font-weight: 480; font-size: clamp(2.5rem, 5.5vw + 1rem, 5rem); line-height: 1.02; letter-spacing: -0.025em; color: white; max-width: 14ch;">
-          {c.title}
-        </h1>
-        <p class="mt-6 max-w-xl text-lg leading-relaxed" style="color: rgba(255,255,255,0.82);">{c.summary}</p>
-        <div class="mt-9 flex flex-wrap gap-3">
-          <a href={`/contact?commodity=${encodeURIComponent(c.title)}`} class="btn btn-gold">
-            Inquire about {c.title.toLowerCase()}
-          </a>
-          <a href="/products" class="btn btn-ghost-light">All products</a>
-        </div>
-      </Container>
     </div>
+    <Container class="relative pb-16 lg:pb-20">
+      <a href="/products" class="inline-flex items-center gap-2 text-xs uppercase tracking-wider mb-8 self-start font-medium" style="color: rgba(255,255,255,0.75);">
+        <span aria-hidden="true">←</span>
+        All products
+      </a>
+      <p class="text-xs tracking-[0.22em] uppercase mb-5 font-medium" style="color: rgba(255,255,255,0.75);">{c.eyebrow}</p>
+      <h1 class="display-xxl text-balance" style="color: white; max-width: 14ch;">{c.title}</h1>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed" style="color: rgba(255,255,255,0.82);">{c.summary}</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href={`/contact?commodity=${encodeURIComponent(c.title)}`} class="btn btn-light">
+          Inquire about {c.title.toLowerCase()}
+        </a>
+        <a href="/products" class="btn btn-ghost-light">All products</a>
+      </div>
+    </Container>
   </section>
 
-  {/* DATA RIBBON */}
-  <section style="background: var(--color-paper-warm); border-bottom: 1px solid var(--color-line);">
+  {/* DATA + SPECS */}
+  <section class="section-full">
     <Container>
-      <div class="grid grid-cols-2 lg:grid-cols-4 divide-x" style="--tw-divide-opacity: 1; divide-color: var(--color-line);">
+      {/* Data ribbon */}
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-y-8 border-y border-[var(--color-line)] py-10 mb-12">
         {[
           ['Origin regions', String(c.origin.regions.length)],
           c.origin.elevation ? ['Elevation', c.origin.elevation] : null,
           c.qualityMetricLabel ? [c.qualityMetricLabel, c.qualityMetricValue || '—'] : null,
           ['MOQ', c.moq],
-        ].filter(Boolean).map((pair, idx) => {
+        ].filter(Boolean).map((pair) => {
           const [k, v] = pair as [string, string];
           return (
-            <div class="px-6 py-10 lg:px-10 lg:py-14 border-r last:border-r-0" style={`border-color: var(--color-line); ${idx === 0 ? '' : ''}`}>
-              <p class="text-[0.6875rem] uppercase tracking-[0.18em] mb-3 text-[var(--color-ink-muted)]">{k}</p>
-              <p class="font-display text-2xl lg:text-3xl tracking-tight text-balance" style="font-family: var(--font-display); font-weight: 500; line-height: 1.1;">{v}</p>
+            <div class="px-4 lg:px-6">
+              <p class="text-[0.6875rem] uppercase tracking-[0.18em] mb-2 text-[var(--color-ink-muted)] font-medium">{k}</p>
+              <p class="text-xl lg:text-2xl text-balance" style="font-weight: 600; letter-spacing: -0.025em; line-height: 1.15;">{v}</p>
             </div>
           );
         })}
       </div>
-    </Container>
-  </section>
 
-  {/* BODY + SPECS */}
-  <section class="py-24 lg:py-32">
-    <Container>
+      {/* Body + sidebar */}
       <div class="grid lg:grid-cols-12 gap-12 lg:gap-20">
         <div class="lg:col-span-7">
-          <p class="eyebrow mb-5">Origin and sourcing</p>
+          <p class="eyebrow eyebrow-accent mb-5">Origin and sourcing</p>
           <div class="body-editorial">
             <Content />
           </div>
-
-          <p class="eyebrow mt-16 mb-5">Origin regions</p>
-          <ul class="max-w-prose">
-            {c.origin.regions.map((r) => (
-              <li class="py-3 border-b border-[var(--color-line-soft)]">{r}</li>
-            ))}
-          </ul>
-
-          {c.origin.seasons && (
-            <div class="mt-12">
-              <p class="eyebrow mb-3">Harvest seasons</p>
-              <p class="text-[1.0625rem]">{c.origin.seasons}</p>
-            </div>
-          )}
         </div>
 
-        <aside class="lg:col-span-5 lg:sticky lg:top-28 self-start">
-          <div class="border border-[var(--color-line)] p-7 lg:p-10" style="background: var(--color-paper-warm);">
-            <p class="eyebrow mb-6">Specification</p>
+        <aside class="lg:col-span-5">
+          <div class="border border-[var(--color-line)] p-7 lg:p-9 rounded-2xl" style="background: var(--color-paper-warm);">
+            <p class="eyebrow eyebrow-accent mb-6">Specification</p>
 
-            <p class="text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-muted)] mb-3">Grades</p>
+            <p class="text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-muted)] mb-3 font-medium">Grades</p>
             <dl class="border-t border-[var(--color-line-soft)]">
               {c.grades.map((g) => (
                 <div class="spec-row">
@@ -108,25 +91,25 @@ const photo = commodityPhoto[entry.id] || 'coffee';
               ))}
             </dl>
 
-            <p class="text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-muted)] mt-8 mb-3">Processing</p>
+            <p class="text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-muted)] mt-7 mb-3 font-medium">Processing</p>
             <ul class="text-sm space-y-1.5">
               {c.processing.map((p) => <li class="flex gap-3"><span class="text-[var(--color-clay)]">·</span>{p}</li>)}
             </ul>
 
-            <p class="text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-muted)] mt-8 mb-3">Packaging</p>
+            <p class="text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-muted)] mt-7 mb-3 font-medium">Packaging</p>
             <p class="text-sm leading-relaxed">{c.packaging}</p>
 
-            <p class="text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-muted)] mt-8 mb-3">Incoterms</p>
+            <p class="text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-muted)] mt-7 mb-3 font-medium">Incoterms</p>
             <ul class="text-sm space-y-1.5">
               {c.incoterms.map((i) => <li class="flex gap-3"><span class="text-[var(--color-clay)]">·</span>{i}</li>)}
             </ul>
 
-            <p class="text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-muted)] mt-8 mb-4">Certifications</p>
+            <p class="text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-muted)] mt-7 mb-4 font-medium">Certifications</p>
             <div class="flex flex-wrap gap-2">
               {c.certifications.map((cert) => <CertBadge cert={cert} />)}
             </div>
 
-            <a href={`/contact?commodity=${encodeURIComponent(c.title)}`} class="btn btn-primary w-full justify-center mt-10">
+            <a href={`/contact?commodity=${encodeURIComponent(c.title)}`} class="btn btn-primary w-full mt-8">
               Request samples and documentation
             </a>
           </div>
@@ -136,22 +119,22 @@ const photo = commodityPhoto[entry.id] || 'coffee';
   </section>
 
   {/* GEOGRAPHY */}
-  <section class="py-24 lg:py-32" style="background: var(--color-espresso); color: var(--color-paper);">
+  <section class="section-full" style="background: var(--color-espresso); color: white;">
     <Container>
       <div class="grid lg:grid-cols-12 gap-10 items-center">
         <div class="lg:col-span-5">
           <p class="eyebrow mb-5" style="color: var(--color-gold-light);">Geography</p>
-          <h2 class="display-lg text-balance" style="color: var(--color-paper);">
+          <h2 class="display-lg text-balance" style="color: white;">
             Sourced across Uganda.
           </h2>
-          <p class="mt-7 text-[1.0625rem] leading-relaxed max-w-md" style="color: rgba(242,235,219,0.75);">
+          <p class="mt-7 text-[1.0625rem] leading-relaxed max-w-md" style="color: rgba(245,243,238,0.75);">
             Per-lot polygon geolocation is provided with every EUDR-bound
             shipment, accompanied by cooperative-level provenance
             documentation.
           </p>
         </div>
         <div class="lg:col-span-7">
-          <UgandaMap class="w-full h-auto text-[var(--color-paper)]" />
+          <UgandaMap class="w-full h-auto" style="color: white;" />
         </div>
       </div>
     </Container>

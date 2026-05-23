@@ -8,67 +8,89 @@ interface Props {
 
 const { brand } = Astro.props;
 const year = new Date().getFullYear();
-const isDark = brand === 'orocafe';
 ---
 
-<footer class="mt-32 relative overflow-hidden" style={isDark
+<footer class="section-full relative" style={brand === 'orocafe'
   ? 'background: var(--color-night); color: var(--color-paper); border-top: 1px solid var(--color-line);'
-  : 'background: var(--color-espresso); color: var(--color-paper);'}>
+  : 'background: var(--color-espresso); color: white;'}>
 
-  <Container class="py-20 lg:py-28">
-    <div class="grid gap-12 lg:grid-cols-12">
-      <div class="lg:col-span-5">
-        <p class="eyebrow mb-5" style={`color: ${isDark ? 'var(--color-oro)' : 'var(--color-gold-light)'};`}>
-          {brand === 'orocafe' ? 'A Discovery Group brand' : 'Discovery Group'}
+  <Container class="py-20 lg:py-24">
+    {/* MAIN STATEMENT */}
+    <div class="grid lg:grid-cols-12 gap-12 mb-20 lg:mb-24">
+      <div class="lg:col-span-9">
+        <p class="text-xs tracking-[0.22em] uppercase mb-7 font-medium" style={`color: ${brand === 'orocafe' ? 'var(--color-oro)' : 'var(--color-gold-light)'};`}>
+          {brand === 'orocafe' ? 'A Discovery Group brand' : 'Discovery Group · Kampala, Uganda'}
         </p>
-        <p class="display-lg text-balance" style="color: var(--color-paper);">
-          {brand === 'orocafe' ? 'Roasted, packed and shipped from Uganda.' : 'Vertically integrated. Operated at origin.'}
+        <p class="display-xl text-balance" style="color: white;">
+          {brand === 'orocafe'
+            ? 'Ugandan coffee, roasted and packed at origin.'
+            : "Let's start a conversation."}
         </p>
-        <a href={brand === 'orocafe' ? '/' : '/orocafe'} class="inline-flex items-center gap-2 mt-8 text-sm uppercase tracking-wider hover:opacity-70" style={`color: ${isDark ? 'var(--color-oro)' : 'var(--color-gold-light)'};`}>
-          <span aria-hidden="true">{brand === 'orocafe' ? '←' : '→'}</span>
-          {brand === 'orocafe' ? 'Discovery Group' : 'Visit Orocafe'}
-        </a>
+        <div class="mt-10 flex flex-wrap gap-3">
+          {brand === 'orocafe' ? (
+            <>
+              <a href="/" class="btn btn-light">Discovery Group</a>
+              <a href="/contact" class="btn btn-ghost-light">Distributor inquiry</a>
+            </>
+          ) : (
+            <>
+              <a href="/contact" class="btn btn-light">Inquire about products</a>
+              <a href="/orocafe" class="btn btn-ghost-light">Visit Orocafe</a>
+            </>
+          )}
+        </div>
       </div>
+    </div>
 
-      <div class="lg:col-span-3">
-        <p class="eyebrow mb-4" style="color: color-mix(in srgb, var(--color-paper) 60%, transparent);">Visit</p>
-        <address class="not-italic text-sm leading-relaxed" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">
+    {/* COLUMN LINKS */}
+    <div class="grid gap-12 lg:grid-cols-12 pt-10" style="border-top: 1px solid rgba(255,255,255,0.15);">
+      <div class="lg:col-span-4">
+        <p class="text-[0.6875rem] tracking-[0.18em] uppercase mb-4 font-medium" style="color: rgba(255,255,255,0.55);">Visit</p>
+        <address class="not-italic text-sm leading-relaxed" style="color: rgba(255,255,255,0.85);">
           {site.legalName}<br />
           {site.address.line1}<br />
           {site.address.line2}
         </address>
         <p class="mt-4 text-sm">
-          <a href={`mailto:${site.email}`} class="underline underline-offset-4 hover:opacity-70" style="color: var(--color-paper);">{site.email}</a>
+          <a href={`mailto:${site.email}`} class="underline underline-offset-4 hover:opacity-70" style="color: white;">{site.email}</a>
         </p>
       </div>
 
       <div class="lg:col-span-2">
-        <p class="eyebrow mb-4" style="color: color-mix(in srgb, var(--color-paper) 60%, transparent);">Discovery</p>
+        <p class="text-[0.6875rem] tracking-[0.18em] uppercase mb-4 font-medium" style="color: rgba(255,255,255,0.55);">Discovery</p>
         <ul class="space-y-2.5 text-sm">
           {corporateNav.map((item) => (
-            <li><a href={item.href} class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">{item.label}</a></li>
+            <li><a href={item.href} class="hover:opacity-70" style="color: rgba(255,255,255,0.8);">{item.label}</a></li>
           ))}
         </ul>
       </div>
 
       <div class="lg:col-span-2">
-        <p class="eyebrow mb-4" style="color: color-mix(in srgb, var(--color-paper) 60%, transparent);">Orocafe</p>
+        <p class="text-[0.6875rem] tracking-[0.18em] uppercase mb-4 font-medium" style="color: rgba(255,255,255,0.55);">Orocafe</p>
         <ul class="space-y-2.5 text-sm">
-          <li><a href="/orocafe" class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">Brand home</a></li>
-          <li><a href="/orocafe/products" class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">Products</a></li>
+          <li><a href="/orocafe" class="hover:opacity-70" style="color: rgba(255,255,255,0.8);">Brand home</a></li>
+          <li><a href="/orocafe/products" class="hover:opacity-70" style="color: rgba(255,255,255,0.8);">Products</a></li>
         </ul>
-        <p class="eyebrow mt-7 mb-4" style="color: color-mix(in srgb, var(--color-paper) 60%, transparent);">Follow</p>
+      </div>
+
+      <div class="lg:col-span-2">
+        <p class="text-[0.6875rem] tracking-[0.18em] uppercase mb-4 font-medium" style="color: rgba(255,255,255,0.55);">Follow</p>
         <ul class="space-y-2.5 text-sm">
-          <li><a href={site.social.linkedin} rel="noopener" class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">LinkedIn</a></li>
-          <li><a href={site.social.instagram} rel="noopener" class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">Instagram</a></li>
-          <li><a href={site.social.facebook} rel="noopener" class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">Facebook</a></li>
+          <li><a href={site.social.linkedin} rel="noopener" class="hover:opacity-70" style="color: rgba(255,255,255,0.8);">LinkedIn</a></li>
+          <li><a href={site.social.instagram} rel="noopener" class="hover:opacity-70" style="color: rgba(255,255,255,0.8);">Instagram</a></li>
+          <li><a href={site.social.facebook} rel="noopener" class="hover:opacity-70" style="color: rgba(255,255,255,0.8);">Facebook</a></li>
         </ul>
+      </div>
+
+      <div class="lg:col-span-2 lg:text-right">
+        <p class="text-[0.6875rem] tracking-[0.18em] uppercase mb-4 font-medium" style="color: rgba(255,255,255,0.55);">Year</p>
+        <p class="text-sm" style="color: rgba(255,255,255,0.8);">&copy; {year}</p>
       </div>
     </div>
 
-    <div class="mt-16 pt-7 flex flex-col sm:flex-row gap-4 justify-between text-xs" style="border-top: 1px solid color-mix(in srgb, var(--color-paper) 18%, transparent); color: color-mix(in srgb, var(--color-paper) 55%, transparent);">
-      <p>&copy; {year} {site.legalName}. All rights reserved.</p>
-      <p>Discovery Trading · Discovery Impex · Discovery Coftea (Orocafe)</p>
+    <div class="mt-10 pt-6 text-xs flex flex-col sm:flex-row gap-3 justify-between" style="border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5);">
+      <p>Discovery Trading Ltd · Discovery Impex Ltd · Discovery Coftea Ltd (Orocafe)</p>
+      <p>All rights reserved.</p>
     </div>
   </Container>
 </footer>
