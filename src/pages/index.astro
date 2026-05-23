@@ -11,22 +11,46 @@ import { getCollection } from 'astro:content';
 const commodities = (await getCollection('commodities')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<BaseLayout title="Discovery Group — Ugandan coffee, cocoa, vanilla and spices" brand="discovery">
+<BaseLayout title="Discovery Group — Sourcing, processing, exporting Ugandan agro-commodities" brand="discovery">
 
-  {/* HERO */}
+  {/* ═══ HERO ═══ */}
   <HeroCarousel />
 
-  {/* AT A GLANCE — numbers only, no body copy */}
-  <section class="section" style="background: var(--color-paper-pure);">
-    <Container>
-      <div class="reveal max-w-2xl mb-14 lg:mb-20">
-        <p class="eyebrow mb-5">At a glance</p>
-        <h2 class="display-lg text-balance">A decade of origin-controlled trade.</h2>
+  {/* ═══ WELCOME ═══ */}
+  <section class="section">
+    <div class="grid lg:grid-cols-2 gap-x-12 gap-y-12 items-center max-w-[var(--container-7xl)] mx-auto">
+      <div class="relative">
+        <Photo src="warehouse" alt="Jute coffee bags at the Namanve facility" aspect="4/5" class="photo-hover" />
       </div>
+      <div class="px-6 lg:px-8 reveal">
+        <p class="eyebrow mb-6">Continually evolving in excellence</p>
+        <h2 class="display-xl mb-8">Welcome to <br/>Discovery Group Ltd.</h2>
+        <div class="body-editorial">
+          <p>
+            Discovery Group is a leading agro-commodity exporter
+            specialising in coffee, cocoa, vanilla, sesame, beans and other
+            agricultural crops from Uganda. We handle every aspect of
+            exporting — from sourcing the best products to processing,
+            sorting, selecting and transporting them to the port of
+            destination.
+          </p>
+          <p>
+            With the launch of our Orocafe brand in 2022, we expanded
+            our operations to include roasting, packaging and selling
+            finished coffee products in the country of origin.
+          </p>
+        </div>
+        <a href="/about" class="link-arrow mt-10">About us</a>
+      </div>
+    </div>
+  </section>
 
-      <div class="reveal-stagger grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 border-t border-[var(--color-line)] pt-12">
+  {/* ═══ STATS ═══ */}
+  <section class="section-tight" style="background: var(--color-paper-warm); border-block: 1px solid var(--color-line);">
+    <Container>
+      <div class="reveal-stagger grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
         {[
-          ['2014', 'Founded'],
+          ['2014', 'Founded in Kampala'],
           ['7', 'Commodity lines'],
           ['900+', 'Smallholder partners'],
           ['100%', 'EUDR-compliant'],
@@ -40,29 +64,117 @@ const commodities = (await getCollection('commodities')).sort((a, b) => a.data.o
     </Container>
   </section>
 
-  {/* PRODUCTS — photo + name only */}
+  {/* ═══ INTRODUCING OROCAFE — centered ═══ */}
   <section class="section">
     <Container>
-      <div class="reveal flex items-end justify-between flex-wrap gap-6 mb-12 lg:mb-16">
-        <div>
-          <p class="eyebrow mb-5">Products</p>
-          <h2 class="display-lg text-balance">Six commodity lines.</h2>
+      <div class="reveal max-w-2xl mx-auto text-center">
+        <p class="eyebrow mb-7">From bean to bag · 100% made in Uganda</p>
+        <h2 class="display-xl mb-8">Introducing Orocafe</h2>
+        <p class="body-editorial mx-auto" style="text-align: center;">
+          <p class="mx-auto" style="text-align: center; line-height: 1.7; font-size: 1rem; color: var(--color-ink-muted); max-width: 56ch;">
+            Orocafe is dedicated to transforming the coffee industry in
+            Uganda. Our mission is to showcase the exceptional quality of
+            African coffee by handling every step — from sourcing to
+            exporting — entirely at origin. We empower local farmers,
+            boost the Ugandan economy, and deliver superior coffee to
+            the world.
+          </p>
+        </p>
+        <a href="/orocafe" class="link-arrow mt-10">Discover Orocafe</a>
+      </div>
+    </Container>
+  </section>
+
+  {/* ═══ PEARL OF AFRICA — dark forest feature ═══ */}
+  <section class="section" style="background: var(--color-forest); color: white;">
+    <div class="max-w-[var(--container-7xl)] mx-auto px-6 lg:px-12">
+      <div class="grid lg:grid-cols-12 gap-x-10 gap-y-14 items-center">
+
+        <div class="lg:col-span-5 reveal">
+          <h2 class="display-lg mb-8" style="color: white;">
+            Looking for treasures in the Pearl of Africa.
+          </h2>
+          <p class="eyebrow mb-6" style="color: var(--color-gold);">Why we have chosen Uganda</p>
+          <div class="body-editorial">
+            <p style="color: rgba(255,255,255,0.82);">
+              Africa is a continent rich in agricultural potential, and
+              Uganda stands out. Often called the "Pearl of Africa,"
+              Uganda offers an exceptional combination of natural
+              conditions for farming — sunny mild climate, regular
+              abundant rainfall, fertile volcanic soils, numerous rivers
+              and lakes.
+            </p>
+            <p style="color: rgba(255,255,255,0.82);">
+              This produces coffee with distinctive flavours and profiles
+              — a prime origin for connoisseurs around the world.
+            </p>
+          </div>
+          <a href="/about" class="btn btn-ghost-light mt-10">About us</a>
         </div>
-        <a href="/products" class="link-arrow">All products</a>
+
+        <div class="lg:col-span-3 reveal">
+          <Photo src="warehouse" alt="Jute bag with green coffee sample being drawn" aspect="3/4" class="photo-hover" />
+        </div>
+
+        <div class="lg:col-span-4 reveal">
+          <Photo src="producerCoffee" alt="Smallholder farmer in his coffee plantation" aspect="4/5" class="photo-hover" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ═══ PROCESSING AT SOURCE ═══ */}
+  <section class="section">
+    <div class="max-w-[var(--container-7xl)] mx-auto px-6 lg:px-12">
+      <div class="grid lg:grid-cols-12 gap-x-10 gap-y-14 items-center">
+
+        <div class="lg:col-span-3 reveal">
+          <Photo src="roasting" alt="Coffee beans in a roasting drum" aspect="4/5" class="photo-hover" />
+        </div>
+
+        <div class="lg:col-span-4 reveal">
+          <Photo src="espresso" alt="Orocafe Specialty Blend packaging on roasted beans" aspect="4/5" class="photo-hover" />
+        </div>
+
+        <div class="lg:col-span-5 reveal lg:pl-6">
+          <p class="eyebrow mb-6">A Discovery Group brand</p>
+          <h2 class="display-lg mb-8">Processing at source.</h2>
+          <div class="body-editorial">
+            <p>
+              Years of working in the agro-commodity sector exposed us to
+              the challenges of the African coffee industry. Those
+              challenges compelled us to innovate — converting obstacles
+              into opportunities for growth and sustainability.
+            </p>
+            <p>
+              Orocafe sources, roasts and packs coffee directly at origin
+              in Uganda. The approach delivers exceptional products and
+              fosters positive change at the source.
+            </p>
+          </div>
+          <a href="/orocafe" class="link-arrow mt-10">Discover Orocafe</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ═══ COMMODITY LINES ═══ */}
+  <section class="section" style="background: var(--color-paper-warm);">
+    <Container>
+      <div class="reveal text-center max-w-2xl mx-auto mb-14 lg:mb-20">
+        <p class="eyebrow mb-6">Our products</p>
+        <h2 class="display-xl">Six Ugandan commodity lines.</h2>
       </div>
 
       <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 lg:gap-x-8 gap-y-12">
         {commodities.map((c) => (
-          <a href={`/products/${c.id}`} class="skim-card group focus:outline-none">
+          <a href={`/products/${c.id}`} class="group block focus:outline-none">
             <div class="photo-hover">
               <Photo src={commodityPhoto[c.id] || 'coffee'} alt={c.data.title} aspect="4/5" />
             </div>
-            <div class="skim-card-body">
-              <p class="skim-card-name">{c.data.title}</p>
-              <div class="skim-card-name-meta">
-                <span class="skim-card-meta">{c.data.eyebrow.split(' · ')[0]}</span>
-                <span class="skim-card-meta text-[var(--color-clay)] opacity-0 group-hover:opacity-100 transition-opacity">View →</span>
-              </div>
+            <div class="mt-5 flex items-baseline justify-between gap-3">
+              <h3 class="h2 group-hover:text-[var(--color-forest)] transition-colors">{c.data.title}</h3>
+              <span class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-muted)] opacity-0 group-hover:opacity-100 transition-opacity">View →</span>
             </div>
           </a>
         ))}
@@ -70,22 +182,18 @@ const commodities = (await getCollection('commodities')).sort((a, b) => a.data.o
     </Container>
   </section>
 
-  {/* MAP — minimal copy */}
-  <section class="section" style="background: var(--color-espresso); color: white;">
+  {/* ═══ MAP ═══ */}
+  <section class="section" style="background: var(--color-forest); color: white;">
     <Container>
       <div class="reveal grid lg:grid-cols-12 gap-12 items-center">
         <div class="lg:col-span-5">
-          <p class="eyebrow mb-5" style="color: rgba(255,255,255,0.6);">Origins</p>
-          <h2 class="display-lg text-balance" style="color: white;">
-            Sourced from six Ugandan regions.
-          </h2>
-          <p class="lede mt-6" style="color: rgba(255,255,255,0.7);">
-            Mt. Elgon. Rwenzori. Lake Victoria crescent. West Nile. Northern belt. Southwestern highlands.
+          <p class="eyebrow mb-6" style="color: var(--color-gold);">Origins</p>
+          <h2 class="display-lg mb-8" style="color: white;">Sourced across six Ugandan regions.</h2>
+          <p class="lede" style="color: rgba(255,255,255,0.75);">
+            Mt. Elgon · Rwenzori · Lake Victoria crescent · West Nile ·
+            Northern belt · Southwestern highlands.
           </p>
-          <a href="/producers" class="mt-10 inline-flex items-center gap-2 text-sm font-medium" style="color: white; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 4px;">
-            Our producers
-            <span aria-hidden="true">→</span>
-          </a>
+          <a href="/producers" class="btn btn-ghost-light mt-10">Our producers</a>
         </div>
         <div class="lg:col-span-7">
           <UgandaMap class="w-full h-auto" style="color: white;" />
@@ -94,84 +202,17 @@ const commodities = (await getCollection('commodities')).sort((a, b) => a.data.o
     </Container>
   </section>
 
-  {/* CAPABILITIES — terse */}
+  {/* ═══ CONTACT CTA ═══ */}
   <section class="section">
     <Container>
-      <div class="reveal mb-14 lg:mb-16">
-        <p class="eyebrow mb-5">Capabilities</p>
-        <h2 class="display-lg text-balance">Four functions. One operation.</h2>
-      </div>
-
-      <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12 border-t border-[var(--color-line)] pt-12">
-        {[
-          ['01', 'Sourcing', 'Direct from cooperatives.'],
-          ['02', 'Processing', 'Dry-mill, sort, grade.'],
-          ['03', 'Quality', 'Cupped and tested.'],
-          ['04', 'Logistics', 'FOB to your port.'],
-        ].map(([num, title, body]) => (
-          <div class="flex flex-col gap-3">
-            <span class="font-mono text-xs text-[var(--color-clay)]">{num}</span>
-            <h3 class="h3">{title}</h3>
-            <p class="text-sm leading-relaxed text-[var(--color-ink-muted)]">{body}</p>
-          </div>
-        ))}
-      </div>
-
-      <div class="reveal mt-12">
-        <a href="/about" class="link-arrow">How we operate</a>
-      </div>
-    </Container>
-  </section>
-
-  {/* OROCAFE — split image + minimal text */}
-  <section class="grid lg:grid-cols-2 min-h-[80vh]" style="background: var(--color-night);">
-    <div class="relative photo-hover min-h-[40vh]">
-      <img src={photos.espresso} alt="Espresso pour at the Orocafe roastery" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-    </div>
-    <div class="reveal flex flex-col justify-center px-6 sm:px-10 lg:px-16 py-20 lg:py-24" style="color: white;">
-      <p class="hero-eyebrow" style="margin-bottom: 1.75rem;">
-        <span class="hero-eyebrow-rule" style="background: var(--color-oro);"></span>
-        A Discovery Group brand
-      </p>
-      <h2 class="display-lg text-balance" style="color: white;">
-        Orocafe — coffee roasted in Kampala.
-      </h2>
-      <p class="lede mt-6" style="color: rgba(255,255,255,0.75);">
-        Single-origin Ugandan Arabica and Robusta, packed at our facility.
-      </p>
-      <div class="mt-10 flex flex-wrap gap-3">
-        <a href="/orocafe" class="btn btn-gold">Visit Orocafe</a>
-        <a href="/orocafe/products" class="btn btn-ghost-light">Range</a>
-      </div>
-    </div>
-  </section>
-
-  {/* CERTIFICATIONS — compact strip, photo-led */}
-  <section class="section" style="background: var(--color-paper-pure);">
-    <Container>
-      <div class="reveal mb-12">
-        <p class="eyebrow mb-5">Certifications</p>
-        <h2 class="display-lg text-balance">Audited, attached to the lot.</h2>
-      </div>
-      <div class="reveal-stagger grid grid-cols-3 lg:grid-cols-6 gap-px border border-[var(--color-line)]">
-        {['Organic', 'Rainforest Alliance', 'Fairtrade', 'Halal', 'EUDR', 'UCDA'].map((c) => (
-          <div class="px-6 py-10 flex items-center justify-center text-center bg-[var(--color-paper-pure)]">
-            <p class="text-xs font-medium uppercase tracking-[0.14em] text-[var(--color-ink-muted)]">{c}</p>
-          </div>
-        ))}
-      </div>
-    </Container>
-  </section>
-
-  {/* CONTACT */}
-  <section class="section" style="background: var(--color-paper-warm);">
-    <Container>
-      <div class="reveal max-w-3xl">
-        <p class="eyebrow mb-5">Get in touch</p>
-        <h2 class="display-xl text-balance">
-          Tell us what you need — we'll come back with samples and pricing.
-        </h2>
-        <div class="mt-10 flex flex-wrap gap-3">
+      <div class="reveal text-center max-w-3xl mx-auto">
+        <p class="eyebrow mb-7">Get in touch</p>
+        <h2 class="display-xl mb-8">Let's start a conversation.</h2>
+        <p class="lede mx-auto">
+          Tell us what commodity, volume and destination — we'll come
+          back with samples and pricing.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3 justify-center">
           <a href="/contact" class="btn btn-primary">Send inquiry</a>
           <a href="mailto:info@discoverygroupug.com" class="btn btn-secondary">info@discoverygroupug.com</a>
         </div>

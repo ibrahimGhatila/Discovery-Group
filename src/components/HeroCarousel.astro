@@ -3,7 +3,7 @@ import { photos } from '~/lib/photos';
 
 interface Slide {
   eyebrow: string;
-  title: string;          // HTML allowed for <em class="accent">
+  title: string;
   subtitle: string;
   ctaLabel: string;
   ctaHref: string;
@@ -14,8 +14,8 @@ interface Slide {
 const slides: Slide[] = [
   {
     eyebrow: 'Discovery Group · Kampala',
-    title: 'Ugandan commodities, exported at origin.',
-    subtitle: 'Coffee, cocoa, vanilla, sesame, chilli and pulses — sourced and shipped from our Namanve facility.',
+    title: 'Sourcing. Processing. Exporting.',
+    subtitle: 'Transforming Uganda\'s agro-commodities.',
     ctaLabel: 'View products',
     ctaHref: '/products',
     photo: photos.heroCorporate,
@@ -23,8 +23,8 @@ const slides: Slide[] = [
   },
   {
     eyebrow: 'Quality control',
-    title: 'Cupped, cut-tested and graded in-house.',
-    subtitle: 'Every lot leaves with its own analysis pack and polygon-level geolocation file.',
+    title: 'Cupped. Cut-tested. Graded.',
+    subtitle: 'Every lot leaves with its own analysis pack.',
     ctaLabel: 'Our process',
     ctaHref: '/sustainability',
     photo: photos.cupping,
@@ -32,8 +32,8 @@ const slides: Slide[] = [
   },
   {
     eyebrow: 'Cooperative sourcing',
-    title: 'Premiums paid against the cup.',
-    subtitle: 'Around 900 smallholder farmers across six Ugandan origin belts.',
+    title: 'From farm to port.',
+    subtitle: 'Direct relationships with 900+ smallholder farmers across Uganda.',
     ctaLabel: 'Our producers',
     ctaHref: '/producers',
     photo: photos.hands,
@@ -41,8 +41,8 @@ const slides: Slide[] = [
   },
   {
     eyebrow: 'A Discovery Group brand',
-    title: 'Orocafe — roasted in Kampala.',
-    subtitle: 'Single-origin Ugandan Arabica and Robusta, roasted and packed at Namanve.',
+    title: 'Orocafe. Roasted in Kampala.',
+    subtitle: 'Single-origin Ugandan Arabica and Robusta, finished at origin.',
     ctaLabel: 'Visit Orocafe',
     ctaHref: '/orocafe',
     photo: photos.espresso,
@@ -53,23 +53,20 @@ const slides: Slide[] = [
 const total = slides.length;
 ---
 
-<section class="hero-carousel section-hero w-full" data-autoplay="7000" aria-label="Featured">
+<section class="hero-carousel section-full-hero w-full" data-autoplay="7000" aria-label="Featured">
   <div class="grid lg:grid-cols-2 h-full">
 
-    {/* ─── LEFT: dark text panel with slide content */}
-    <div class="hero-left relative flex flex-col" style="background: linear-gradient(160deg, var(--color-night) 0%, var(--color-espresso) 100%); color: white;">
+    {/* LEFT: dark forest text panel */}
+    <div class="hero-left relative flex flex-col" style="background: var(--color-forest-deep); color: white;">
 
       <div class="flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16 py-16 lg:py-20">
         <div class="hero-slides relative w-full max-w-xl">
           {slides.map((slide, i) => (
             <div class:list={['hero-slide', i === 0 ? 'is-active' : '']} data-index={i}>
-              <p class="hero-eyebrow">
-                <span class="hero-eyebrow-rule"></span>
-                {slide.eyebrow}
-              </p>
-              <h1 class="hero-title" set:html={slide.title} />
+              <p class="hero-eyebrow">{slide.eyebrow}</p>
+              <h1 class="hero-title">{slide.title}</h1>
               <p class="hero-subtitle">{slide.subtitle}</p>
-              <a href={slide.ctaHref} class="btn btn-light hero-cta">
+              <a href={slide.ctaHref} class="btn btn-gold hero-cta">
                 {slide.ctaLabel}
                 <span aria-hidden="true">→</span>
               </a>
@@ -78,7 +75,6 @@ const total = slides.length;
         </div>
       </div>
 
-      {/* ─── Carousel controls */}
       <div class="hero-controls">
         <div class="hero-counter">
           <span class="hero-current">01</span>
@@ -112,7 +108,7 @@ const total = slides.length;
       </div>
     </div>
 
-    {/* ─── RIGHT: image panel */}
+    {/* RIGHT: editorial photograph */}
     <div class="hero-right relative overflow-hidden">
       {slides.map((slide, i) => (
         <img
