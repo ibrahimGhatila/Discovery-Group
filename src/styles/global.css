@@ -1,34 +1,39 @@
 @import "tailwindcss";
 
 @import "@fontsource-variable/inter/index.css";
+@import "@fontsource/cormorant-garamond/300-italic.css";
+@import "@fontsource/cormorant-garamond/400-italic.css";
+@import "@fontsource/cormorant-garamond/500-italic.css";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
 
 @theme {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', ui-serif, Georgia, 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 
-  /* DISCOVERY — restrained warm-neutral palette */
-  --color-ink: #0F0D0A;
-  --color-ink-muted: #6B6661;
-  --color-ink-soft: #968F87;
-  --color-paper: #F5F3EE;
-  --color-paper-warm: #ECE7DD;
-  --color-paper-deep: #DDD6C7;
+  /* DISCOVERY — refined corporate-trust palette */
+  --color-ink: #0E0C0A;
+  --color-ink-muted: #5F574F;
+  --color-ink-soft: #8E867C;
+  --color-paper: #F7F4ED;
+  --color-paper-warm: #ECE7DC;
+  --color-paper-deep: #DCD4C2;
   --color-paper-pure: #FFFFFF;
-  --color-clay: #B5471C;
-  --color-clay-deep: #7E2E12;
-  --color-forest: #1F3D2E;
-  --color-gold: #A07025;
+  --color-clay: #B14122;
+  --color-clay-deep: #802512;
+  --color-forest: #1B3528;
+  --color-forest-mid: #2D5340;
+  --color-gold: #9C6F23;
   --color-gold-light: #C99334;
-  --color-espresso: #1A1612;
+  --color-espresso: #15110D;
   --color-night: #0A0807;
-  --color-line: #DCD6CB;
-  --color-line-soft: #E8E2D5;
-  --color-line-dark: rgba(245, 243, 238, 0.18);
+  --color-line: #DAD3C4;
+  --color-line-soft: #EAE4D5;
+  --color-line-dark: rgba(247, 244, 237, 0.18);
 
-  /* OROCAFE — pure dark luxury */
+  /* OROCAFE */
   --color-oro: #D4A14A;
   --color-oro-deep: #8A621F;
 
@@ -36,6 +41,8 @@
   --container-6xl: 72rem;
   --container-3xl: 48rem;
   --container-2xl: 36rem;
+
+  --header-h: 4rem;
 }
 
 [data-brand="orocafe"] {
@@ -52,6 +59,10 @@
   --color-line-soft: #1F1813;
 }
 
+@media (min-width: 1024px) {
+  :root { --header-h: 4.5rem; }
+}
+
 @layer base {
   :root { color-scheme: light; }
   [data-brand="orocafe"] { color-scheme: dark; }
@@ -61,7 +72,6 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    scroll-behavior: smooth;
   }
 
   body {
@@ -75,20 +85,28 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: -0.022em;
+    letter-spacing: -0.025em;
     color: var(--color-ink);
     font-feature-settings: "ss01", "cv11";
+    font-variation-settings: "opsz" 32;
   }
 
-  ::selection {
-    background: var(--color-ink);
-    color: var(--color-paper);
+  /* The signature italic accent — Cormorant Garamond inside a heading.
+     Use sparingly: a single word or short phrase for emphasis. */
+  em.accent, .accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--color-clay);
+    /* Cormorant is taller than Inter, gently size-correct */
+    font-size: 1.08em;
+    line-height: 0.9;
+    margin-inline: 0.04em;
   }
 
-  [data-brand="orocafe"] ::selection {
-    background: var(--color-oro);
-    color: var(--color-night);
-  }
+  ::selection { background: var(--color-ink); color: var(--color-paper); }
+  [data-brand="orocafe"] ::selection { background: var(--color-oro); color: var(--color-night); }
 
   :focus-visible {
     outline: 2px solid var(--color-clay);
@@ -101,40 +119,28 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
     }
-    html { scroll-behavior: auto !important; }
   }
 }
 
 @layer components {
 
-  /* ─────────── Section layout — every section fills the viewport
-       and centres its content. Mobile uses svh to dodge address-bar
-       jitter; desktop uses dvh. */
-
-  /* --header-h: account for the sticky header on every section so
-     each one fills exactly the visible viewport. */
-  :root { --header-h: 4rem; }
-  @media (min-width: 1024px) {
-    :root { --header-h: 4.5rem; }
-  }
-
+  /* ─── Section sizing — each section fills the visible viewport */
   .section-full {
     min-height: calc(100svh - var(--header-h));
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
+    padding-block: 4rem;
   }
-
   @supports (min-height: 100dvh) {
-    .section-full {
-      min-height: calc(100dvh - var(--header-h));
-    }
+    .section-full { min-height: calc(100dvh - var(--header-h)); }
+  }
+  @media (min-width: 1024px) {
+    .section-full { padding-block: 5rem; }
   }
 
-  /* Hero variant — content anchored to bottom over full-bleed media */
   .section-hero {
     min-height: calc(100svh - var(--header-h));
     display: flex;
@@ -147,29 +153,37 @@
     .section-hero { min-height: calc(100dvh - var(--header-h)); }
   }
 
-  /* Inner padding helpers for full sections */
-  .section-pad {
-    padding-block: clamp(4rem, 8vh, 7rem);
-  }
-
-  /* ─────────── Typography (Inter, all sizes) */
+  /* ─── Typography */
 
   .eyebrow {
     font-family: var(--font-sans);
     font-size: 0.6875rem;
     font-weight: 500;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--color-ink-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: var(--color-clay);
+    display: inline-block;
   }
   .eyebrow-accent { color: var(--color-clay); }
+  .eyebrow-bare { display: inline; gap: 0; }
+  .eyebrow-bare::before { display: none; }
 
   .display-xxl {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(3rem, 7vw + 1rem, 6.5rem);
-    line-height: 0.95;
+    font-size: clamp(2.75rem, 6.5vw + 1rem, 6.25rem);
+    line-height: 0.96;
     letter-spacing: -0.04em;
+    font-variation-settings: "opsz" 32;
   }
 
   .display-xl {
@@ -178,6 +192,7 @@
     font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
     line-height: 0.98;
     letter-spacing: -0.035em;
+    font-variation-settings: "opsz" 32;
   }
 
   .display-lg {
@@ -186,6 +201,7 @@
     font-size: clamp(2.25rem, 4vw + 1rem, 3.75rem);
     line-height: 1.02;
     letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 32;
   }
 
   .h1 {
@@ -194,6 +210,7 @@
     font-size: clamp(1.875rem, 2.5vw + 1rem, 2.75rem);
     line-height: 1.08;
     letter-spacing: -0.025em;
+    font-variation-settings: "opsz" 32;
   }
 
   .h2 {
@@ -226,7 +243,7 @@
   .body-editorial strong { color: var(--color-ink); font-weight: 500; }
   .body-editorial a { color: var(--color-clay); text-decoration: underline; text-underline-offset: 0.25em; text-decoration-thickness: 1px; }
 
-  /* ─────────── Specs */
+  /* ─── Specs */
 
   .spec-row {
     display: grid;
@@ -245,85 +262,114 @@
     font-weight: 500;
   }
   .spec-row dd { color: var(--color-ink); }
-  .spec-row .lot {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-  }
+  .spec-row .lot { font-family: var(--font-mono); font-size: 0.8125rem; }
 
-  /* ─────────── Buttons (cleaner, slightly larger, no uppercase by default) */
+  /* ─── Buttons */
 
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.625rem;
-    padding: 0.875rem 1.5rem;
+    padding: 0.875rem 1.625rem;
     font-size: 0.9375rem;
     font-weight: 500;
     letter-spacing: -0.005em;
     border-radius: 999px;
-    transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 220ms cubic-bezier(0.4, 0, 0.2, 1);
     min-height: 48px;
     line-height: 1;
+    will-change: transform;
   }
 
-  .btn-primary {
-    background: var(--color-ink);
-    color: var(--color-paper);
-  }
-  .btn-primary:hover {
-    background: var(--color-clay);
-    transform: translateY(-1px);
-  }
+  .btn-primary { background: var(--color-ink); color: var(--color-paper); }
+  .btn-primary:hover { background: var(--color-clay); transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(177, 65, 34, 0.4); }
 
-  .btn-secondary {
-    background: transparent;
-    color: var(--color-ink);
-    border: 1px solid var(--color-ink);
-  }
+  .btn-secondary { background: transparent; color: var(--color-ink); border: 1px solid var(--color-ink); }
   .btn-secondary:hover { background: var(--color-ink); color: var(--color-paper); transform: translateY(-1px); }
 
-  .btn-ghost-light {
-    background: transparent;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-  }
+  .btn-ghost-light { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.35); }
   .btn-ghost-light:hover { background: white; color: var(--color-ink); border-color: white; transform: translateY(-1px); }
 
-  .btn-light {
-    background: white;
-    color: var(--color-ink);
-  }
-  .btn-light:hover { background: var(--color-paper-warm); transform: translateY(-1px); }
+  .btn-light { background: white; color: var(--color-ink); }
+  .btn-light:hover { background: var(--color-paper-warm); transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(14,12,10,0.3); }
 
-  .btn-gold {
-    background: var(--color-oro);
-    color: var(--color-night);
-  }
+  .btn-gold { background: var(--color-oro); color: var(--color-night); }
   .btn-gold:hover { background: white; transform: translateY(-1px); }
 
-  [data-brand="orocafe"] .btn-primary {
-    background: var(--color-oro);
-    color: var(--color-night);
-  }
+  [data-brand="orocafe"] .btn-primary { background: var(--color-oro); color: var(--color-night); }
   [data-brand="orocafe"] .btn-primary:hover { background: var(--color-ink); color: var(--color-night); }
-
-  [data-brand="orocafe"] .btn-secondary {
-    color: var(--color-ink);
-    border-color: rgba(245, 239, 226, 0.35);
-  }
+  [data-brand="orocafe"] .btn-secondary { color: var(--color-ink); border-color: rgba(245,239,226,0.35); }
   [data-brand="orocafe"] .btn-secondary:hover { background: var(--color-ink); color: var(--color-night); }
 
-  /* ─────────── Stat */
+  /* ─── Stat number */
   .stat-number {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(2.25rem, 4vw + 1rem, 3.5rem);
+    font-size: clamp(2.5rem, 4.5vw + 1rem, 4rem);
     line-height: 1;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.04em;
     color: var(--color-ink);
+    font-variation-settings: "opsz" 32;
   }
 
-  /* ─────────── Hairline + ornament */
+  /* ─── Animated underline for in-body links */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-clay);
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: -0.005em;
+    position: relative;
+  }
+  .link-arrow::after {
+    content: "→";
+    transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .link-arrow:hover::after { transform: translateX(4px); }
+
+  /* ─── Scroll reveal — opt-in by adding .reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Stagger children */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: none; }
+  .reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 80ms; opacity: 1; transform: none; }
+  .reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 160ms; opacity: 1; transform: none; }
+  .reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 240ms; opacity: 1; transform: none; }
+  .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 320ms; opacity: 1; transform: none; }
+  .reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 400ms; opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; }
+  }
+
+  /* ─── Photo hover */
+  .photo-hover {
+    overflow: hidden;
+  }
+  .photo-hover img {
+    transition: transform 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .photo-hover:hover img {
+    transform: scale(1.04);
+  }
+
+  /* ─── Hairline */
   .hairline { border-top: 1px solid var(--color-line); }
 }

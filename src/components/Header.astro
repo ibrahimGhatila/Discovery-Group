@@ -1,5 +1,6 @@
 ---
 import { corporateNav, orocafeNav } from '~/lib/site';
+import Monogram from './Monogram.astro';
 
 interface Props {
   brand: 'discovery' | 'orocafe';
@@ -10,32 +11,38 @@ const nav = brand === 'orocafe' ? orocafeNav : corporateNav;
 const pathname = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-40 backdrop-blur-lg" style="background: color-mix(in srgb, var(--color-paper) 82%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--color-line) 50%, transparent);">
+<header class="sticky top-0 z-40 backdrop-blur-xl" style="background: color-mix(in srgb, var(--color-paper) 80%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--color-line) 50%, transparent);">
   <div class="mx-auto max-w-[var(--container-7xl)] px-6 lg:px-12">
-    <div class="flex items-center justify-between gap-8 h-16 lg:h-18">
+    <div class="flex items-center justify-between gap-6 h-16 lg:h-[72px]">
 
-      <a href={brand === 'orocafe' ? '/orocafe' : '/'} class="flex items-baseline gap-1" aria-label={brand === 'orocafe' ? 'Orocafe home' : 'Discovery Group home'}>
+      {/* Logo cluster */}
+      <a href={brand === 'orocafe' ? '/orocafe' : '/'} class="flex items-center gap-2.5 group" aria-label={brand === 'orocafe' ? 'Orocafe home' : 'Discovery Group home'}>
         {brand === 'orocafe' ? (
-          <span style="font-weight: 700; font-size: 1.25rem; letter-spacing: -0.025em; color: var(--color-oro);">Orocafe</span>
+          <span style="font-weight: 600; font-size: 1.25rem; letter-spacing: -0.025em; color: var(--color-oro);">Orocafe</span>
         ) : (
           <>
-            <span style="font-weight: 700; font-size: 1.0625rem; letter-spacing: -0.022em;">Discovery</span>
-            <span class="ml-1 text-xs uppercase tracking-[0.18em]" style="color: var(--color-ink-muted); font-weight: 500;">Group</span>
+            <Monogram class="text-[var(--color-clay)]" size={28} />
+            <div class="flex flex-col leading-none">
+              <span style="font-weight: 600; font-size: 0.9375rem; letter-spacing: -0.015em;">Discovery</span>
+              <span class="mt-0.5 text-[0.625rem] uppercase tracking-[0.22em]" style="color: var(--color-ink-muted); font-weight: 500;">Group · Uganda</span>
+            </div>
           </>
         )}
       </a>
 
-      <nav class="hidden md:flex items-center gap-7" aria-label="Primary">
+      {/* Centre nav */}
+      <nav class="hidden lg:flex items-center gap-8" aria-label="Primary">
         {nav.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/' && item.href !== '/orocafe' && pathname.startsWith(item.href));
           return (
             <a
               href={item.href}
               class:list={[
-                'text-sm tracking-tight transition-colors py-1',
-                isActive ? 'text-[var(--color-ink)] font-medium' : 'text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]'
+                'text-sm transition-colors py-1 relative',
+                isActive ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]'
               ]}
               aria-current={isActive ? 'page' : undefined}
+              style={isActive ? "font-weight: 500;" : ""}
             >
               {item.label}
             </a>
@@ -43,16 +50,17 @@ const pathname = Astro.url.pathname;
         })}
       </nav>
 
-      <div class="flex items-center gap-3 lg:gap-5">
-        <div class="hidden sm:flex items-center text-[0.6875rem] tracking-[0.18em] uppercase font-medium">
+      {/* Right cluster */}
+      <div class="flex items-center gap-3 lg:gap-4">
+        <div class="hidden sm:flex items-center text-[0.625rem] tracking-[0.22em] uppercase font-medium">
           <a href="/"
-            class:list={['px-2 py-1 transition-opacity',
+            class:list={['px-2.5 py-1 transition-opacity',
               brand === 'discovery' ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-muted)] hover:opacity-70']}
             aria-current={brand === 'discovery' ? 'page' : undefined}
-          >Discovery</a>
-          <span class="text-[var(--color-line)]" aria-hidden="true">/</span>
+          >DG</a>
+          <span class="text-[var(--color-line)]" aria-hidden="true">·</span>
           <a href="/orocafe"
-            class:list={['px-2 py-1 transition-opacity',
+            class:list={['px-2.5 py-1 transition-opacity',
               brand === 'orocafe' ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-muted)] hover:opacity-70']}
             aria-current={brand === 'orocafe' ? 'page' : undefined}
           >Orocafe</a>
@@ -65,18 +73,18 @@ const pathname = Astro.url.pathname;
           </a>
         )}
 
-        <details class="md:hidden relative">
+        <details class="lg:hidden relative">
           <summary class="list-none cursor-pointer p-2 -mr-2" aria-label="Open menu">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M3 6h18M3 12h18M3 18h18" />
             </svg>
           </summary>
-          <div class="absolute right-0 top-full mt-2 border border-[var(--color-line)] bg-[var(--color-paper)] py-2 min-w-[16rem] shadow-xl">
+          <div class="absolute right-0 top-full mt-2 border border-[var(--color-line)] bg-[var(--color-paper)] py-2 min-w-[16rem] shadow-2xl rounded-lg">
             {nav.map((item) => (
               <a href={item.href} class="block px-5 py-2.5 text-sm hover:bg-[var(--color-paper-warm)]">{item.label}</a>
             ))}
             <div class="border-t border-[var(--color-line-soft)] mt-2 pt-2">
-              <a href="/" class="block px-5 py-2 text-xs uppercase tracking-wider text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-warm)]">Discovery</a>
+              <a href="/" class="block px-5 py-2 text-xs uppercase tracking-wider text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-warm)]">Discovery Group</a>
               <a href="/orocafe" class="block px-5 py-2 text-xs uppercase tracking-wider text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-warm)]">Orocafe</a>
             </div>
           </div>
