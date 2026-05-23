@@ -1,5 +1,6 @@
 ---
 import { site, corporateNav } from '~/lib/site';
+import Container from './Container.astro';
 
 interface Props {
   brand: 'discovery' | 'orocafe';
@@ -7,57 +8,67 @@ interface Props {
 
 const { brand } = Astro.props;
 const year = new Date().getFullYear();
+const isDark = brand === 'orocafe';
 ---
 
-<footer class="mt-32 border-t border-[var(--color-line)]">
-  <div class="mx-auto max-w-[var(--container-7xl)] px-6 lg:px-10 py-16 lg:py-20">
+<footer class="mt-32 relative overflow-hidden" style={isDark
+  ? 'background: var(--color-night); color: var(--color-paper); border-top: 1px solid var(--color-line);'
+  : 'background: var(--color-espresso); color: var(--color-paper);'}>
+
+  <Container class="py-20 lg:py-28">
     <div class="grid gap-12 lg:grid-cols-12">
       <div class="lg:col-span-5">
-        <p class="eyebrow mb-3">{brand === 'orocafe' ? 'A Discovery Group brand' : 'Discovery Group'}</p>
-        <p class="display-lg text-balance">
+        <p class="eyebrow mb-5" style={`color: ${isDark ? 'var(--color-oro)' : 'var(--color-gold-light)'};`}>
+          {brand === 'orocafe' ? 'A Discovery Group brand' : 'Discovery Group'}
+        </p>
+        <p class="display-lg text-balance" style="color: var(--color-paper);">
           {brand === 'orocafe' ? 'Roasted, packed and shipped from Uganda.' : 'Vertically integrated. Operated at origin.'}
         </p>
+        <a href={brand === 'orocafe' ? '/' : '/orocafe'} class="inline-flex items-center gap-2 mt-8 text-sm uppercase tracking-wider hover:opacity-70" style={`color: ${isDark ? 'var(--color-oro)' : 'var(--color-gold-light)'};`}>
+          <span aria-hidden="true">{brand === 'orocafe' ? '←' : '→'}</span>
+          {brand === 'orocafe' ? 'Discovery Group' : 'Visit Orocafe'}
+        </a>
       </div>
 
       <div class="lg:col-span-3">
-        <p class="eyebrow mb-4">Visit</p>
-        <address class="not-italic text-sm leading-relaxed text-[var(--color-ink-muted)]">
+        <p class="eyebrow mb-4" style="color: color-mix(in srgb, var(--color-paper) 60%, transparent);">Visit</p>
+        <address class="not-italic text-sm leading-relaxed" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">
           {site.legalName}<br />
           {site.address.line1}<br />
           {site.address.line2}
         </address>
         <p class="mt-4 text-sm">
-          <a href={`mailto:${site.email}`} class="underline underline-offset-4 hover:text-[var(--color-clay)]">{site.email}</a>
+          <a href={`mailto:${site.email}`} class="underline underline-offset-4 hover:opacity-70" style="color: var(--color-paper);">{site.email}</a>
         </p>
       </div>
 
       <div class="lg:col-span-2">
-        <p class="eyebrow mb-4">Discovery</p>
-        <ul class="space-y-2 text-sm">
+        <p class="eyebrow mb-4" style="color: color-mix(in srgb, var(--color-paper) 60%, transparent);">Discovery</p>
+        <ul class="space-y-2.5 text-sm">
           {corporateNav.map((item) => (
-            <li><a href={item.href} class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">{item.label}</a></li>
+            <li><a href={item.href} class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">{item.label}</a></li>
           ))}
         </ul>
       </div>
 
       <div class="lg:col-span-2">
-        <p class="eyebrow mb-4">Orocafe</p>
-        <ul class="space-y-2 text-sm">
-          <li><a href="/orocafe" class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">Brand home</a></li>
-          <li><a href="/orocafe/products" class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">Products</a></li>
+        <p class="eyebrow mb-4" style="color: color-mix(in srgb, var(--color-paper) 60%, transparent);">Orocafe</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="/orocafe" class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">Brand home</a></li>
+          <li><a href="/orocafe/products" class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">Products</a></li>
         </ul>
-        <p class="eyebrow mt-6 mb-3">Follow</p>
-        <ul class="space-y-2 text-sm">
-          <li><a href={site.social.linkedin} rel="noopener" class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">LinkedIn</a></li>
-          <li><a href={site.social.instagram} rel="noopener" class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">Instagram</a></li>
-          <li><a href={site.social.facebook} rel="noopener" class="text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">Facebook</a></li>
+        <p class="eyebrow mt-7 mb-4" style="color: color-mix(in srgb, var(--color-paper) 60%, transparent);">Follow</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href={site.social.linkedin} rel="noopener" class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">LinkedIn</a></li>
+          <li><a href={site.social.instagram} rel="noopener" class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">Instagram</a></li>
+          <li><a href={site.social.facebook} rel="noopener" class="hover:opacity-70" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent);">Facebook</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-16 pt-8 border-t border-[var(--color-line)] flex flex-col sm:flex-row gap-4 justify-between text-xs text-[var(--color-ink-muted)]">
+    <div class="mt-16 pt-7 flex flex-col sm:flex-row gap-4 justify-between text-xs" style="border-top: 1px solid color-mix(in srgb, var(--color-paper) 18%, transparent); color: color-mix(in srgb, var(--color-paper) 55%, transparent);">
       <p>&copy; {year} {site.legalName}. All rights reserved.</p>
-      <p>Discovery Trading Ltd · Discovery Impex Ltd · Discovery Coftea Ltd (Orocafe)</p>
+      <p>Discovery Trading · Discovery Impex · Discovery Coftea (Orocafe)</p>
     </div>
-  </div>
+  </Container>
 </footer>

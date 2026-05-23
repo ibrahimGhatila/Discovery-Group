@@ -1,0 +1,90 @@
+---
+import CoffeeBranch from './illus/CoffeeBranch.astro';
+import CocoaPod from './illus/CocoaPod.astro';
+import VanillaOrchid from './illus/VanillaOrchid.astro';
+import ChilliBranch from './illus/ChilliBranch.astro';
+import SesameLeaf from './illus/SesameLeaf.astro';
+import BeanCluster from './illus/BeanCluster.astro';
+import CoffeeCup from './illus/CoffeeCup.astro';
+
+/**
+ * "Editorial plate" — an intentional, art-directed placeholder block.
+ * Reads as design, not as a missing image. When real photography lands,
+ * the same components get swapped for <Image> with the same aspect ratio.
+ */
+type Illus = 'coffee' | 'cocoa' | 'vanilla' | 'chilli' | 'sesame' | 'beans' | 'cup' | 'none';
+type Tone = 'paper' | 'forest' | 'clay' | 'dark' | 'oro';
+type Aspect = '16/9' | '4/5' | '1/1' | '3/2' | '21/9' | '5/4';
+
+interface Props {
+  caption: string;
+  number?: string;
+  illus?: Illus;
+  tone?: Tone;
+  aspect?: Aspect;
+  class?: string;
+  /** Hide the editorial label entirely (purely decorative use) */
+  silent?: boolean;
+}
+
+const {
+  caption,
+  number = '01',
+  illus = 'none',
+  tone = 'paper',
+  aspect = '4/5',
+  class: cls = '',
+  silent = false,
+} = Astro.props;
+
+const aspectClass: Record<Aspect, string> = {
+  '16/9': 'aspect-[16/9]',
+  '4/5': 'aspect-[4/5]',
+  '1/1': 'aspect-square',
+  '3/2': 'aspect-[3/2]',
+  '21/9': 'aspect-[21/9]',
+  '5/4': 'aspect-[5/4]',
+};
+
+const toneClass: Record<Tone, string> = {
+  paper: '',
+  forest: 'ep-forest',
+  clay: 'ep-clay',
+  dark: 'ep-dark',
+  oro: 'ep-oro',
+};
+
+const IllusMap = {
+  coffee: CoffeeBranch,
+  cocoa: CocoaPod,
+  vanilla: VanillaOrchid,
+  chilli: ChilliBranch,
+  sesame: SesameLeaf,
+  beans: BeanCluster,
+  cup: CoffeeCup,
+  none: null,
+};
+
+const IllusComponent = IllusMap[illus];
+---
+
+<figure
+  class:list={['editorial-placeholder', aspectClass[aspect], toneClass[tone], 'w-full', cls]}
+  role="img"
+  aria-label={caption}
+>
+  {!silent && <span class="corner">PLATE · {number}</span>}
+
+  {IllusComponent && (
+    <div class="absolute inset-0 flex items-center justify-center">
+      <IllusComponent class="illus w-[55%] h-[80%] max-w-[280px]" />
+    </div>
+  )}
+
+  {!silent && (
+    <figcaption class="label-row">
+      <span class="num">№ {number}</span>
+      <span class="cap">{caption}</span>
+    </figcaption>
+  )}
+</figure>

@@ -1,5 +1,5 @@
 ---
-import PlaceholderPhoto from './PlaceholderPhoto.astro';
+import EditorialPlate from './EditorialPlate.astro';
 
 interface Props {
   title: string;
@@ -9,32 +9,42 @@ interface Props {
   sizes: string[];
   heroCaption: string;
   href: string;
+  index: number;
 }
 
-const { title, category, origin, flavourNotes, sizes, heroCaption, href } = Astro.props;
+const { title, category, origin, flavourNotes, sizes, heroCaption, href, index } = Astro.props;
+const num = String(index).padStart(2, '0');
 ---
 
 <a href={href} class="group block focus:outline-none">
-  <article class="flex flex-col gap-5">
-    <PlaceholderPhoto caption={heroCaption} aspect="3/2" variant="oro" class="transition-opacity group-hover:opacity-90" />
+  <article class="flex flex-col gap-6">
+    <EditorialPlate
+      caption={heroCaption}
+      number={num}
+      illus="cup"
+      tone="oro"
+      aspect="4/5"
+      class="transition-transform duration-500 group-hover:scale-[1.01]"
+    />
 
     <div class="flex flex-col gap-3">
       <div class="flex items-baseline justify-between gap-3">
-        <p class="eyebrow">{category}</p>
-        <p class="text-xs text-[var(--color-ink-muted)]">{origin}</p>
+        <p class="eyebrow" style="color: var(--color-oro);">{category}</p>
+        <span class="font-mono text-[0.625rem] tracking-wider" style="color: var(--color-ink-muted);">№ {num}</span>
       </div>
 
-      <h3 class="h3 group-hover:text-[var(--color-oro-deep)] transition-colors" style="font-family: var(--font-display); font-weight: 500;">
+      <h3 class="text-2xl text-balance transition-colors group-hover:text-[var(--color-oro)]" style="font-family: var(--font-display); font-weight: 500; font-style: italic; font-variation-settings: 'opsz' 144, 'SOFT' 80; letter-spacing: -0.015em; line-height: 1.15;">
         {title}
       </h3>
 
-      <p class="text-sm text-[var(--color-ink-muted)]">
+      <p class="text-sm text-[var(--color-ink-muted)] leading-relaxed">
         {flavourNotes.slice(0, 3).join(' · ')}
       </p>
 
-      <p class="text-xs text-[var(--color-ink-muted)] mt-1">
-        {sizes.join(' · ')}
-      </p>
+      <div class="flex items-baseline justify-between mt-2 pt-3 border-t border-[var(--color-line-soft)]">
+        <p class="text-xs uppercase tracking-wider" style="color: var(--color-ink-muted);">{origin}</p>
+        <p class="text-[0.6875rem] font-mono" style="color: var(--color-ink-muted);">{sizes[0]}</p>
+      </div>
     </div>
   </article>
 </a>

@@ -1,38 +1,49 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Container from '~/components/Container.astro';
-import SectionHeading from '~/components/SectionHeading.astro';
 import OrocafeProductCard from '~/components/OrocafeProductCard.astro';
 import { getCollection } from 'astro:content';
 
 const products = (await getCollection('orocafeProducts')).sort((a, b) => a.data.order - b.data.order);
-
 const categories = [...new Set(products.map((p) => p.data.category))];
 ---
 <BaseLayout title="Products — Orocafe" description="Orocafe's full range — whole bean and ground, Nespresso-compatible capsules, single-serve drip bags, 3-in-1 premixes and instant teas." brand="orocafe">
-  <section class="pt-12 lg:pt-20">
+
+  <section class="py-20 lg:py-32 border-b" style="border-color: var(--color-line);">
     <Container>
-      <SectionHeading
-        level="h1"
-        eyebrow="Products"
-        title="The full range."
-        lede="From whole bean to single-serve. All roasted, ground and sealed at Namanve."
-      />
+      <div class="grid lg:grid-cols-12 gap-10 items-end">
+        <div class="lg:col-span-8">
+          <p class="eyebrow mb-6" style="color: var(--color-oro);">Index · the range</p>
+          <h1 class="display-xl text-balance" style="color: var(--color-paper);">
+            The full range. <span class="italic-soft" style="color: var(--color-oro); font-weight: 380;">All roasted at Namanve.</span>
+          </h1>
+        </div>
+        <p class="lg:col-span-4 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">
+          From whole bean to single-serve. Roasted, ground and sealed at the
+          Discovery Group facility outside Kampala.
+        </p>
+      </div>
     </Container>
   </section>
 
-  <section class="mt-14 lg:mt-20">
+  <section class="py-20 lg:py-24">
     <Container>
-      {categories.map((cat) => {
+      {categories.map((cat, ci) => {
         const items = products.filter((p) => p.data.category === cat);
+        const num = String(ci + 1).padStart(2, '0');
         return (
           <div class="mb-20 last:mb-0">
-            <header class="flex items-baseline justify-between border-b border-[var(--color-line)] pb-4 mb-10">
-              <h2 class="h2" style="font-family: var(--font-display); font-weight: 500;">{cat}</h2>
-              <p class="text-xs tracking-wider uppercase text-[var(--color-ink-muted)]">{items.length} {items.length === 1 ? 'product' : 'products'}</p>
+            <header class="flex items-baseline justify-between border-b pb-5 mb-12" style="border-color: var(--color-line);">
+              <div class="flex items-baseline gap-5">
+                <span class="font-mono text-xs" style="color: var(--color-oro);">№ {num}</span>
+                <h2 class="font-display text-2xl tracking-tight" style="font-family: var(--font-display); font-weight: 500; font-style: italic; color: var(--color-paper);">{cat}</h2>
+              </div>
+              <p class="text-[0.6875rem] tracking-[0.18em] uppercase" style="color: var(--color-ink-muted);">
+                {items.length} {items.length === 1 ? 'product' : 'products'}
+              </p>
             </header>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
-              {items.map((p) => (
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+              {items.map((p, i) => (
                 <OrocafeProductCard
                   title={p.data.title}
                   category={p.data.category}
@@ -41,6 +52,7 @@ const categories = [...new Set(products.map((p) => p.data.category))];
                   sizes={p.data.sizes}
                   heroCaption={p.data.heroCaption}
                   href={`/orocafe/products/${p.id}`}
+                  index={i + 1}
                 />
               ))}
             </div>

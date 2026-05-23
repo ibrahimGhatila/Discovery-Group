@@ -1,6 +1,5 @@
 ---
-import PlaceholderPhoto from './PlaceholderPhoto.astro';
-import CertBadge from './CertBadge.astro';
+import EditorialPlate from './EditorialPlate.astro';
 
 interface Props {
   title: string;
@@ -12,51 +11,64 @@ interface Props {
   heroCaption: string;
   qualityMetricLabel?: string;
   qualityMetricValue?: string;
-  variant?: 'clay' | 'forest';
+  illus: 'coffee' | 'cocoa' | 'vanilla' | 'chilli' | 'sesame' | 'beans';
+  tone: 'forest' | 'clay' | 'dark' | 'paper';
+  index: number;
 }
 
 const {
   title, eyebrow, summary, href, regions, certifications, heroCaption,
-  qualityMetricLabel, qualityMetricValue, variant = 'clay',
+  qualityMetricLabel, qualityMetricValue, illus, tone, index,
 } = Astro.props;
+
+const num = String(index).padStart(2, '0');
+const reversed = index % 2 === 0;
 ---
 
-<a href={href} class="group block focus:outline-none">
-  <article class="grid gap-6 md:grid-cols-12 items-start py-10 border-t border-[var(--color-line)]">
-    <div class="md:col-span-5">
-      <PlaceholderPhoto caption={heroCaption} aspect="4/5" variant={variant} class="transition-opacity group-hover:opacity-90" />
+<a href={href} class="group block focus:outline-none border-t border-[var(--color-line)]" aria-label={`Read full ${title} spec`}>
+  <article class="grid lg:grid-cols-12 gap-x-10 gap-y-8 py-14 lg:py-20 items-center">
+    <div class:list={['lg:col-span-5', reversed ? 'lg:order-2' : '']}>
+      <EditorialPlate
+        caption={heroCaption}
+        number={num}
+        illus={illus}
+        tone={tone}
+        aspect="4/5"
+        class="transition-transform duration-500 group-hover:scale-[1.01]"
+      />
     </div>
 
-    <div class="md:col-span-7 flex flex-col gap-5">
-      <div>
-        <p class="eyebrow mb-2">{eyebrow}</p>
-        <h3 class="h1 group-hover:text-[var(--color-clay)] transition-colors">{title}</h3>
+    <div class:list={['lg:col-span-7 flex flex-col gap-6', reversed ? 'lg:order-1' : '']}>
+      <div class="flex items-baseline gap-4">
+        <span class="font-mono text-xs text-[var(--color-ink-muted)] tracking-wider">№ {num}</span>
+        <p class="eyebrow">{eyebrow}</p>
       </div>
 
-      <p class="text-[var(--color-ink-muted)] leading-relaxed max-w-2xl">{summary}</p>
+      <h3 class="display-lg group-hover:text-[var(--color-clay)] transition-colors text-balance">
+        {title}
+      </h3>
 
-      <div class="grid gap-4 sm:grid-cols-2 pt-2">
+      <p class="text-[var(--color-ink-muted)] leading-relaxed max-w-2xl text-[1.0625rem]">{summary}</p>
+
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 pt-3 border-t border-[var(--color-line-soft)] max-w-2xl">
         <div>
-          <p class="eyebrow mb-2">Origin regions</p>
-          <ul class="text-sm space-y-1">
-            {regions.slice(0, 3).map((r) => <li>{r}</li>)}
-            {regions.length > 3 && <li class="text-[var(--color-ink-muted)]">+ {regions.length - 3} more</li>}
-          </ul>
+          <p class="eyebrow eyebrow-muted mb-1.5">Origin</p>
+          <p class="text-sm leading-snug">{regions.slice(0, 2).join(' · ')}{regions.length > 2 ? ` + ${regions.length - 2}` : ''}</p>
         </div>
         {qualityMetricLabel && qualityMetricValue && (
           <div>
-            <p class="eyebrow mb-2">{qualityMetricLabel}</p>
-            <p class="font-display text-2xl tracking-tight">{qualityMetricValue}</p>
+            <p class="eyebrow eyebrow-muted mb-1.5">{qualityMetricLabel}</p>
+            <p class="font-display text-lg tracking-tight" style="font-family: var(--font-display); font-weight: 500;">{qualityMetricValue}</p>
           </div>
         )}
+        <div>
+          <p class="eyebrow eyebrow-muted mb-1.5">Certifications</p>
+          <p class="text-sm">{certifications.slice(0, 2).join(' · ')}{certifications.length > 2 ? '...' : ''}</p>
+        </div>
       </div>
 
-      <div class="flex flex-wrap gap-2 pt-2">
-        {certifications.map((c) => <CertBadge cert={c} />)}
-      </div>
-
-      <p class="mt-2 inline-flex items-center gap-2 text-sm font-medium text-[var(--color-clay)]">
-        Read full spec
+      <p class="mt-3 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-[var(--color-clay)]">
+        Full spec
         <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
       </p>
     </div>

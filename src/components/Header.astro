@@ -10,89 +10,85 @@ const nav = brand === 'orocafe' ? orocafeNav : corporateNav;
 const pathname = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-40 backdrop-blur-md" style="background: color-mix(in srgb, var(--color-paper) 88%, transparent);">
-  <div class="border-b border-[var(--color-line)]">
-    <!-- Brand switcher -->
-    <div class="mx-auto max-w-[var(--container-7xl)] px-6 lg:px-10">
-      <nav class="flex items-center justify-end gap-1 py-2 text-xs tracking-wider uppercase" aria-label="Brand switcher">
-        <a
-          href="/"
-          class:list={[
-            'px-2 py-1 transition-opacity',
-            brand === 'discovery' ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-muted)] hover:opacity-80'
-          ]}
-          aria-current={brand === 'discovery' ? 'page' : undefined}
-        >
-          Discovery Group
-        </a>
-        <span aria-hidden="true" class="text-[var(--color-ink-muted)]">/</span>
-        <a
-          href="/orocafe"
-          class:list={[
-            'px-2 py-1 transition-opacity',
-            brand === 'orocafe' ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-muted)] hover:opacity-80'
-          ]}
-          aria-current={brand === 'orocafe' ? 'page' : undefined}
-        >
-          Orocafe
-        </a>
-      </nav>
-    </div>
-  </div>
+<header class="sticky top-0 z-40 backdrop-blur-md" style="background: color-mix(in srgb, var(--color-paper) 86%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--color-line) 60%, transparent);">
+  <div class="mx-auto max-w-[var(--container-7xl)] px-6 lg:px-12">
+    <div class="flex items-center justify-between gap-8 py-4">
 
-  <div class="mx-auto max-w-[var(--container-7xl)] px-6 lg:px-10">
-    <div class="flex items-center justify-between gap-8 py-5">
-      <a href={brand === 'orocafe' ? '/orocafe' : '/'} class="group flex items-center gap-3" aria-label={brand === 'orocafe' ? 'Orocafe home' : 'Discovery Group home'}>
+      <!-- Wordmark -->
+      <a href={brand === 'orocafe' ? '/orocafe' : '/'} class="flex items-baseline gap-3 group" aria-label={brand === 'orocafe' ? 'Orocafe home' : 'Discovery Group home'}>
         {brand === 'orocafe' ? (
-          <span class="font-display text-2xl tracking-tight" style="font-family: var(--font-display); font-weight: 600;">Orocafe</span>
+          <span class="font-display tracking-tight" style="font-family: var(--font-display); font-weight: 480; font-size: 1.75rem; font-style: italic; font-variation-settings: 'opsz' 144, 'SOFT' 100; color: var(--color-oro);">
+            Orocafe
+          </span>
         ) : (
-          <>
-            <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" class="text-[var(--color-clay)]">
-              <circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-width="1.5" />
-              <path d="M16 4 L20 16 L16 28 L12 16 Z" fill="currentColor" />
-            </svg>
-            <span class="font-display text-xl tracking-tight" style="font-family: var(--font-display); font-weight: 600;">Discovery Group</span>
-          </>
+          <span class="font-display tracking-tight" style="font-family: var(--font-display); font-weight: 520; font-size: 1.35rem; letter-spacing: -0.015em;">
+            Discovery <span style="color: var(--color-clay);">·</span> Group
+          </span>
         )}
       </a>
 
-      <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
+      <!-- Centre nav (desktop) -->
+      <nav class="hidden md:flex items-center gap-7" aria-label="Primary">
         {nav.map((item) => {
-          const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+          const isActive = pathname === item.href || (item.href !== '/' && item.href !== '/orocafe' && pathname.startsWith(item.href));
           return (
             <a
               href={item.href}
               class:list={[
-                'px-3 py-2 text-sm transition-colors',
+                'text-sm tracking-wide transition-colors relative py-1',
                 isActive ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]'
               ]}
               aria-current={isActive ? 'page' : undefined}
+              style={isActive ? 'border-bottom: 1px solid var(--color-clay)' : ''}
             >
               {item.label}
             </a>
           );
         })}
-        {brand === 'discovery' && (
-          <a href="/contact" class="btn btn-primary ml-3 text-sm" style="padding: 0.625rem 1.125rem; min-height: auto;">
-            Inquire
-          </a>
-        )}
       </nav>
 
-      <details class="md:hidden">
-        <summary class="list-none cursor-pointer p-2 -mr-2" aria-label="Open menu">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
-            <path d="M3 6h18M3 12h18M3 18h18" />
-          </svg>
-        </summary>
-        <div class="absolute right-0 mt-2 mr-6 border border-[var(--color-line)] bg-[var(--color-paper)] py-2 min-w-[14rem]">
-          {nav.map((item) => (
-            <a href={item.href} class="block px-4 py-2 text-sm hover:bg-[var(--color-paper-deep)]">
-              {item.label}
-            </a>
-          ))}
+      <!-- Right cluster: brand switcher + CTA -->
+      <div class="flex items-center gap-3 lg:gap-5">
+        <div class="hidden sm:flex items-center text-[0.6875rem] tracking-[0.18em] uppercase">
+          <a
+            href="/"
+            class:list={['px-2 py-1 transition-opacity',
+              brand === 'discovery' ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-muted)] hover:opacity-70']}
+            aria-current={brand === 'discovery' ? 'page' : undefined}
+          >Discovery</a>
+          <span class="text-[var(--color-line)]" aria-hidden="true">/</span>
+          <a
+            href="/orocafe"
+            class:list={['px-2 py-1 transition-opacity',
+              brand === 'orocafe' ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-muted)] hover:opacity-70']}
+            aria-current={brand === 'orocafe' ? 'page' : undefined}
+          >Orocafe</a>
         </div>
-      </details>
+
+        {brand === 'discovery' && (
+          <a href="/contact" class="hidden md:inline-flex items-center gap-2 text-sm font-medium px-4 py-2.5 bg-[var(--color-ink)] text-[var(--color-paper)] hover:bg-[var(--color-clay)] transition-colors uppercase tracking-wider">
+            <span class="text-xs">Inquire</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        )}
+
+        <details class="md:hidden relative">
+          <summary class="list-none cursor-pointer p-2 -mr-2" aria-label="Open menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </summary>
+          <div class="absolute right-0 top-full mt-2 border border-[var(--color-line)] bg-[var(--color-paper)] py-2 min-w-[16rem] shadow-xl">
+            {nav.map((item) => (
+              <a href={item.href} class="block px-5 py-2.5 text-sm hover:bg-[var(--color-paper-warm)]">{item.label}</a>
+            ))}
+            <div class="border-t border-[var(--color-line-soft)] mt-2 pt-2">
+              <a href="/" class="block px-5 py-2 text-xs uppercase tracking-wider text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-warm)]">Discovery</a>
+              <a href="/orocafe" class="block px-5 py-2 text-xs uppercase tracking-wider text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-warm)]">Orocafe</a>
+            </div>
+          </div>
+        </details>
+      </div>
     </div>
   </div>
 </header>

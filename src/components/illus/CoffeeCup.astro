@@ -1,0 +1,23 @@
+---
+interface Props { class?: string; size?: number; }
+const { class: cls = '', size = 200 } = Astro.props;
+---
+<svg viewBox="0 0 240 200" width={size} fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class={cls} aria-hidden="true">
+  <!-- steam -->
+  <path d="M90 30 Q86 18 92 6" stroke-width="1"/>
+  <path d="M118 35 Q114 20 122 8" stroke-width="1"/>
+  <path d="M146 32 Q142 18 150 4" stroke-width="1"/>
+  <!-- saucer -->
+  <ellipse cx="120" cy="170" rx="100" ry="14"/>
+  <path d="M48 170 Q120 188 192 170" stroke-width="0.8"/>
+  <!-- cup -->
+  <path d="M70 60 L70 130 Q70 160 120 160 Q170 160 170 130 L170 60Z" fill="currentColor" fill-opacity="0.04"/>
+  <path d="M70 60 L70 130 Q70 160 120 160 Q170 160 170 130 L170 60Z"/>
+  <ellipse cx="120" cy="60" rx="50" ry="10"/>
+  <!-- handle -->
+  <path d="M170 80 Q200 80 200 110 Q200 138 170 138"/>
+  <path d="M170 90 Q190 92 190 110 Q190 128 170 128" stroke-width="0.8"/>
+  <!-- coffee surface ellipse with crema -->
+  <ellipse cx="120" cy="62" rx="46" ry="8" fill="currentColor" fill-opacity="0.85"/>
+  <ellipse cx="120" cy="60" rx="42" ry="6" fill="currentColor" fill-opacity="0.4"/>
+</svg>

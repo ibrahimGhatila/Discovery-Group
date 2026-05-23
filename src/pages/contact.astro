@@ -4,38 +4,32 @@ import Container from '~/components/Container.astro';
 import { site } from '~/lib/site';
 
 const commodities = [
-  'Coffee — Arabica',
-  'Coffee — Robusta',
-  'Cocoa',
-  'Vanilla',
-  "Bird's eye chilli",
-  'Sesame',
-  'Beans & pulses',
-  'Orocafe (consumer)',
-  'Other',
+  'Coffee — Arabica', 'Coffee — Robusta', 'Cocoa', 'Vanilla',
+  "Bird's eye chilli", 'Sesame', 'Beans & pulses', 'Orocafe (consumer)', 'Other',
 ];
 
 const certifications = ['Organic', 'Rainforest Alliance', 'Fairtrade', 'Halal', 'EUDR-ready', 'Kosher'];
 ---
 <BaseLayout title="Contact — Discovery Group" description="Discovery Group inquiry form for B2B sourcing, samples and visits. Plot 92, Namanve Industrial Area, Kampala, Uganda.">
 
-  <section class="pt-12 lg:pt-20">
+  <section class="py-20 lg:py-32 border-b border-[var(--color-line)]">
     <Container>
-      <div class="grid lg:grid-cols-12 gap-12 items-start">
-        <div class="lg:col-span-5 lg:sticky lg:top-32 self-start flex flex-col gap-8">
-          <div>
-            <p class="eyebrow mb-3">Contact</p>
-            <h1 class="display-lg text-balance">Let's get specific.</h1>
-            <p class="lede mt-5">
-              Tell us what commodity, volume and destination you're working
-              toward. We'll come back with sample availability, current
-              indicative pricing, and the documentation pack for your
-              market.
-            </p>
-          </div>
-
-          <div class="border-t border-[var(--color-line)] pt-6">
-            <p class="eyebrow mb-3">Visit us</p>
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow mb-6">№ 08 · Contact</p>
+          <h1 class="display-xl text-balance">
+            Let's get <span class="italic-soft" style="color: var(--color-clay); font-weight: 380;">specific.</span>
+          </h1>
+          <p class="lede lede-wide mt-7">
+            Tell us what commodity, volume and destination you're working
+            toward. We'll come back with sample availability, current
+            indicative pricing, and the documentation pack for your
+            market.
+          </p>
+        </div>
+        <aside class="lg:col-span-5 flex flex-col gap-5 lg:pb-3">
+          <div class="border-l-2 border-[var(--color-clay)] pl-6">
+            <p class="eyebrow eyebrow-muted mb-2">Visit us</p>
             <address class="not-italic leading-relaxed text-sm">
               {site.legalName}<br />
               {site.address.line1}<br />
@@ -45,116 +39,128 @@ const certifications = ['Organic', 'Rainforest Alliance', 'Fairtrade', 'Halal', 
               <a href={`mailto:${site.email}`} class="underline underline-offset-4 hover:text-[var(--color-clay)]">{site.email}</a>
             </p>
           </div>
-
-          <div class="border-t border-[var(--color-line)] pt-6">
-            <p class="eyebrow mb-3">Not a B2B inquiry?</p>
-            <p class="text-sm leading-relaxed">
-              For Orocafe consumer questions, distributor opportunities or
-              press, write to <a class="underline underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a> with the subject prefix.
+          <div class="border-l-2 border-[var(--color-line)] pl-6">
+            <p class="eyebrow eyebrow-muted mb-2">Not a B2B inquiry?</p>
+            <p class="text-sm leading-relaxed text-[var(--color-ink-muted)]">
+              For Orocafe consumer questions, distributor opportunities or press,
+              write to <a class="underline underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a> with the subject prefix.
             </p>
           </div>
-        </div>
-
-        <!-- INQUIRY FORM -->
-        <form
-          name="b2b-inquiry"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-          class="lg:col-span-7 flex flex-col gap-8"
-        >
-          <input type="hidden" name="form-name" value="b2b-inquiry" />
-          <p hidden>
-            <label>Don't fill: <input name="bot-field" /></label>
-          </p>
-
-          <fieldset class="flex flex-col gap-6">
-            <legend class="eyebrow">1 · What you need</legend>
-
-            <label class="flex flex-col gap-2">
-              <span class="text-sm font-medium">Commodity <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
-              <select name="commodity" required class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[44px]">
-                <option value="" disabled selected>Select a commodity</option>
-                {commodities.map((c) => <option value={c}>{c}</option>)}
-              </select>
-            </label>
-
-            <div class="grid sm:grid-cols-2 gap-6">
-              <label class="flex flex-col gap-2">
-                <span class="text-sm font-medium">Indicative volume <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
-                <input type="text" name="volume" required placeholder="e.g. 19.2 MT / 1×20'FCL" class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[44px]" />
-              </label>
-              <label class="flex flex-col gap-2">
-                <span class="text-sm font-medium">Target arrival</span>
-                <input type="month" name="target-arrival" class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[44px]" />
-              </label>
-            </div>
-
-            <label class="flex flex-col gap-2">
-              <span class="text-sm font-medium">Destination port / country <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
-              <input type="text" name="destination" required placeholder="e.g. Hamburg, Germany" class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[44px]" />
-            </label>
-
-            <fieldset class="flex flex-col gap-3">
-              <legend class="text-sm font-medium">Certifications needed</legend>
-              <div class="grid sm:grid-cols-3 gap-2">
-                {certifications.map((c) => (
-                  <label class="flex items-center gap-2 text-sm border border-[var(--color-line)] px-3 py-2 hover:bg-[var(--color-paper-deep)] cursor-pointer">
-                    <input type="checkbox" name="certifications" value={c} />
-                    <span>{c}</span>
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-          </fieldset>
-
-          <fieldset class="flex flex-col gap-6 border-t border-[var(--color-line)] pt-8">
-            <legend class="eyebrow">2 · Who you are</legend>
-
-            <div class="grid sm:grid-cols-2 gap-6">
-              <label class="flex flex-col gap-2">
-                <span class="text-sm font-medium">Company <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
-                <input type="text" name="company" required class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[44px]" />
-              </label>
-              <label class="flex flex-col gap-2">
-                <span class="text-sm font-medium">Country</span>
-                <input type="text" name="country" class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[44px]" />
-              </label>
-            </div>
-
-            <div class="grid sm:grid-cols-2 gap-6">
-              <label class="flex flex-col gap-2">
-                <span class="text-sm font-medium">Your name <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
-                <input type="text" name="name" required class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[44px]" />
-              </label>
-              <label class="flex flex-col gap-2">
-                <span class="text-sm font-medium">Email <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
-                <input type="email" name="email" required class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[44px]" />
-              </label>
-            </div>
-
-            <label class="flex flex-col gap-2">
-              <span class="text-sm font-medium">Phone <span class="text-[var(--color-ink-muted)] text-xs">— optional</span></span>
-              <input type="tel" name="phone" class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[44px]" />
-            </label>
-          </fieldset>
-
-          <fieldset class="flex flex-col gap-3 border-t border-[var(--color-line)] pt-8">
-            <legend class="eyebrow">3 · Anything else</legend>
-            <label class="flex flex-col gap-2">
-              <span class="text-sm font-medium">Notes</span>
-              <textarea name="notes" rows="5" placeholder="Specific grades, packaging, certifications scope, end-use, supply-chain due diligence requirements." class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base resize-y"></textarea>
-            </label>
-          </fieldset>
-
-          <div class="flex flex-wrap items-center justify-between gap-4 pt-4">
-            <p class="text-xs text-[var(--color-ink-muted)] max-w-md">
-              We respond within two business days. We do not sell or share your details.
-            </p>
-            <button type="submit" class="btn btn-primary">Send inquiry</button>
-          </div>
-        </form>
+        </aside>
       </div>
+    </Container>
+  </section>
+
+  <section class="py-20 lg:py-28">
+    <Container>
+      <form
+        name="b2b-inquiry"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="grid lg:grid-cols-12 gap-x-12 gap-y-10"
+      >
+        <input type="hidden" name="form-name" value="b2b-inquiry" />
+        <p hidden>
+          <label>Don't fill: <input name="bot-field" /></label>
+        </p>
+
+        <fieldset class="lg:col-span-7 flex flex-col gap-7 border-t border-[var(--color-line)] pt-6">
+          <legend class="float-none flex items-baseline gap-3 mb-3">
+            <span class="font-mono text-xs text-[var(--color-clay)]">01</span>
+            <span class="eyebrow">What you need</span>
+          </legend>
+
+          <label class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Commodity <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
+            <select name="commodity" required class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[48px]">
+              <option value="" disabled selected>Select a commodity</option>
+              {commodities.map((c) => <option value={c}>{c}</option>)}
+            </select>
+          </label>
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <label class="flex flex-col gap-2">
+              <span class="text-sm font-medium">Indicative volume <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
+              <input type="text" name="volume" required placeholder="e.g. 19.2 MT / 1×20'FCL" class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[48px]" />
+            </label>
+            <label class="flex flex-col gap-2">
+              <span class="text-sm font-medium">Target arrival</span>
+              <input type="month" name="target-arrival" class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[48px]" />
+            </label>
+          </div>
+
+          <label class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Destination port / country <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
+            <input type="text" name="destination" required placeholder="e.g. Hamburg, Germany" class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[48px]" />
+          </label>
+
+          <fieldset class="flex flex-col gap-3 mt-2">
+            <legend class="text-sm font-medium mb-2">Certifications needed</legend>
+            <div class="grid sm:grid-cols-3 gap-2">
+              {certifications.map((c) => (
+                <label class="flex items-center gap-2 text-sm border border-[var(--color-line)] px-3 py-2.5 hover:bg-[var(--color-paper-warm)] cursor-pointer">
+                  <input type="checkbox" name="certifications" value={c} />
+                  <span>{c}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="lg:col-span-5 flex flex-col gap-7 border-t border-[var(--color-line)] pt-6">
+          <legend class="float-none flex items-baseline gap-3 mb-3">
+            <span class="font-mono text-xs text-[var(--color-clay)]">02</span>
+            <span class="eyebrow">Who you are</span>
+          </legend>
+
+          <label class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Company <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
+            <input type="text" name="company" required class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[48px]" />
+          </label>
+
+          <label class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Country</span>
+            <input type="text" name="country" class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[48px]" />
+          </label>
+
+          <label class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Your name <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
+            <input type="text" name="name" required class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[48px]" />
+          </label>
+
+          <label class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Email <span aria-hidden="true" class="text-[var(--color-clay)]">*</span></span>
+            <input type="email" name="email" required class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[48px]" />
+          </label>
+
+          <label class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Phone <span class="text-[var(--color-ink-muted)] text-xs">— optional</span></span>
+            <input type="tel" name="phone" class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base min-h-[48px]" />
+          </label>
+        </fieldset>
+
+        <fieldset class="lg:col-span-12 flex flex-col gap-3 border-t border-[var(--color-line)] pt-6">
+          <legend class="float-none flex items-baseline gap-3 mb-3">
+            <span class="font-mono text-xs text-[var(--color-clay)]">03</span>
+            <span class="eyebrow">Anything else</span>
+          </legend>
+          <label class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Notes</span>
+            <textarea name="notes" rows="5" placeholder="Specific grades, packaging, certifications scope, end-use, supply-chain due diligence requirements." class="border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-3 text-base resize-y"></textarea>
+          </label>
+        </fieldset>
+
+        <div class="lg:col-span-12 flex flex-wrap items-center justify-between gap-4 pt-2">
+          <p class="text-xs text-[var(--color-ink-muted)] max-w-md">
+            We respond within two business days. We do not sell or share your details.
+          </p>
+          <button type="submit" class="btn btn-primary">
+            <span>Send inquiry</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </form>
     </Container>
   </section>
 </BaseLayout>

@@ -1,21 +1,22 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Container from '~/components/Container.astro';
-import PlaceholderPhoto from '~/components/PlaceholderPhoto.astro';
-import SectionHeading from '~/components/SectionHeading.astro';
+import EditorialPlate from '~/components/EditorialPlate.astro';
 import CertBadge from '~/components/CertBadge.astro';
+import UgandaMap from '~/components/illus/UgandaMap.astro';
 ---
 <BaseLayout title="Sustainability — Discovery Group" description="Smallholder relationships, traceability, certifications and EUDR-readiness at Discovery Group.">
 
-  <section class="pt-12 lg:pt-20">
+  <section class="py-20 lg:py-32 border-b border-[var(--color-line)]">
     <Container>
-      <div class="grid lg:grid-cols-12 gap-12 items-end">
-        <div class="lg:col-span-7 flex flex-col gap-6">
-          <p class="eyebrow">Sustainability</p>
-          <h1 class="display-lg text-balance">
-            Improving smallholder livelihoods is the business model — not the CSR footnote.
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow mb-6">№ 06 · Sustainability</p>
+          <h1 class="display-xl text-balance">
+            The supply we depend on <br/>
+            <span class="italic-soft" style="color: var(--color-clay); font-weight: 380;">is the supply we invest in.</span>
           </h1>
-          <p class="lede">
+          <p class="lede lede-wide mt-8">
             Discovery Group was founded in 2014 with a single thesis: a
             vertically integrated origin operator can pay producers more,
             ship higher quality, and still hold its margin. Ten years on,
@@ -23,91 +24,87 @@ import CertBadge from '~/components/CertBadge.astro';
           </p>
         </div>
         <div class="lg:col-span-5">
-          <PlaceholderPhoto caption="Smallholder coffee garden under shade, Bugishu" aspect="4/5" variant="forest" />
+          <EditorialPlate caption="Smallholder coffee garden under shade, Bugishu" number="06" illus="coffee" tone="forest" aspect="4/5" />
         </div>
       </div>
     </Container>
   </section>
 
-  <!-- KEY COMMITMENTS -->
-  <section class="mt-20 lg:mt-28">
+  {/* FOUR COMMITMENTS */}
+  <section class="py-24 lg:py-32">
     <Container>
-      <SectionHeading
-        eyebrow="The four commitments"
-        title="What we hold ourselves to."
-        lede="Each one is a working programme at Namanve, not a marketing line."
-      />
+      <div class="grid lg:grid-cols-12 gap-10 mb-16 items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow mb-5">№ 01 · The four commitments</p>
+          <h2 class="display-lg text-balance">
+            What we hold ourselves to.
+          </h2>
+        </div>
+        <p class="lg:col-span-5 text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)] lg:max-w-md">
+          Each one is a working programme at Namanve. Not a marketing line.
+        </p>
+      </div>
 
-      <div class="mt-14 grid lg:grid-cols-2 gap-x-12 gap-y-14">
+      <div class="grid lg:grid-cols-2 gap-x-12 gap-y-14">
         {[
-          {
-            label: 'Traceability',
-            title: 'Every lot, every cooperative, every harvest.',
-            body: 'We hold cooperative-level data — region, geolocation polygon, harvest window, processing log — for every lot we ship. EUDR-bound consignments carry the complete geolocation file from cherry to FCL.',
-          },
-          {
-            label: 'Direct payment',
-            title: 'Premium above commodity, paid quickly.',
-            body: 'For specialty lots we pay a quality premium above the day\'s commodity price, settled within agreed terms of delivery to the cooperative. The premium is recorded against the lot and visible to the buyer.',
-          },
-          {
-            label: 'Training at origin',
-            title: 'Agronomy, post-harvest, and certification support.',
-            body: 'We run season-opening agronomy clinics with cooperatives, focused on the practices that actually move the cup: cherry selection, ferment timing, and drying discipline. Certification documentation is supported by our team, not outsourced.',
-          },
-          {
-            label: 'Women in the supply',
-            title: 'Targeted training programmes for women smallholders.',
-            body: 'Women run most post-harvest sorting and a growing share of farm management. Our training cycles target women-led plots specifically and our buying teams record the demographic split of every cooperative lot.',
-          },
-        ].map((item) => (
-          <div class="flex flex-col gap-3">
-            <p class="eyebrow">{item.label}</p>
-            <h3 class="h2 text-balance">{item.title}</h3>
-            <p class="text-[var(--color-ink-muted)] leading-relaxed max-w-prose">{item.body}</p>
-          </div>
+          ['01', 'Traceability', 'Every lot, every cooperative, every harvest.',
+            'We hold cooperative-level data — region, geolocation polygon, harvest window, processing log — for every lot we ship. EUDR-bound consignments carry the complete geolocation file from cherry to FCL.'],
+          ['02', 'Direct payment', 'Premium above commodity, paid quickly.',
+            "For specialty lots we pay a quality premium above the day's commodity price, settled within agreed terms of delivery to the cooperative. The premium is recorded against the lot and visible to the buyer."],
+          ['03', 'Training at origin', 'Agronomy, post-harvest, and certification support.',
+            "We run season-opening agronomy clinics with cooperatives, focused on the practices that actually move the cup: cherry selection, ferment timing, and drying discipline. Certification documentation is supported by our team, not outsourced."],
+          ['04', 'Women in the supply', 'Targeted training programmes for women smallholders.',
+            'Women run most post-harvest sorting and a growing share of farm management. Our training cycles target women-led plots specifically and our buying teams record the demographic split of every cooperative lot.'],
+        ].map(([num, label, title, body]) => (
+          <article class="flex gap-6 lg:gap-8">
+            <span class="font-mono text-xs text-[var(--color-clay)] pt-2 shrink-0">{num}</span>
+            <div class="flex flex-col gap-3 flex-1">
+              <p class="eyebrow">{label}</p>
+              <h3 class="font-display text-2xl tracking-tight text-balance" style="font-family: var(--font-display); font-weight: 540;">{title}</h3>
+              <p class="text-[var(--color-ink-muted)] leading-relaxed max-w-prose">{body}</p>
+            </div>
+          </article>
         ))}
       </div>
     </Container>
   </section>
 
-  <!-- IMPACT STRIP -->
-  <section class="mt-24 lg:mt-32" style="background: var(--color-paper-deep);">
-    <Container class="py-16 lg:py-24">
-      <p class="eyebrow mb-6">Indicative impact</p>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
+  {/* IMPACT STRIP */}
+  <section class="py-24 lg:py-32" style="background: var(--color-espresso); color: var(--color-paper);">
+    <Container>
+      <p class="eyebrow mb-12" style="color: var(--color-gold-light);">№ 02 · Indicative impact</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 border-t pt-12" style="border-color: color-mix(in srgb, var(--color-paper) 20%, transparent);">
         {[
-          ['~50', 'Discovery employees · Namanve & origin'],
+          ['~50', 'Discovery employees at Namanve + origin'],
           ['~900', 'Cooperative smallholders in active programmes'],
           ['7', 'Commodity lines with traceability protocols'],
-          ['100%', 'EUDR-bound lots with geolocation files on file'],
+          ['100%', 'EUDR-bound lots with geolocation files'],
         ].map(([k, v]) => (
           <div>
-            <p class="font-display text-4xl lg:text-5xl tracking-tight" style="font-family: var(--font-display); font-weight: 600;">{k}</p>
-            <p class="mt-2 text-sm text-[var(--color-ink-muted)]">{v}</p>
+            <p class="font-display tracking-tight" style="font-family: var(--font-display); font-weight: 480; font-size: clamp(2.75rem, 5vw + 1rem, 4.5rem); line-height: 1; color: var(--color-gold-light);">{k}</p>
+            <p class="mt-4 text-sm leading-snug max-w-[14rem]" style="color: color-mix(in srgb, var(--color-paper) 70%, transparent);">{v}</p>
           </div>
         ))}
       </div>
-      <p class="mt-10 text-xs text-[var(--color-ink-muted)] max-w-2xl">
-        Figures shown are indicative for the redesigned site. We will replace
-        them with audited annual figures once the Discovery 2025 impact
-        review is published.
+      <p class="mt-16 text-xs max-w-2xl" style="color: color-mix(in srgb, var(--color-paper) 50%, transparent);">
+        Indicative figures for the redesigned site. Replaced with audited annual
+        figures once the Discovery 2025 impact review is published.
       </p>
     </Container>
   </section>
 
-  <!-- CERTIFICATIONS -->
-  <section class="mt-24 lg:mt-32">
+  {/* CERTIFICATIONS */}
+  <section class="py-24 lg:py-32">
     <Container>
       <div class="grid lg:grid-cols-12 gap-12">
         <div class="lg:col-span-5">
-          <SectionHeading
-            eyebrow="Certifications"
-            title="Audited, documented, attached to the lot."
-            lede="Certifications are not a homepage decoration. We carry the cert that the lot was bought against — and we ship the documentation with it."
-          />
+          <p class="eyebrow mb-5">№ 03 · Certifications</p>
+          <h2 class="display-lg text-balance">
+            Audited. Documented. <br/>
+            <span class="italic-soft" style="color: var(--color-clay); font-weight: 380;">Attached to the lot.</span>
+          </h2>
         </div>
-        <div class="lg:col-span-7 grid gap-y-3">
+        <div class="lg:col-span-7 flex flex-col gap-6">
           <div class="flex flex-wrap gap-3">
             <CertBadge cert="Organic" />
             <CertBadge cert="Rainforest Alliance" />
@@ -116,26 +113,28 @@ import CertBadge from '~/components/CertBadge.astro';
             <CertBadge cert="EUDR-ready" />
             <CertBadge cert="UCDA" />
           </div>
-          <p class="text-sm text-[var(--color-ink-muted)] leading-relaxed max-w-prose mt-4">
-            Certification eligibility varies by commodity and lot. Specific
-            certificate scopes, certifying bodies and audit dates are
-            provided with sample dispatch and on the bill of lading.
+          <p class="text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)] max-w-prose">
+            Certifications are not a homepage decoration. We carry the
+            cert that the lot was bought against — and we ship the
+            documentation with it. Certificate scopes, certifying bodies
+            and audit dates are provided with sample dispatch and on the
+            bill of lading.
           </p>
         </div>
       </div>
     </Container>
   </section>
 
-  <!-- EUDR -->
-  <section class="mt-24 lg:mt-32">
+  {/* EUDR */}
+  <section class="py-20 lg:py-28">
     <Container>
-      <div class="border border-[var(--color-line)] p-8 lg:p-14 bg-[var(--color-paper-deep)]">
+      <div class="border border-[var(--color-line)] p-10 lg:p-16" style="background: var(--color-paper-warm);">
         <div class="grid lg:grid-cols-12 gap-10 items-start">
           <div class="lg:col-span-4">
-            <p class="eyebrow mb-3">For European buyers</p>
-            <h2 class="h1 text-balance">EUDR readiness</h2>
+            <p class="eyebrow mb-5">For European buyers</p>
+            <h2 class="display-lg text-balance">EUDR readiness.</h2>
           </div>
-          <div class="lg:col-span-8 flex flex-col gap-4 text-[var(--color-ink-muted)] leading-relaxed">
+          <div class="lg:col-span-8 flex flex-col gap-5 text-[var(--color-ink-muted)] leading-relaxed text-[1.0625rem]">
             <p>
               For coffee, cocoa and rubber-adjacent shipments destined for
               the European Union, Discovery prepares the full EUDR
@@ -148,11 +147,29 @@ import CertBadge from '~/components/CertBadge.astro';
               point during buying. Our process is auditable end-to-end;
               the file is part of the shipping pack, not an afterthought.
             </p>
-            <p class="text-sm">
-              Buyers preparing their own EUDR submissions can request the
-              geolocation file in advance with the contract.
-            </p>
           </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* GEOGRAPHY */}
+  <section class="py-24 lg:py-32" style="background: var(--color-espresso); color: var(--color-paper);">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-5">
+          <p class="eyebrow mb-5" style="color: var(--color-gold-light);">№ 04 · Geography</p>
+          <h2 class="display-lg text-balance" style="color: var(--color-paper);">
+            Six origin belts.
+          </h2>
+          <p class="mt-7 leading-relaxed text-[1.0625rem]" style="color: color-mix(in srgb, var(--color-paper) 75%, transparent); max-width: 32rem;">
+            Cooperative aggregations across all six belts feed the
+            Namanve floor. Each commodity is traceable to its belt,
+            its cooperative, and its season.
+          </p>
+        </div>
+        <div class="lg:col-span-7">
+          <UgandaMap class="w-full h-auto text-[var(--color-paper)]" />
         </div>
       </div>
     </Container>

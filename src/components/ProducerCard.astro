@@ -1,5 +1,5 @@
 ---
-import PlaceholderPhoto from './PlaceholderPhoto.astro';
+import EditorialPlate from './EditorialPlate.astro';
 
 interface Props {
   name: string;
@@ -10,25 +10,49 @@ interface Props {
   photoCaption: string;
   href: string;
   placeholder?: boolean;
+  index: number;
 }
 
-const { name, region, district, commodity, elevation, photoCaption, href, placeholder } = Astro.props;
+const { name, region, district, commodity, elevation, photoCaption, href, placeholder, index } = Astro.props;
+
+const num = String(index).padStart(2, '0');
+const illusByCommodity: Record<string, 'coffee' | 'cocoa' | 'vanilla' | 'chilli' | 'sesame' | 'beans'> = {
+  'Arabica coffee': 'coffee',
+  'Robusta coffee': 'coffee',
+  'Cocoa': 'cocoa',
+  'Vanilla': 'vanilla',
+  "Bird's eye chilli": 'chilli',
+  'Sesame': 'sesame',
+};
+const tonesByIndex = ['forest', 'clay', 'dark'] as const;
 ---
 
 <a href={href} class="group block focus:outline-none">
-  <article class="flex flex-col gap-4">
+  <article class="flex flex-col gap-5">
     <div class="relative">
-      <PlaceholderPhoto caption={photoCaption} aspect="4/5" variant="forest" class="transition-opacity group-hover:opacity-90" />
+      <EditorialPlate
+        caption={photoCaption}
+        number={num}
+        illus={illusByCommodity[commodity] || 'coffee'}
+        tone={tonesByIndex[index % 3]}
+        aspect="4/5"
+        class="transition-transform duration-500 group-hover:scale-[1.01]"
+      />
       {placeholder && (
-        <span class="absolute top-3 left-3 px-2 py-1 bg-[var(--color-paper)] text-[var(--color-ink)] text-[0.625rem] tracking-wider uppercase">
-          Placeholder
+        <span class="absolute top-4 left-4 px-2.5 py-1 bg-[var(--color-paper)] text-[var(--color-ink)] text-[0.625rem] tracking-[0.18em] uppercase border border-[var(--color-line)]">
+          Template
         </span>
       )}
     </div>
-    <div>
-      <p class="eyebrow mb-2">{commodity} · {district}</p>
-      <h3 class="h3 group-hover:text-[var(--color-clay)] transition-colors">{name}</h3>
-      <p class="mt-2 text-sm text-[var(--color-ink-muted)]">{region} · {elevation}</p>
+    <div class="flex flex-col gap-2.5">
+      <div class="flex items-baseline gap-3">
+        <span class="font-mono text-xs text-[var(--color-ink-muted)]">№ {num}</span>
+        <p class="eyebrow">{commodity} · {district}</p>
+      </div>
+      <h3 class="font-display text-2xl tracking-tight text-balance group-hover:text-[var(--color-clay)] transition-colors" style="font-family: var(--font-display); font-weight: 540; letter-spacing: -0.02em;">
+        {name}
+      </h3>
+      <p class="text-sm text-[var(--color-ink-muted)] leading-snug">{region}<br/>{elevation}</p>
     </div>
   </article>
 </a>

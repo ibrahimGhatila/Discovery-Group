@@ -1,0 +1,29 @@
+---
+interface Props { class?: string; size?: number; }
+const { class: cls = '', size = 200 } = Astro.props;
+---
+<svg viewBox="0 0 200 240" width={size} fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class={cls} aria-hidden="true">
+  <!-- stem -->
+  <path d="M100 18 Q98 100 100 220" stroke-width="1.5"/>
+  <!-- leaves -->
+  <path d="M100 60 Q70 40 40 50 Q70 70 100 60Z" fill="currentColor" fill-opacity="0.12"/>
+  <path d="M100 60 Q70 40 40 50 Q70 70 100 60Z"/>
+  <path d="M100 60 Q130 40 160 50 Q130 70 100 60Z" fill="currentColor" fill-opacity="0.12"/>
+  <path d="M100 60 Q130 40 160 50 Q130 70 100 60Z"/>
+  <path d="M100 105 Q72 88 45 95 Q72 115 100 105Z" fill="currentColor" fill-opacity="0.12"/>
+  <path d="M100 105 Q72 88 45 95 Q72 115 100 105Z"/>
+  <!-- chillies (small upward-pointing for bird's eye) -->
+  <g fill="currentColor">
+    <path d="M85 115 Q83 132 88 152 Q92 155 96 152 Q98 132 92 115 L85 115Z"/>
+    <path d="M105 110 Q103 130 110 152 Q114 155 118 150 Q120 128 112 110 L105 110Z"/>
+    <path d="M75 160 Q73 178 78 200 Q82 203 86 198 Q88 178 82 160 L75 160Z"/>
+    <path d="M115 165 Q113 183 120 202 Q124 205 128 200 Q130 182 122 165 L115 165Z"/>
+  </g>
+  <!-- chilli stems / calyces -->
+  <g stroke="currentColor" stroke-width="0.7" fill="none">
+    <path d="M88 115 L88 105 M92 115 L94 105"/>
+    <path d="M108 110 L108 100 M112 110 L114 100"/>
+    <path d="M78 160 L78 152 M82 160 L84 152"/>
+    <path d="M118 165 L118 157 M122 165 L124 157"/>
+  </g>
+</svg>

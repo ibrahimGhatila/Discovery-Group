@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Container from '~/components/Container.astro';
-import PlaceholderPhoto from '~/components/PlaceholderPhoto.astro';
+import EditorialPlate from '~/components/EditorialPlate.astro';
 import CertBadge from '~/components/CertBadge.astro';
 import { getCollection, render } from 'astro:content';
 
@@ -16,19 +16,29 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const p = entry.data;
+const num = String(p.order || 1).padStart(2, '0');
 ---
 <BaseLayout title={`${p.title} — Orocafe`} description={p.summary} brand="orocafe">
-  <section class="pt-10 lg:pt-16">
+
+  <section class="py-16 lg:py-24 border-b" style="border-color: var(--color-line);">
     <Container>
+      <a href="/orocafe/products" class="inline-flex items-center gap-2 text-xs uppercase tracking-wider mb-10" style="color: var(--color-ink-muted);">
+        <span aria-hidden="true">←</span>
+        All Orocafe products
+      </a>
+
       <div class="grid lg:grid-cols-12 gap-12 items-start">
         <div class="lg:col-span-6">
-          <PlaceholderPhoto caption={p.heroCaption} aspect="4/5" variant="oro" />
+          <EditorialPlate caption={p.heroCaption} number={num} illus="cup" tone="oro" aspect="4/5" />
         </div>
 
-        <div class="lg:col-span-6 flex flex-col gap-6">
-          <p class="eyebrow">{p.category} · {p.origin}</p>
-          <h1 class="display-lg text-balance" style="font-family: var(--font-display); font-weight: 500;">{p.title}</h1>
-          <p class="lede">{p.summary}</p>
+        <div class="lg:col-span-6 flex flex-col gap-6 lg:pt-8">
+          <div class="flex items-baseline gap-3">
+            <span class="font-mono text-xs" style="color: var(--color-oro);">№ {num}</span>
+            <p class="eyebrow" style="color: var(--color-oro);">{p.category} · {p.origin}</p>
+          </div>
+          <h1 class="display-lg text-balance" style="font-style: italic; font-weight: 460;">{p.title}</h1>
+          <p class="lede lede-wide">{p.summary}</p>
 
           <div class="grid grid-cols-2 gap-x-6 gap-y-5 mt-2">
             {[
@@ -39,58 +49,57 @@ const p = entry.data;
             ].filter(Boolean).map((pair) => {
               const [k, v] = pair as [string, string];
               return (
-                <div class="border-t border-[var(--color-line)] pt-3">
-                  <p class="eyebrow mb-1">{k}</p>
+                <div class="border-t pt-3" style="border-color: var(--color-line);">
+                  <p class="eyebrow mb-1.5" style="color: var(--color-ink-muted);">{k}</p>
                   <p class="text-sm">{v}</p>
                 </div>
               );
             })}
           </div>
 
-          <div class="border-t border-[var(--color-line)] pt-5">
-            <p class="eyebrow mb-3">Flavour notes</p>
+          <div class="border-t pt-5" style="border-color: var(--color-line);">
+            <p class="eyebrow mb-3" style="color: var(--color-ink-muted);">Flavour notes</p>
             <ul class="flex flex-wrap gap-2">
               {p.flavourNotes.map((note) => (
-                <li class="border border-[var(--color-line)] px-3 py-1 text-sm">{note}</li>
+                <li class="border px-3 py-1 text-sm" style="border-color: var(--color-line);">{note}</li>
               ))}
             </ul>
           </div>
 
-          <div class="border-t border-[var(--color-line)] pt-5">
-            <p class="eyebrow mb-3">Sizes</p>
+          <div class="border-t pt-5" style="border-color: var(--color-line);">
+            <p class="eyebrow mb-3" style="color: var(--color-ink-muted);">Sizes</p>
             <ul class="flex flex-wrap gap-2">
               {p.sizes.map((s) => (
-                <li class="border border-[var(--color-line)] px-3 py-1 text-sm font-mono" style="font-family: var(--font-mono);">{s}</li>
+                <li class="border px-3 py-1 text-xs font-mono" style="border-color: var(--color-line);">{s}</li>
               ))}
             </ul>
           </div>
 
           {p.certifications.length > 0 && (
-            <div class="border-t border-[var(--color-line)] pt-5">
-              <p class="eyebrow mb-3">Certifications</p>
+            <div class="border-t pt-5" style="border-color: var(--color-line);">
+              <p class="eyebrow mb-3" style="color: var(--color-ink-muted);">Certifications</p>
               <div class="flex flex-wrap gap-2">
                 {p.certifications.map((c) => <CertBadge cert={c} />)}
               </div>
             </div>
           )}
 
-          <div class="border-t border-[var(--color-line)] pt-5 mt-2">
-            <a href="/contact" class="btn btn-primary">Distributor inquiry</a>
+          <div class="border-t pt-6 mt-2" style="border-color: var(--color-line);">
+            <a href="/contact" class="btn btn-primary">
+              <span>Distributor inquiry</span>
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
       </div>
     </Container>
   </section>
 
-  <section class="mt-20 lg:mt-28">
+  <section class="py-20 lg:py-28">
     <Container narrow>
-      <div class="prose-editorial">
+      <div class="body-editorial">
         <Content />
       </div>
-      <a href="/orocafe/products" class="mt-12 inline-flex items-center gap-2 text-sm font-medium" style="color: var(--color-oro-deep);">
-        <span aria-hidden="true">←</span>
-        All Orocafe products
-      </a>
     </Container>
   </section>
 </BaseLayout>

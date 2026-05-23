@@ -1,0 +1,36 @@
+---
+interface Props { class?: string; size?: number; }
+const { class: cls = '', size = 200 } = Astro.props;
+---
+<svg viewBox="0 0 200 240" width={size} fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class={cls} aria-hidden="true">
+  <!-- vine -->
+  <path d="M30 30 Q60 60 70 120 Q80 180 60 220" stroke-width="1.5"/>
+  <!-- vanilla beans (long thin pods hanging) -->
+  <g>
+    <path d="M75 80 Q72 130 78 175" stroke-width="2"/>
+    <path d="M88 75 Q86 125 92 170" stroke-width="2"/>
+    <path d="M100 78 Q98 130 105 175" stroke-width="2"/>
+    <ellipse cx="75" cy="82" rx="3" ry="2" fill="currentColor"/>
+    <ellipse cx="78" cy="178" rx="3" ry="2" fill="currentColor"/>
+    <ellipse cx="88" cy="77" rx="3" ry="2" fill="currentColor"/>
+    <ellipse cx="92" cy="172" rx="3" ry="2" fill="currentColor"/>
+    <ellipse cx="100" cy="80" rx="3" ry="2" fill="currentColor"/>
+    <ellipse cx="105" cy="177" rx="3" ry="2" fill="currentColor"/>
+  </g>
+  <!-- orchid flower (top right) -->
+  <g transform="translate(150 70)">
+    <ellipse cx="0" cy="-20" rx="14" ry="22" fill="currentColor" fill-opacity="0.1" transform="rotate(-30)"/>
+    <ellipse cx="0" cy="-20" rx="14" ry="22" transform="rotate(-30)"/>
+    <ellipse cx="0" cy="-20" rx="14" ry="22" fill="currentColor" fill-opacity="0.1" transform="rotate(30)"/>
+    <ellipse cx="0" cy="-20" rx="14" ry="22" transform="rotate(30)"/>
+    <ellipse cx="0" cy="-25" rx="10" ry="18" fill="currentColor" fill-opacity="0.1"/>
+    <ellipse cx="0" cy="-25" rx="10" ry="18"/>
+    <ellipse cx="0" cy="-10" rx="6" ry="10" fill="currentColor" fill-opacity="0.2"/>
+    <ellipse cx="0" cy="-10" rx="6" ry="10"/>
+    <circle cx="0" cy="-12" r="2" fill="currentColor"/>
+  </g>
+  <!-- leaf (lower) -->
+  <path d="M70 130 Q105 135 140 170 Q108 165 70 130Z" fill="currentColor" fill-opacity="0.1"/>
+  <path d="M70 130 Q105 135 140 170 Q108 165 70 130Z"/>
+  <path d="M70 130 Q104 152 140 170" stroke-width="0.7"/>
+</svg>

@@ -1,0 +1,28 @@
+---
+/**
+ * Decorative topographic / contour lines for hero atmosphere.
+ * Suggests mountain elevation — Mt. Elgon, Rwenzori — without depicting
+ * any specific landscape literally.
+ */
+interface Props { class?: string; }
+const { class: cls = '' } = Astro.props;
+---
+<svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" class={cls} fill="none" stroke="currentColor" stroke-width="0.8" aria-hidden="true">
+  <g opacity="0.65">
+    <path d="M -50 480 Q 200 380 400 420 Q 600 460 850 380"/>
+    <path d="M -50 440 Q 200 340 400 380 Q 600 420 850 340"/>
+    <path d="M -50 400 Q 200 300 400 340 Q 600 380 850 300"/>
+    <path d="M -50 360 Q 200 260 400 300 Q 600 340 850 260"/>
+    <path d="M -50 320 Q 200 220 400 260 Q 600 300 850 220"/>
+    <path d="M -50 280 Q 200 180 400 220 Q 600 260 850 180"/>
+    <path d="M -50 240 Q 220 140 420 180 Q 620 220 850 140"/>
+    <path d="M -50 200 Q 220 110 420 150 Q 620 190 850 110"/>
+    <path d="M -50 160 Q 240 80 440 120 Q 640 160 850 80"/>
+    <path d="M -50 120 Q 240 50 440 90 Q 640 130 850 50"/>
+  </g>
+  <!-- summit markers -->
+  <g opacity="0.5">
+    <circle cx="180" cy="180" r="3" fill="currentColor"/>
+    <circle cx="540" cy="160" r="3" fill="currentColor"/>
+  </g>
+</svg>
