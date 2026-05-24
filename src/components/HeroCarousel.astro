@@ -4,7 +4,7 @@ import { photos } from '~/lib/photos';
 interface Slide {
   eyebrow: string;
   title: string;
-  subtitle: string;
+  subhead: string;     // italic serif tagline under the headline
   ctaLabel: string;
   ctaHref: string;
   photo: string;
@@ -15,7 +15,7 @@ const slides: Slide[] = [
   {
     eyebrow: 'Discovery Group · Kampala',
     title: 'Sourcing. Processing. Exporting.',
-    subtitle: 'Transforming Uganda\'s agro-commodities.',
+    subhead: 'transforming Uganda\'s agro-commodities',
     ctaLabel: 'View products',
     ctaHref: '/products',
     photo: photos.heroCorporate,
@@ -24,7 +24,7 @@ const slides: Slide[] = [
   {
     eyebrow: 'Quality control',
     title: 'Cupped. Cut-tested. Graded.',
-    subtitle: 'Every lot leaves with its own analysis pack.',
+    subhead: 'every lot, with its own analysis pack',
     ctaLabel: 'Our process',
     ctaHref: '/sustainability',
     photo: photos.cupping,
@@ -33,7 +33,7 @@ const slides: Slide[] = [
   {
     eyebrow: 'Cooperative sourcing',
     title: 'From farm to port.',
-    subtitle: 'Direct relationships with 900+ smallholder farmers across Uganda.',
+    subhead: '900+ smallholder farmers across Uganda',
     ctaLabel: 'Our producers',
     ctaHref: '/producers',
     photo: photos.hands,
@@ -42,7 +42,7 @@ const slides: Slide[] = [
   {
     eyebrow: 'A Discovery Group brand',
     title: 'Orocafe. Roasted in Kampala.',
-    subtitle: 'Single-origin Ugandan Arabica and Robusta, finished at origin.',
+    subhead: 'single-origin Ugandan coffee, finished at origin',
     ctaLabel: 'Visit Orocafe',
     ctaHref: '/orocafe',
     photo: photos.espresso,
@@ -80,7 +80,7 @@ const total = slides.length;
         <div class:list={['hero-slide', i === 0 ? 'is-active' : '']} data-index={i}>
           <p class="hero-eyebrow">{slide.eyebrow}</p>
           <h1 class="hero-title">{slide.title}</h1>
-          <p class="hero-subtitle">{slide.subtitle}</p>
+          <p class="hero-subhead">{slide.subhead}</p>
           <a href={slide.ctaHref} class="btn btn-gold hero-cta">
             {slide.ctaLabel}
             <span aria-hidden="true">→</span>

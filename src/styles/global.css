@@ -2,35 +2,38 @@
 
 @import "@fontsource-variable/inter/index.css";
 @import "@fontsource/anton/400.css";
+@import "@fontsource/playfair-display/400-italic.css";
+@import "@fontsource/playfair-display/500-italic.css";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
 
 @theme {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: 'Anton', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Playfair Display', ui-serif, Georgia, 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 
-  /* DISCOVERY — matching the existing brand identity */
-  --color-ink: #0F1410;
-  --color-ink-muted: #4A5048;
-  --color-ink-soft: #8A8F87;
-  --color-paper: #F5F1E8;
-  --color-paper-warm: #ECE4D2;
-  --color-paper-deep: #DDD2B6;
+  /* DISCOVERY — warmer cream + softer olive forest, Vellaro-inspired */
+  --color-ink: #1A1A14;
+  --color-ink-muted: #5A554A;
+  --color-ink-soft: #8E887C;
+  --color-paper: #F1ECDE;
+  --color-paper-warm: #E8E0CC;
+  --color-paper-deep: #D9CFB6;
   --color-paper-pure: #FFFFFF;
-  --color-forest: #1F3D2E;
-  --color-forest-deep: #142A1F;
-  --color-forest-mid: #2D5340;
+  --color-forest: #4A5A2A;
+  --color-forest-deep: #2E3A18;
+  --color-forest-mid: #5C6E36;
   --color-gold: #C99334;
   --color-gold-light: #E8C57D;
   --color-clay: #B14122;
   --color-espresso: #15110D;
   --color-night: #0A0807;
-  --color-line: #D6CDB7;
-  --color-line-soft: #E5DCC8;
+  --color-line: #D4C9AE;
+  --color-line-soft: #E2D8BF;
 
-  /* OROCAFE — dark espresso for the consumer brand */
-  --color-oro: #C99334;
+  /* OROCAFE */
+  --color-oro: #D4A14A;
   --color-oro-deep: #8A621F;
 
   --container-7xl: 80rem;
@@ -156,7 +159,7 @@
     .section-tight { padding-block: 5rem; }
   }
 
-  /* ─── Typography — Anton display + Inter body */
+  /* ─── Typography — Anton display + Playfair italic subhead + Inter body */
 
   .eyebrow {
     font-family: var(--font-sans);
@@ -170,6 +173,33 @@
   .eyebrow-muted { color: var(--color-ink-muted); }
   .eyebrow-cream { color: var(--color-paper); }
   .eyebrow-gold { color: var(--color-gold); }
+
+  /* ─── Italic serif subhead — the Vellaro signature pattern.
+     Sits under an Anton CAPS headline as a refined tagline.
+     "LUXURY REAL ESTATE" + "with full service support" */
+  .subhead {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.25rem, 1.4vw + 0.9rem, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    margin-top: 0.5rem;
+    display: block;
+  }
+  .subhead-sm {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1rem, 0.6vw + 0.9rem, 1.25rem);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    color: var(--color-ink-muted);
+    display: block;
+  }
+  .subhead-light { color: rgba(255,255,255,0.92); }
+  .subhead-gold { color: var(--color-gold-light); }
 
   /* Anton at huge sizes for hero / display */
   .display-xxl {
@@ -501,17 +531,20 @@
     text-transform: uppercase;
     color: white;
     text-wrap: balance;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     max-width: 14ch;
   }
 
-  .hero-subtitle {
-    font-size: 1.0625rem;
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.84);
-    max-width: 36ch;
-    margin-bottom: 2.25rem;
+  .hero-subhead {
+    font-family: var(--font-serif);
+    font-style: italic;
     font-weight: 400;
+    font-size: clamp(1.25rem, 1.6vw + 0.8rem, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    color: rgba(255,255,255,0.92);
+    margin-bottom: 2.5rem;
+    max-width: 24ch;
   }
 
   .hero-cta { margin-top: 0.25rem; }

@@ -15,21 +15,23 @@ const pathname = Astro.url.pathname;
   <div class="mx-auto max-w-[var(--container-7xl)] px-6 lg:px-12">
     <div class="flex items-center justify-between gap-6 h-[72px]">
 
-      <a href={brand === 'orocafe' ? '/orocafe' : '/'} class="flex items-center gap-3" aria-label={brand === 'orocafe' ? 'Orocafe home' : 'Discovery Group home'}>
+      {/* Wordmark — italic serif Vellaro-style */}
+      <a href={brand === 'orocafe' ? '/orocafe' : '/'} class="flex items-center gap-2.5" aria-label={brand === 'orocafe' ? 'Orocafe home' : 'Discovery Group home'}>
         {brand === 'orocafe' ? (
-          <span style="font-weight: 600; font-size: 1.375rem; letter-spacing: -0.02em; color: var(--color-oro);">Orocafe</span>
+          <span style="font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 1.625rem; letter-spacing: -0.005em; color: var(--color-oro);">Orocafe</span>
         ) : (
           <>
-            <Monogram class="text-[var(--color-gold)]" size={34} />
+            <Monogram class="text-[var(--color-forest)]" size={32} />
             <div class="flex flex-col leading-tight">
-              <span style="font-family: var(--font-display); font-weight: 400; font-size: 1.0625rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-forest);">Discovery</span>
+              <span style="font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 1.25rem; letter-spacing: -0.005em; color: var(--color-forest);">Discovery</span>
               <span class="text-[0.625rem] uppercase mt-0.5" style="letter-spacing: 0.24em; color: var(--color-ink-muted); font-weight: 500;">Group · Uganda</span>
             </div>
           </>
         )}
       </a>
 
-      <nav class="hidden lg:flex items-center gap-8" aria-label="Primary">
+      {/* Centre nav — uppercase tracked */}
+      <nav class="hidden lg:flex items-center gap-9" aria-label="Primary">
         {nav.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/' && item.href !== '/orocafe' && pathname.startsWith(item.href));
           return (
@@ -48,24 +50,22 @@ const pathname = Astro.url.pathname;
         })}
       </nav>
 
-      <div class="flex items-center gap-3 lg:gap-4">
-        <div class="hidden sm:flex items-center text-[0.625rem] tracking-[0.22em] uppercase font-medium">
-          <a href="/"
-            class:list={['px-2 py-1 transition-opacity',
-              brand === 'discovery' ? 'text-[var(--color-forest)]' : 'text-[var(--color-ink-muted)] hover:opacity-70']}
-            aria-current={brand === 'discovery' ? 'page' : undefined}
-          >DG</a>
-          <span class="text-[var(--color-line)]" aria-hidden="true">·</span>
-          <a href="/orocafe"
-            class:list={['px-2 py-1 transition-opacity',
-              brand === 'orocafe' ? 'text-[var(--color-forest)]' : 'text-[var(--color-ink-muted)] hover:opacity-70']}
-            aria-current={brand === 'orocafe' ? 'page' : undefined}
-          >Orocafe</a>
+      {/* Right cluster — contact info + CTA, Vellaro-style */}
+      <div class="flex items-center gap-4 lg:gap-6">
+        <div class="hidden xl:flex flex-col text-right leading-tight">
+          <span class="text-[0.7rem] flex items-center gap-1.5" style="color: var(--color-ink-muted);">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span style="color: var(--color-ink);">info@discoverygroupug.com</span>
+          </span>
+          <span class="text-[0.7rem] mt-1 flex items-center gap-1.5 justify-end" style="color: var(--color-ink-muted);">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Kampala, Uganda</span>
+          </span>
         </div>
 
         {brand === 'discovery' && (
           <a href="/contact" class="hidden md:inline-flex btn btn-primary" style="padding: 0.625rem 1.25rem; min-height: 38px; font-size: 0.6875rem;">
-            Inquire
+            Get in touch
           </a>
         )}
 
